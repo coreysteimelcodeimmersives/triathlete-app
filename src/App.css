@@ -5,10 +5,117 @@
   min-height: 100vh;
 }
 
-.TextEditButtons {
+.WorkoutBuilderContainer {
   display: flex;
+  flex-direction: row;
+  width: 100%;
+  padding: 3%;
 }
 
-.TextEditImg {
-  height: 2vh;
+.FormContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 50%;
+  margin-right: 0.5%;
+}
+
+#WorkoutBuilderSumSpace {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.WoBuilderSumLabels {
+  width: fit-content;
+}
+
+.WoBuilderSportDrop {
+  display: flex;
+  flex-direction: row;
+  width: 180px;
+}
+
+.WoBuilderEnergyDrop {
+  display: flex;
+  flex-direction: row;
+  width: 230px;
+}
+
+.WoBuilderDurationRow {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  height: 38px;
+}
+
+.WoBuilderDurationInput {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  width: 54px;
+  height: 38px;
+}
+
+.WoBuilderDist {
+  display: flex;
+  flex-direction: row;
+  width: 90px;
+}
+
+.QuillEditor {
+  display: flex;
+  flex-direction: column;
+  width: 45vw;
+  margin-bottom: 3%;
+}
+
+.QuillReader {
+  display: flex;
+  flex-direction: column;
+  width: 43.5vw;
+  margin-bottom: 3%;
+}
+
+.WoPreviewContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50%;
+  height: fit-content;
+  border: solid 2px lightgrey;
+  border-radius: 5px;
+  margin-left: 0.5%;
+  /* position: fixed; */
+}
+
+.WoPreviewTitle {
+  margin: 3%;
+  text-align: center;
+}
+
+.CardPreWoSum {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: center;
+}
+
+.CardPreWoSumEle {
+  display: flex;
+  width: 120px;
+  margin: 2%;
+  padding: 1%;
+  border: solid 1px lightgrey;
+  border-radius: 3px;
+}
+
+.CardPreDurRow {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
 }

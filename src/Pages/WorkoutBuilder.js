@@ -1,116 +1,101 @@
-import React, { useCallback, useState, useMemo } from "react";
-import isHotKey from "is-hotkey";
-import Form from "react-bootstrap/Form";
+import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
-import ButtonToolbar from "react-bootstrap/ButtonToolbar";
-import { Slate, Editable, withReact, useSlate } from "slate-react";
-import {
-  Editor,
-  Transforms,
-  createEditor,
-  Descendant,
-  Element as SlateElement,
-} from "slate";
-import { withHistory } from "slate-history";
-import CodeElement from "../Components/CodeElement";
-import DefaultElement from "../Components/DefaultElement";
-import Leaf from "../Components/Leaf";
-import CustomEditor from "../Utils/SlateHelpers";
-import BoldIcon from "../Icons/boldIconButton.png";
-
-const HOTKEYS = {
-  "mod+b": "bold",
-  "mod+i": "italic",
-  "mod+u": "underline",
-  "mod+`": "code",
-};
-
-const LIST_TYPES = ["numbered-list", "bulleted-list"];
-const TEXT_ALIGN_TYPES = ["left", "center", "right", "justify"];
+import QuillReader from "../Components/Quill/QuillReader";
+import EditForm from "../Components/WorkoutBuilder/EditSide/EditForm";
 
 const WorkoutBuilder = () => {
-  const [editor] = useState(() => withReact(createEditor()));
-  const initialValue = useMemo(
-    () =>
-      JSON.parse(localStorage.getItem("content")) || [
-        {
-          type: "paragraph",
-          children: [{ text: "A line of text in a paragraph." }],
-        },
-      ],
-    []
-  );
-  const renderElement = useCallback((props) => {
-    switch (props.element.type) {
-      case "code":
-        return <CodeElement {...props} />;
-      default:
-        return <DefaultElement {...props} />;
-    }
-  }, []);
-  const renderLeaf = useCallback((props) => {
-    return <Leaf {...props} />;
-  }, []);
+  const [title, setTitle] = useState("");
+  const [sportType, setSportType] = useState(null);
+  const [energySystem, setEnergySystem] = useState(null);
+  const [durationHours, setDurationHours] = useState("");
+  const [durationMinutes, setDurationMinutes] = useState("");
+  const [distance, setDistance] = useState("");
+  const [warmUp, setWarmUp] = useState("");
+  const [mainSet, setMainSet] = useState("");
+  const [coolDown, setCoolDown] = useState("");
+  const [specialNotes, setSpecialNotes] = useState("");
+
+  const workout = {
+    title,
+    sportType,
+    energySystem,
+    durationHours,
+    durationMinutes,
+    distance,
+    warmUp,
+    mainSet,
+    coolDown,
+    specialNotes,
+  };
+
   return (
     <>
-      <h1>Workout Builder</h1>
-      <Form>
-        <Form.Group className="mb-3">
-          <Form.Label>Workout Title</Form.Label>
-          <Form.Control placeholder="Title" />
-        </Form.Group>
-        <Form.Group className="mb-3">
-          <Form.Label>Warm Up</Form.Label>
-          <Slate
-            editor={editor}
-            value={initialValue}
-            onChange={(value) => {
-              const isAstChange = editor.operations.some(
-                (op) => "set_selection" !== op.type
-              );
-              if (isAstChange) {
-                // Save the value to Local Storage.
-                const content = JSON.stringify(value);
-                localStorage.setItem("content", content);
-              }
-            }}
-          >
-            <ButtonToolbar
-              className="mb-3"
-              aria-label="Toolbar with button groups"
-            >
-              <Button variant="secondary" className="TextEditButtons">
-                <img className="TextEditImg" src={BoldIcon}></img>
-              </Button>{" "}
-            </ButtonToolbar>
-            <Editable
-              renderElement={renderElement}
-              renderLeaf={renderLeaf}
-              onKeyDown={(event) => {
-                if (!event.ctrlKey) {
-                  return;
-                }
-                switch (event.key) {
-                  case "`": {
-                    event.preventDefault();
-                    CustomEditor.toggleCodeBlock(editor);
-                    break;
-                  }
-                  case "b": {
-                    event.preventDefault();
-                    CustomEditor.toggleBoldMark(editor);
-                    break;
-                  }
+      <h1 style={{ marginTop: "3%" }}>Workout Builder</h1>
+      <div className="WorkoutBuilderContainer">
+        <EditForm
+          title={title}
+          setTitle={setTitle}
+          sportType={sportType}
+          setSportType={setSportType}
+          energySystem={energySystem}
+          setEnergySystem={setEnergySystem}
+          durationHours={durationHours}
+          setDurationHours={setDurationHours}
+          durationMinutes={durationMinutes}
+          setDurationMinutes={setDurationMinutes}
+          distance={distance}
+          setDistance={setDistance}
+          setWarmUp={setWarmUp}
+          setMainSet={setMainSet}
+          setCoolDown={setCoolDown}
+          setSpecialNotes={setSpecialNotes}
+        ></EditForm>
+        <div className="WoPreviewContainer">
+          <h1 className="WoPreviewTitle">{title ? title : "Workout Title"}</h1>
 
-                  default:
-                    return;
-                }
-              }}
-            />
-          </Slate>
-        </Form.Group>
-      </Form>
-      <img src={BoldIcon}></img>
+          <div className="CardPreWoSum">
+            <div className="CardPreWoSumEle">
+              {sportType ? sportType : "Sport"}
+            </div>
+
+            <div className="CardPreWoSumEle">
+              {energySystem ? energySystem : "Energy"}
+            </div>
+
+            <div className="CardPreWoSumEle">
+              <div className="CardPreDurRow">
+                {durationHours ? durationHours : "00"}
+
+                <div>:</div>
+                <div>{durationMinutes ? durationMinutes : "00"}</div>
+              </div>
+            </div>
+
+            <div className="CardPreWoSumEle">
+              <div>{distance ? distance : "Dist"}</div>
+            </div>
+          </div>
+
+          <h2 className="WoPreviewTitle">Warm Up</h2>
+
+          <QuillReader richText={warmUp}></QuillReader>
+
+          <h2 className="WoPreviewTitle">Main Set</h2>
+
+          <QuillReader richText={mainSet}></QuillReader>
+
+          <h2 className="WoPreviewTitle">Cool Down</h2>
+
+          <QuillReader richText={coolDown}></QuillReader>
+
+          <h2 className="WoPreviewTitle">Special Notes</h2>
+
+          <QuillReader richText={specialNotes}></QuillReader>
+        </div>
+      </div>
+      <Button style={{ marginBottom: "5%" }} variant="primary">
+        Create
+      </Button>
     </>
   );
 };

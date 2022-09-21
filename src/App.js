@@ -1,4 +1,3 @@
-import logo from "./logo.svg";
 import "./App.css";
 import WorkoutBuilder from "./Pages/WorkoutBuilder";
 
