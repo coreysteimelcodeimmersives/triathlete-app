@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import Button from "react-bootstrap/Button";
 import EditForm from "../Components/WorkoutBuilder/EditSide/EditForm";
 import PreviewCard from "../Components/WorkoutBuilder/PreviewSide/PreviewCard";
+import { Box } from "@mui/material";
 
 const WorkoutBuilder = () => {
   const [title, setTitle] = useState("");
@@ -63,9 +63,6 @@ const WorkoutBuilder = () => {
           specialNotes={specialNotes}
         ></PreviewCard>
       </div>
-      <Button style={{ marginBottom: "5%" }} variant="primary">
-        Create
-      </Button>
     </>
   );
 };

@@ -1,7 +1,8 @@
 import React from "react";
+import PreviewWoSumBox from "./PreviewWoSumBox";
 import PreviewDurationBox from "./PreviewDurationBox";
 
-const PreviewWoSummary = ({
+const PreviewWoSummaryArea = ({
   sportType,
   energySystem,
   durationHours,
@@ -10,15 +11,15 @@ const PreviewWoSummary = ({
 }) => {
   return (
     <div className="CardPreWoSum">
-      <PreviewWoSummary data={sportType} text={"Sport"}></PreviewWoSummary>
-      <PreviewWoSummary data={energySystem} text={"Energy"}></PreviewWoSummary>
+      <PreviewWoSumBox data={sportType} text={"Sport"}></PreviewWoSumBox>
+      <PreviewWoSumBox data={energySystem} text={"Energy"}></PreviewWoSumBox>
       <PreviewDurationBox
         durationHours={durationHours}
         durationMinutes={durationMinutes}
       ></PreviewDurationBox>
-      <PreviewWoSummary data={distance} text={"Dist"}></PreviewWoSummary>
+      <PreviewWoSumBox data={distance} text={"Dist"}></PreviewWoSumBox>
     </div>
   );
 };
 
-export default PreviewWoSummary;
+export default PreviewWoSummaryArea;

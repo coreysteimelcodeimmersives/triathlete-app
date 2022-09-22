@@ -1,7 +1,8 @@
 import React from "react";
+import Button from "react-bootstrap/esm/Button";
+import PreviewQuillArea from "./PreviewQuillArea";
 import PreviewTitle from "./PreviewTitle";
-import PreviewWoSummary from "./PreviewWoSummary";
-import QuillReader from "/Users/coreysteimel/code-immersives-300/triathlete-app/src/Components/Quill/QuillReader.js";
+import PreviewWoSummaryArea from "./PreviewWoSummaryArea";
 
 const PreviewCard = ({
   title,
@@ -16,31 +17,30 @@ const PreviewCard = ({
   specialNotes,
 }) => {
   return (
-    <div className="WoPreviewContainer">
-      <PreviewTitle title={title}></PreviewTitle>
-      <PreviewWoSummary
-        sportType={sportType}
-        energySystem={energySystem}
-        durationHours={durationHours}
-        durationMinutes={durationMinutes}
-        distance={distance}
-      ></PreviewWoSummary>
-
-      <h2 className="WoPreviewTitle">Warm Up</h2>
-
-      <QuillReader richText={warmUp}></QuillReader>
-
-      <h2 className="WoPreviewTitle">Main Set</h2>
-
-      <QuillReader richText={mainSet}></QuillReader>
-
-      <h2 className="WoPreviewTitle">Cool Down</h2>
-
-      <QuillReader richText={coolDown}></QuillReader>
-
-      <h2 className="WoPreviewTitle">Special Notes</h2>
-
-      <QuillReader richText={specialNotes}></QuillReader>
+    <div className="PreviewSide">
+      <div className="WoPreviewContainer">
+        <PreviewTitle title={title}></PreviewTitle>
+        <PreviewWoSummaryArea
+          sportType={sportType}
+          energySystem={energySystem}
+          durationHours={durationHours}
+          durationMinutes={durationMinutes}
+          distance={distance}
+        ></PreviewWoSummaryArea>
+        <PreviewQuillArea title={"Warm Up"} text={warmUp}></PreviewQuillArea>
+        <PreviewQuillArea title={"Main Set"} text={mainSet}></PreviewQuillArea>
+        <PreviewQuillArea
+          title={"Cool Down"}
+          text={coolDown}
+        ></PreviewQuillArea>
+        <PreviewQuillArea
+          title={"Special Notes"}
+          text={specialNotes}
+        ></PreviewQuillArea>
+      </div>
+      <Button style={{ marginBottom: "5%" }} variant="primary">
+        Create
+      </Button>
     </div>
   );
 };
