@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/triathlete-app/static/css/main.da354084.css",
-    "main.js": "/triathlete-app/static/js/main.369430b0.js",
+    "main.css": "/triathlete-app/static/css/main.b0638098.css",
+    "main.js": "/triathlete-app/static/js/main.bbce7fc9.js",
     "static/js/787.428b8a0f.chunk.js": "/triathlete-app/static/js/787.428b8a0f.chunk.js",
     "index.html": "/triathlete-app/index.html",
-    "main.da354084.css.map": "/triathlete-app/static/css/main.da354084.css.map",
-    "main.369430b0.js.map": "/triathlete-app/static/js/main.369430b0.js.map",
+    "main.b0638098.css.map": "/triathlete-app/static/css/main.b0638098.css.map",
+    "main.bbce7fc9.js.map": "/triathlete-app/static/js/main.bbce7fc9.js.map",
     "787.428b8a0f.chunk.js.map": "/triathlete-app/static/js/787.428b8a0f.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.da354084.css",
-    "static/js/main.369430b0.js"
+    "static/css/main.b0638098.css",
+    "static/js/main.bbce7fc9.js"
   ]
 }
