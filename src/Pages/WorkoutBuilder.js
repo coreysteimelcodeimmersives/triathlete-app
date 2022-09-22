@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
-import QuillReader from "../Components/Quill/QuillReader";
 import EditForm from "../Components/WorkoutBuilder/EditSide/EditForm";
+import PreviewCard from "../Components/WorkoutBuilder/PreviewSide/PreviewCard";
 
 const WorkoutBuilder = () => {
   const [title, setTitle] = useState("");
@@ -50,48 +50,18 @@ const WorkoutBuilder = () => {
           setCoolDown={setCoolDown}
           setSpecialNotes={setSpecialNotes}
         ></EditForm>
-        <div className="WoPreviewContainer">
-          <h1 className="WoPreviewTitle">{title ? title : "Workout Title"}</h1>
-
-          <div className="CardPreWoSum">
-            <div className="CardPreWoSumEle">
-              {sportType ? sportType : "Sport"}
-            </div>
-
-            <div className="CardPreWoSumEle">
-              {energySystem ? energySystem : "Energy"}
-            </div>
-
-            <div className="CardPreWoSumEle">
-              <div className="CardPreDurRow">
-                {durationHours ? durationHours : "00"}
-
-                <div>:</div>
-                <div>{durationMinutes ? durationMinutes : "00"}</div>
-              </div>
-            </div>
-
-            <div className="CardPreWoSumEle">
-              <div>{distance ? distance : "Dist"}</div>
-            </div>
-          </div>
-
-          <h2 className="WoPreviewTitle">Warm Up</h2>
-
-          <QuillReader richText={warmUp}></QuillReader>
-
-          <h2 className="WoPreviewTitle">Main Set</h2>
-
-          <QuillReader richText={mainSet}></QuillReader>
-
-          <h2 className="WoPreviewTitle">Cool Down</h2>
-
-          <QuillReader richText={coolDown}></QuillReader>
-
-          <h2 className="WoPreviewTitle">Special Notes</h2>
-
-          <QuillReader richText={specialNotes}></QuillReader>
-        </div>
+        <PreviewCard
+          title={title}
+          sportType={sportType}
+          energySystem={energySystem}
+          durationHours={durationHours}
+          durationMinutes={durationMinutes}
+          distance={distance}
+          warmUp={warmUp}
+          mainSet={mainSet}
+          coolDown={coolDown}
+          specialNotes={specialNotes}
+        ></PreviewCard>
       </div>
       <Button style={{ marginBottom: "5%" }} variant="primary">
         Create
