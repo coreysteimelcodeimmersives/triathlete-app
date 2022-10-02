@@ -1,8 +1,8 @@
-import React from "react";
-import Form from "react-bootstrap/Form";
-import EditWoSummary from "./EditWoSummary";
-import EditTitle from "./EditTitle";
-import EditQuillArea from "./EditQuillArea";
+import React from 'react';
+import Form from 'react-bootstrap/Form';
+import EditWoSummary from './EditWoSummary';
+import EditTitle from './EditTitle';
+import EditQuillArea from './EditQuillArea';
 
 const EditForm = ({
   title,
@@ -23,7 +23,7 @@ const EditForm = ({
   setSpecialNotes,
 }) => {
   return (
-    <Form className="FormContainer">
+    <Form className='FormContainer'>
       <EditTitle title={title} setTitle={setTitle}></EditTitle>
       <EditWoSummary
         sportType={sportType}

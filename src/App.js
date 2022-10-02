@@ -1,11 +1,20 @@
-import "./App.css";
-import WorkoutBuilder from "./Pages/WorkoutBuilder";
+import './App.css';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import WorkoutBuilder from './Pages/WorkoutBuilder';
+import CustomThemeProvider from './CustomThemeProvider';
 
 function App() {
   return (
-    <div className="AppContainer">
-      <WorkoutBuilder></WorkoutBuilder>
-    </div>
+    <CustomThemeProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route
+            path='/workout-builder'
+            element={<WorkoutBuilder></WorkoutBuilder>}
+          />
+        </Routes>
+      </BrowserRouter>
+    </CustomThemeProvider>
   );
 }
 

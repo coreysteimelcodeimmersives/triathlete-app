@@ -2,16 +2,17 @@
   "name": "triathlete-app",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://coreysteimelcodeimmersives.github.io/triathlete-app",
   "dependencies": {
     "-": "^0.0.1",
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
+    "@fontsource/roboto": "^4.5.8",
     "@fortawesome/fontawesome-svg-core": "^6.2.0",
     "@fortawesome/free-solid-svg-icons": "^6.2.0",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@mui/icons-material": "^5.10.6",
-    "@mui/material": "^5.10.6",
+    "@mui/material": "^5.10.7",
+    "@mui/styled-engine-sc": "^5.10.6",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -26,13 +27,14 @@
     "react-dom": "^18.2.0",
     "react-draft-wysiwyg": "^1.15.0",
     "react-quill": "^2.0.0",
+    "react-router-dom": "^6.4.1",
     "react-scripts": "^5.0.1",
     "save-dev": "^0.0.1-security",
     "slate": "^0.82.1",
     "slate-history": "^0.66.0",
     "slate-hyperscript": "^0.77.0",
     "slate-react": "^0.82.2",
-    "styled-components": "^5.3.5",
+    "styled-components": "^5.3.6",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -60,5 +62,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@iconify/react": "^4.0.0"
   }
 }
