@@ -22,16 +22,12 @@ const OUR_SUCCESS_PURPLE = '#560BAD';
 
 export const theme = createTheme({
   palette: {
-    background: pink,
     primary: purple,
     secondary: blue,
-
-    error: red,
-
-    warning: yellow,
-    info: blue,
-    success: green,
-
+    error: pink,
+    warning: green,
+    info: orange,
+    success: teal,
     text: {
       primary: '#000000', //black
       secondary: '#FFFFFF', //white

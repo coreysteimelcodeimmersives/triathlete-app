@@ -1,12 +1,12 @@
 import { Box } from '@mui/material';
-import Footer from './Footer';
 import Header from './Header';
+import BottomAppBar from './BottomAppBar';
 
 const Layout = (props) => {
   const { children } = props;
 
   return (
-    <Box display='flex' flexDirection='column' minHeight='100vh'>
+    <Box display='flex' flexDirection='column' maxHeight='100vh'>
       <Box>
         <Header />
       </Box>
@@ -14,7 +14,7 @@ const Layout = (props) => {
         {children}
       </Box>
       <Box>
-        <Footer />
+        <BottomAppBar />
       </Box>
     </Box>
   );
