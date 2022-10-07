@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-import Header from './Header';
+import ResponsiveAppBar from './Header';
 import BottomAppBar from './BottomAppBar';
 
 const Layout = (props) => {
@@ -8,9 +8,9 @@ const Layout = (props) => {
   return (
     <Box display='flex' flexDirection='column' maxHeight='100vh'>
       <Box>
-        <Header />
+        <ResponsiveAppBar></ResponsiveAppBar>
       </Box>
-      <Box flexGrow={1} py={12}>
+      <Box flexGrow={1} py={2}>
         {children}
       </Box>
       <Box>

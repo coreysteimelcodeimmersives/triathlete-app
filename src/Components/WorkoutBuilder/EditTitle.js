@@ -1,8 +1,10 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
+import { useWorkoutContext } from '../../Context/WorkoutContext';
 
-const EditTitle = ({ title, setTitle }) => {
+const EditTitle = () => {
+  const { handleUpdateWoTitle } = useWorkoutContext();
   return (
     <Box
       component='form'
@@ -18,7 +20,7 @@ const EditTitle = ({ title, setTitle }) => {
         type='text'
         InputLabelProps={{ style: { color: 'purple' } }}
         onChange={(e) => {
-          setTitle(e.target.value);
+          handleUpdateWoTitle(e.target.value);
         }}
       ></TextField>
     </Box>

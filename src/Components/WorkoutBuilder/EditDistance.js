@@ -3,8 +3,12 @@ import { Box } from '@mui/system';
 import { TextField } from '@mui/material';
 import SelectAutoWidth from '../Inputs/SelectAutoWidth';
 import { DISTANCE_ABV } from '../../Data/DistanceUnits';
+import WorkoutContextProvider, {
+  useWorkoutContext,
+} from '../../Context/WorkoutContext';
 
-const EditDistance = ({ setDistance, distanceUnits, setDistanceUnits }) => {
+const EditDistance = () => {
+  const { workout, handleUpdateWo } = useWorkoutContext();
   return (
     <Box
       display={'flex'}
@@ -23,14 +27,14 @@ const EditDistance = ({ setDistance, distanceUnits, setDistanceUnits }) => {
         type='text'
         InputLabelProps={{ style: { color: 'purple' } }}
         onChange={(e) => {
-          setDistance(e.target.value);
+          const updateWoDistance = { ...workout, distance: e.target.value };
+          handleUpdateWo(updateWoDistance);
         }}
       ></TextField>
       <SelectAutoWidth
         setMinWidth={80}
         label={'Units'}
-        valueVar={distanceUnits}
-        setterFunc={setDistanceUnits}
+        keyVar={'distanceUnits'}
         map={DISTANCE_ABV}
       ></SelectAutoWidth>
     </Box>

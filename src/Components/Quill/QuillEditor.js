@@ -1,33 +1,36 @@
-import { useState, useRef, useEffect } from "react";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
+import { useState, useRef, useEffect } from 'react';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+import { useWorkoutContext } from '../../Context/WorkoutContext';
 
 const modules = {
   toolbar: [
-    ["bold", "italic", "underline", "strike"],
-    ["blockquote", "code-block"],
+    ['bold', 'italic', 'underline', 'strike'],
+    ['blockquote', 'code-block'],
 
     [{ header: 1 }, { header: 2 }],
-    [{ list: "ordered" }, { list: "bullet" }],
-    [{ script: "sub" }, { script: "super" }],
-    [{ indent: "-1" }, { indent: "+1" }],
+    [{ list: 'ordered' }, { list: 'bullet' }],
+    [{ script: 'sub' }, { script: 'super' }],
+    [{ indent: '-1' }, { indent: '+1' }],
 
     [{ color: [] }, { background: [] }],
     [{ font: [] }],
     [{ align: [] }],
 
-    ["link"],
+    ['link'],
 
-    ["clean"],
+    ['clean'],
   ],
 };
 
-const QuillEditor = ({ setRichText }) => {
-  const [value, setValue] = useState("");
+const QuillEditor = ({ keyVar }) => {
+  const { workout, handleUpdateWo } = useWorkoutContext();
+  const [value, setValue] = useState('');
   const editorRef = useRef();
 
   useEffect(() => {
-    setRichText(value);
+    const updateWo = { ...workout, [keyVar]: value };
+    handleUpdateWo(updateWo);
   }, [value]);
 
   console.log(value);
@@ -36,8 +39,8 @@ const QuillEditor = ({ setRichText }) => {
 
   return (
     <ReactQuill
-      className="QuillEditor"
-      theme="snow"
+      className='QuillEditor'
+      theme='snow'
       value={value}
       onChange={setValue}
       modules={modules}

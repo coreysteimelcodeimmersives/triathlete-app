@@ -1,82 +1,73 @@
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import { Avatar, Button } from '@mui/material';
-import Badge from '@mui/material/Badge';
-import { styled } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import { useSelector } from 'react-redux';
+import PersonIcon from '@mui/icons-material/Person';
+import EditIcon from '@mui/icons-material/Edit';
 
-const StyledBadge = styled(Badge)(({ theme }) => ({
-  '& .MuiBadge-badge': {
-    right: -3,
-    top: 13,
-    border: `2px solid ${theme.palette.background.paper}`,
-    padding: '0 4px',
-  },
-}));
+const pages = ['Products', 'Pricing', 'Blog'];
+const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
-export default function MenuAppBar() {
+const ResponsiveAppBar = ({ rightIcon, titleText, leftIcon }) => {
+  const user = useSelector((state) => state.user);
   const navigate = useNavigate();
-  //   const { user } = useUserContext();
-  //   const { shoppingCart } = useShoppingCartContext();
+
   return (
-    <Box sx={{ flexGrow: 1 }} position={'fixed'} width={'100%'}>
-      <AppBar position='static'>
-        <Toolbar>
+    <AppBar position='static'>
+      <Container maxWidth='xl'>
+        <Toolbar disableGutters>
+          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+            <IconButton
+              size='large'
+              aria-label='account of current user'
+              aria-controls='menu-appbar'
+              aria-haspopup='true'
+              color='inherit'
+              onClick={() => {
+                navigate('/sign-in');
+              }}
+            >
+              <PersonIcon fontSize='large' />
+            </IconButton>
+          </Box>
           <Typography
-            variant='h6'
-            fontWeight='bold'
-            component='div'
-            sx={{ flexGrow: 1, '&:hover': { cursor: 'pointer' } }}
-            onClick={() => {
-              //   navigate('/home');
+            variant='h5'
+            sx={{
+              mr: 2,
+              display: { xs: 'flex', md: 'none' },
+              flexGrow: 1,
+              fontFamily: 'monospace',
+              fontWeight: 700,
+              letterSpacing: '.3rem',
+              color: 'inherit',
+              textDecoration: 'none',
             }}
           >
-            TriCoach
+            {!titleText ? 'TriCoach' : titleText}
           </Typography>
 
-          <div>
+          <Box sx={{ flexGrow: 0 }}>
             <IconButton
+              onClick={() => {}}
+              sx={{ p: 0 }}
               size='large'
               aria-label='account of current user'
               aria-controls='menu-appbar'
               aria-haspopup='true'
               color='inherit'
-              onClick={() => {
-                // navigate('/sign-in');
-              }}
             >
-              {/* {!user ? ( */}
-              <AccountCircle />
-              {/* ) : (
-                <Avatar
-                  alt={(user.firstName, ' ', user.lastName)}
-                  src={user.profilePicture}
-                />
-              )} */}
+              <EditIcon fontSize='medium' />
             </IconButton>
-            <IconButton
-              size='large'
-              aria-label='account of current user'
-              aria-controls='menu-appbar'
-              aria-haspopup='true'
-              color='inherit'
-              onClick={() => {
-                // navigate('/cart');
-              }}
-            >
-              <StyledBadge badgeContent={4} color='secondary'>
-                <ShoppingCartIcon color='text' />
-              </StyledBadge>
-            </IconButton>
-          </div>
+          </Box>
         </Toolbar>
-      </AppBar>
-    </Box>
+      </Container>
+    </AppBar>
   );
-}
+};
+export default ResponsiveAppBar;

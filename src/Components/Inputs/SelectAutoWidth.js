@@ -1,12 +1,18 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import { InputLabel } from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import { useWorkoutContext } from '../../Context/WorkoutContext';
 
-const SelectAutoWidth = ({ setMinWidth, label, valueVar, setterFunc, map }) => {
+const SelectAutoWidth = ({ setMinWidth, label, keyVar, map }) => {
+  const { workout, handleUpdateWo } = useWorkoutContext();
+  const [value, setValue] = useState('');
+
   const handleChange = (event) => {
-    setterFunc(event.target.value);
+    const updateWoFromKey = { ...workout, [keyVar]: event.target.value };
+    setValue(event.target.value);
+    handleUpdateWo(updateWoFromKey);
   };
 
   return (
@@ -21,7 +27,7 @@ const SelectAutoWidth = ({ setMinWidth, label, valueVar, setterFunc, map }) => {
         <Select
           labelId='demo-simple-select-autowidth-label'
           id='demo-simple-select-autowidth'
-          value={valueVar}
+          value={value}
           onChange={handleChange}
           autoWidth
           label={label}

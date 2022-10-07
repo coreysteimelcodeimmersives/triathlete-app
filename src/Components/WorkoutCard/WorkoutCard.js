@@ -1,13 +1,14 @@
 import React from 'react';
 import Card from '@mui/material/Card';
 import { CardActionArea } from '@mui/material';
-import { Box, padding, width } from '@mui/system';
+import { Box } from '@mui/system';
 import Typography from '@mui/material/Typography';
 import CardContent from '@mui/material/CardContent';
 import WorkoutIcon from './WorkoutIcon';
 import TextField from '@mui/material/TextField';
 import { ENERGY_SYSTEMS } from '../../Data/EnergySystems';
 import { DISTANCE_ABV } from '../../Data/DistanceUnits';
+import { useNavigate } from 'react-router-dom';
 
 const WorkoutCard = ({
   title,
@@ -18,15 +19,18 @@ const WorkoutCard = ({
   distance,
   distanceUnits,
 }) => {
+  const navigate = useNavigate();
   return (
     <Card
       sx={{
         display: 'flex',
         alignItems: 'center',
-        flexDirection: 'flex-end',
         maxWidth: 345,
         marginBottom: '2%',
-        flexGrow: 1,
+        marginTop: '-20%',
+      }}
+      onClick={() => {
+        navigate('/workout-details');
       }}
     >
       <CardActionArea>
