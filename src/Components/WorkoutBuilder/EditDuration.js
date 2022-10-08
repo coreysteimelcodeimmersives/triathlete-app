@@ -1,15 +1,16 @@
 import React from 'react';
 import { TextField } from '@mui/material';
-import { useWorkoutContext } from '../../Context/WorkoutContext';
+import { useSelector, useDispatch } from 'react-redux';
 
-const EditDuration = ({ label, keyVar }) => {
-  const { workout, handleUpdateWo } = useWorkoutContext();
+const EditDuration = ({ label, keyVar, dispatchFunc }) => {
+  const workout = useSelector((state) => state.workout);
+  const dispatch = useDispatch();
   return (
     <TextField
       id='outlined-number'
       label={label}
       type='number'
-      // value={valueVar ? valueVar : ''}
+      defaultValue={workout[keyVar] ? workout[keyVar] : ''}
       InputLabelProps={{
         shrink: true,
         style: { color: 'purple' },
@@ -17,8 +18,7 @@ const EditDuration = ({ label, keyVar }) => {
       }}
       sx={{ margin: '2%' }}
       onChange={(e) => {
-        const updateWoDuration = { ...workout, [keyVar]: e.target.value };
-        handleUpdateWo(updateWoDuration);
+        dispatch(dispatchFunc({ [keyVar]: e.target.value }));
       }}
     />
   );

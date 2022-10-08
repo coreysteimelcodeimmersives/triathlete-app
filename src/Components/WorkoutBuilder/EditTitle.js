@@ -1,13 +1,14 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import { useWorkoutContext } from '../../Context/WorkoutContext';
+import { useSelector, useDispatch } from 'react-redux';
+import { updateTitle } from '../../Redux-State/WorkoutSlice';
 
 const EditTitle = () => {
-  const { handleUpdateWoTitle } = useWorkoutContext();
+  const workout = useSelector((state) => state.workout);
+  const dispatch = useDispatch();
   return (
     <Box
-      component='form'
       sx={{
         '& > :not(style)': { m: 1, width: '95%' },
       }}
@@ -19,8 +20,9 @@ const EditTitle = () => {
         label='Workout Title'
         type='text'
         InputLabelProps={{ style: { color: 'purple' } }}
+        defaultValue={workout.title ? workout.title : ''}
         onChange={(e) => {
-          handleUpdateWoTitle(e.target.value);
+          dispatch(updateTitle({ title: e.target.value }));
         }}
       ></TextField>
     </Box>

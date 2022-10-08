@@ -3,12 +3,15 @@ import { Box } from '@mui/system';
 import { TextField } from '@mui/material';
 import SelectAutoWidth from '../Inputs/SelectAutoWidth';
 import { DISTANCE_ABV } from '../../Data/DistanceUnits';
-import WorkoutContextProvider, {
-  useWorkoutContext,
-} from '../../Context/WorkoutContext';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  updateDistanceValue,
+  updateDistanceUnits,
+} from '../../Redux-State/WorkoutSlice';
 
 const EditDistance = () => {
-  const { workout, handleUpdateWo } = useWorkoutContext();
+  const workout = useSelector((state) => state.workout);
+  const dispatch = useDispatch();
   return (
     <Box
       display={'flex'}
@@ -24,11 +27,11 @@ const EditDistance = () => {
         sx={{ m: 1, marginLeft: '3%' }}
         id='outlined'
         label='Distance'
-        type='text'
+        type='number'
+        defaultValue={workout.distanceValue ? workout.distanceValue : ''}
         InputLabelProps={{ style: { color: 'purple' } }}
         onChange={(e) => {
-          const updateWoDistance = { ...workout, distance: e.target.value };
-          handleUpdateWo(updateWoDistance);
+          dispatch(updateDistanceValue({ distanceValue: e.target.value }));
         }}
       ></TextField>
       <SelectAutoWidth
@@ -36,6 +39,7 @@ const EditDistance = () => {
         label={'Units'}
         keyVar={'distanceUnits'}
         map={DISTANCE_ABV}
+        dispatchFunc={updateDistanceUnits}
       ></SelectAutoWidth>
     </Box>
   );

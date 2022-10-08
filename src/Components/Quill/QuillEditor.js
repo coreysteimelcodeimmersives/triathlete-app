@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import { useWorkoutContext } from '../../Context/WorkoutContext';
+import { useDispatch, useSelector } from 'react-redux';
 
 const modules = {
   toolbar: [
@@ -23,19 +23,15 @@ const modules = {
   ],
 };
 
-const QuillEditor = ({ keyVar }) => {
-  const { workout, handleUpdateWo } = useWorkoutContext();
-  const [value, setValue] = useState('');
+const QuillEditor = ({ keyVar, dispatchFunc }) => {
+  const workout = useSelector((state) => state.workout);
+  const [value, setValue] = useState(workout[keyVar] ? workout[keyVar] : '');
   const editorRef = useRef();
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    const updateWo = { ...workout, [keyVar]: value };
-    handleUpdateWo(updateWo);
+    dispatch(dispatchFunc({ [keyVar]: value }));
   }, [value]);
-
-  console.log(value);
-
-  if (editorRef.current) console.log(editorRef.current.editor.getContents());
 
   return (
     <ReactQuill

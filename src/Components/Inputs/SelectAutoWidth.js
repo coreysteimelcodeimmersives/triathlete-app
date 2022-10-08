@@ -3,16 +3,16 @@ import { InputLabel } from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import { useWorkoutContext } from '../../Context/WorkoutContext';
+import { useDispatch, useSelector } from 'react-redux';
 
-const SelectAutoWidth = ({ setMinWidth, label, keyVar, map }) => {
-  const { workout, handleUpdateWo } = useWorkoutContext();
+const SelectAutoWidth = ({ setMinWidth, label, keyVar, map, dispatchFunc }) => {
+  const workout = useSelector((state) => state.workout);
   const [value, setValue] = useState('');
+  const dispatch = useDispatch();
 
   const handleChange = (event) => {
-    const updateWoFromKey = { ...workout, [keyVar]: event.target.value };
     setValue(event.target.value);
-    handleUpdateWo(updateWoFromKey);
+    dispatch(dispatchFunc({ [keyVar]: event.target.value }));
   };
 
   return (
@@ -27,7 +27,7 @@ const SelectAutoWidth = ({ setMinWidth, label, keyVar, map }) => {
         <Select
           labelId='demo-simple-select-autowidth-label'
           id='demo-simple-select-autowidth'
-          value={value}
+          value={workout[keyVar] ? workout[keyVar] : value}
           onChange={handleChange}
           autoWidth
           label={label}

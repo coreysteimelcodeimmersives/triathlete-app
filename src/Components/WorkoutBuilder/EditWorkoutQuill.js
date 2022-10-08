@@ -1,11 +1,8 @@
 import React from 'react';
-import TextField from '@mui/material/TextField';
 import QuillEditor from '../Quill/QuillEditor';
-import { Box, padding } from '@mui/system';
-import { useWorkoutContext } from '../../Context/WorkoutContext';
+import { Box } from '@mui/system';
 
-const EditWorkoutQuill = ({ label, keyVar }) => {
-  const { workout, handleUpdateWo } = useWorkoutContext();
+const EditWorkoutQuill = ({ label, keyVar, dispatchFunc }) => {
   return (
     <Box
       id='outlined-read-only-input'
@@ -17,7 +14,7 @@ const EditWorkoutQuill = ({ label, keyVar }) => {
       }}
     >
       {label}
-      <QuillEditor keyVar={keyVar}></QuillEditor>
+      <QuillEditor keyVar={keyVar} dispatchFunc={dispatchFunc}></QuillEditor>
     </Box>
   );
 };
