@@ -56,8 +56,11 @@ const workoutSlice = createSlice({
     updateAthleteNotes: (state, action) => {
       return { ...state, athleteNotes: action.payload.athleteNotes };
     },
-    clearWo: () => {
+    clearWorkout: () => {
       return {};
+    },
+    selectWorkout: (state, action) => {
+      return action.payload;
     },
   },
 });
@@ -75,6 +78,7 @@ export const {
   updateCoolDown,
   updateSpecialNotes,
   updateAthleteNotes,
-  clearWo,
+  clearWorkout,
+  selectWorkout,
 } = workoutSlice.actions;
 export const { reducer: workoutReducer } = workoutSlice;

@@ -1,23 +1,30 @@
-import React from 'react';
+import React, { forceUpdate } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { clearWo } from '../../Redux-State/WorkoutSlice';
+import { clearWorkout, selectWorkout } from '../../Redux-State/WorkoutSlice';
+import { deleteWoFromWoLib } from '../../Redux-State/WorkoutLibrarySlice';
 import ClearIcon from '@mui/icons-material/Clear';
 import PersonIcon from '@mui/icons-material/Person';
 import TuneIcon from '@mui/icons-material/Tune';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 
 const LeftIcon = () => {
   const navigate = useNavigate();
   const page = useSelector((state) => state.page);
+  const workout = useSelector((state) => state.workout);
+  const workoutLibrary = useSelector((state) => state.workoutLibrary);
+  const ogWorkout = workoutLibrary[workout.id];
   const dispatch = useDispatch();
   const returnLeftIcon = () => {
     switch (page.leftIcon) {
-      case 'ClearIcon': {
+      case 'ClearIconNewWorkout': {
         return (
           <ClearIcon
             fontSize='large'
             onClick={() => {
-              dispatch(clearWo());
+              dispatch(clearWorkout());
+              navigate('/temp-solution');
             }}
           />
         );
@@ -27,7 +34,7 @@ const LeftIcon = () => {
           <PersonIcon
             fontSize='large'
             onClick={() => {
-              navigate('/sign-in');
+              // navigate('/sign-in');
             }}
           />
         );
@@ -37,7 +44,30 @@ const LeftIcon = () => {
           <TuneIcon
             fontSize='large'
             onClick={() => {
-              navigate('/sign-in');
+              // navigate('/sign-in');
+            }}
+          />
+        );
+      }
+      case 'DeleteForeverIcon': {
+        return (
+          <DeleteForeverIcon
+            fontSize='large'
+            onClick={() => {
+              dispatch(deleteWoFromWoLib(workout.id));
+              navigate('/workout-library');
+            }}
+          />
+        );
+      }
+
+      case 'ArrowBackIosNewIcon': {
+        return (
+          <ArrowBackIosNewIcon
+            fontSize='large'
+            onClick={() => {
+              dispatch(selectWorkout(ogWorkout));
+              navigate('/workout-details');
             }}
           />
         );

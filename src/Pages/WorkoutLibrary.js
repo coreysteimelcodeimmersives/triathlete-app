@@ -1,11 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import Layout from '../Components/Layout/Layout';
 import WorkoutCard from '../Components/WorkoutCard/WorkoutCard';
-import { useSelector, useDispatch } from 'react-redux';
 import { Box } from '@mui/system';
+import { workoutLibraryPage } from '../Redux-State/PageSlice';
 
 const WorkoutLibrary = () => {
+  const dispatch = useDispatch();
   const workoutLibrary = useSelector((state) => state.workoutLibrary);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    dispatch(workoutLibraryPage());
+  }, []);
+
   return (
     <Layout>
       {Object.keys(workoutLibrary).map((workoutId) => {

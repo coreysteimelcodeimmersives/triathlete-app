@@ -22,21 +22,21 @@ import {
   updateAthleteNotes,
   updateDurationMinutes,
   updateDurationHours,
-  clearWo,
+  clearWorkout,
 } from '../Redux-State/WorkoutSlice';
-import { addToWoLib } from '../Redux-State/WorkoutLibrarySlice';
-import { workoutBuilderPage } from '../Redux-State/PageSlice';
+import {
+  addToWoLib,
+  updateWoInWoLib,
+} from '../Redux-State/WorkoutLibrarySlice';
 
 const WorkoutBuilder = () => {
   const navigate = useNavigate();
-  const user = useSelector((state) => state.user);
   const workout = useSelector((state) => state.workout);
+  const page = useSelector((state) => state.page);
   const dispatch = useDispatch();
-
   useEffect(() => {
-    dispatch(workoutBuilderPage());
+    window.scrollTo(0, 0);
   }, []);
-
   return (
     <Layout>
       <Box display={'flex'} flexDirection={'column'} alignItems={'center'}>
@@ -109,12 +109,18 @@ const WorkoutBuilder = () => {
             variant='contained'
             sx={{ margin: '5%', marginTop: '-2%' }}
             onClick={() => {
-              dispatch(addToWoLib({ workout }));
-              dispatch(clearWo());
-              navigate('/workout-library');
+              if (page.titleText === 'Wo Builder') {
+                dispatch(addToWoLib({ workout }));
+                dispatch(clearWorkout());
+                navigate('/workout-library');
+              }
+              if (page.titleText === 'Wo Edits') {
+                dispatch(updateWoInWoLib({ workout }));
+                navigate('/workout-details');
+              }
             }}
           >
-            Add To Workout Library
+            {page.bottomButton}
           </Button>
         </Paper>
       </Box>

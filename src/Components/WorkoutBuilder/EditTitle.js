@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { useSelector, useDispatch } from 'react-redux';
@@ -7,6 +7,7 @@ import { updateTitle } from '../../Redux-State/WorkoutSlice';
 const EditTitle = () => {
   const workout = useSelector((state) => state.workout);
   const dispatch = useDispatch();
+
   return (
     <Box
       sx={{

@@ -13,9 +13,10 @@ const pageSlice = createSlice({
     },
     workoutBuilderPage: () => {
       return {
-        leftIcon: 'ClearIcon',
+        leftIcon: 'ClearIconNewWorkout',
         titleText: 'Wo Builder',
-        rightIcon: 'SaveIcon',
+        rightIcon: 'SaveIconNewWorkout',
+        bottomButton: 'Add to Workout Library',
       };
     },
     workoutLibraryPage: () => {
@@ -23,6 +24,21 @@ const pageSlice = createSlice({
         leftIcon: 'TuneIcon',
         titleText: 'Wo Library',
         rightIcon: 'SettingsIcon',
+      };
+    },
+    workoutDetailsPage: () => {
+      return {
+        leftIcon: 'DeleteForeverIcon',
+        titleText: 'Wo Details',
+        rightIcon: 'EditIconSelectedWorkout',
+      };
+    },
+    workoutEditPage: () => {
+      return {
+        leftIcon: 'ArrowBackIosNewIcon',
+        titleText: 'Wo Edits',
+        rightIcon: 'SaveIconSelectedWorkout',
+        bottomButton: 'Update Workout',
       };
     },
     athleteLibraryPage: () => {
@@ -40,5 +56,7 @@ export const {
   workoutBuilderPage,
   workoutLibraryPage,
   athleteLibraryPage,
+  workoutDetailsPage,
+  workoutEditPage,
 } = pageSlice.actions;
 export const { reducer: pageReducer } = pageSlice;

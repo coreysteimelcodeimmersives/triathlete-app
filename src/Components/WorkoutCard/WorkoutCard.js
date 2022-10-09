@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Card from '@mui/material/Card';
 import { CardActionArea } from '@mui/material';
 import { Box } from '@mui/system';
@@ -10,11 +10,14 @@ import { ENERGY_SYSTEMS } from '../../Data/EnergySystems';
 import { DISTANCE_ABV } from '../../Data/DistanceUnits';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import { selectWorkout } from '../../Redux-State/WorkoutSlice';
 
 const WorkoutCard = ({ workoutId }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const workoutLibrary = useSelector((state) => state.workoutLibrary);
   const workout = workoutLibrary[workoutId];
+  useEffect(() => {});
   return (
     <Card
       sx={{
@@ -23,6 +26,7 @@ const WorkoutCard = ({ workoutId }) => {
         marginBottom: '3%',
       }}
       onClick={() => {
+        dispatch(selectWorkout(workout));
         navigate('/workout-details');
       }}
     >
@@ -77,7 +81,7 @@ const WorkoutCard = ({ workoutId }) => {
             <TextField
               id='outlined-read-only-input'
               label='Distance'
-              value={workout.distance ? workout.distance : ''}
+              value={workout.distanceValue ? workout.distanceValue : ''}
               sx={{ marginLeft: '5%', width: '90%' }}
               InputLabelProps={{ style: { color: 'purple' } }}
               InputProps={{

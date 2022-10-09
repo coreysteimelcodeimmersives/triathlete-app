@@ -1,19 +1,17 @@
 import * as React from 'react';
-import { useNavigate } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import PersonIcon from '@mui/icons-material/Person';
 import { useSelector } from 'react-redux';
 import LeftIcon from './LeftIcon';
 import RightIcon from './RightIcon';
 
 const ResponsiveAppBar = () => {
   const page = useSelector((state) => state.page);
-  const navigate = useNavigate();
+
   return (
     <>
       <AppBar position='static'>
@@ -30,9 +28,6 @@ const ResponsiveAppBar = () => {
                   aria-controls='menu-appbar'
                   aria-haspopup='true'
                   color='inherit'
-                  onClick={() => {
-                    navigate('/sign-in');
-                  }}
                 >
                   <LeftIcon />
                 </IconButton>
@@ -58,7 +53,6 @@ const ResponsiveAppBar = () => {
             <Box sx={{}}>
               {page.leftIcon !== '' && (
                 <IconButton
-                  onClick={() => {}}
                   size='large'
                   aria-label='account of current user'
                   aria-controls='menu-appbar'

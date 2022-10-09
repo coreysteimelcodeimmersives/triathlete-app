@@ -6,6 +6,7 @@ import { athleteLibraryPage } from '../Redux-State/PageSlice';
 const AthleteLibrary = () => {
   const dispatch = useDispatch();
   useEffect(() => {
+    window.scrollTo(0, 0);
     dispatch(athleteLibraryPage());
   }, []);
   return <Layout> </Layout>;

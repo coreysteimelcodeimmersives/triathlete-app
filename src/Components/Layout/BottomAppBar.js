@@ -16,6 +16,7 @@ import {
   athleteLibraryPage,
   signInPage,
 } from '../../Redux-State/PageSlice';
+import { clearWorkout } from '../../Redux-State/WorkoutSlice';
 
 const StyledFab = styled(Fab)({
   position: 'absolute',
@@ -53,8 +54,9 @@ const BottomAppBar = () => {
               color='secondary'
               aria-label='add'
               onClick={() => {
+                dispatch(clearWorkout());
                 dispatch(workoutBuilderPage());
-                navigate('/workout-builder');
+                navigate('/temp-solution');
               }}
             >
               <AddIcon fontSize='large' />
