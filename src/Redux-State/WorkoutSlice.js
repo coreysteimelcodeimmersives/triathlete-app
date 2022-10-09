@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 // Helper Functions
 
-const woInitialState = {
+export const woInitialState = {
   title: '',
   sportType: '',
   energySystem: '',
@@ -18,7 +18,7 @@ const woInitialState = {
 
 const workoutSlice = createSlice({
   name: 'workout',
-  initialState: woInitialState,
+  initialState: {},
   reducers: {
     updateTitle: (state, action) => {
       return { ...state, title: action.payload.title };
@@ -57,7 +57,7 @@ const workoutSlice = createSlice({
       return { ...state, athleteNotes: action.payload.athleteNotes };
     },
     clearWo: () => {
-      return woInitialState;
+      return {};
     },
   },
 });
@@ -77,5 +77,4 @@ export const {
   updateAthleteNotes,
   clearWo,
 } = workoutSlice.actions;
-export const { reducer: workoutReducer, initialState: workoutInitialState } =
-  workoutSlice;
+export const { reducer: workoutReducer } = workoutSlice;

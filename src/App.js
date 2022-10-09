@@ -7,6 +7,8 @@ import WorkoutContextProvider from './Context/WorkoutContext';
 import store from './Redux-State/Store';
 import { Provider } from 'react-redux';
 import SignIn from './Pages/SignIn';
+import WorkoutLibrary from './Pages/WorkoutLibrary';
+import AthleteLibrary from './Pages/AthleteLibrary';
 
 function App() {
   return (
@@ -15,9 +17,12 @@ function App() {
         <WorkoutContextProvider>
           <BrowserRouter>
             <Routes>
-              <Route path='sign-in' element={<SignIn />} />
+              <Route path='/' element={<SignIn />} />
+              <Route path='/sign-in' element={<SignIn />} />
               <Route path='/workout-builder' element={<WorkoutBuilder />} />
               <Route path='/workout-details' element={<WorkoutDetails />} />
+              <Route path='/workout-library' element={<WorkoutLibrary />} />
+              <Route path='/athlete-library' element={<AthleteLibrary />} />
             </Routes>
           </BrowserRouter>
         </WorkoutContextProvider>

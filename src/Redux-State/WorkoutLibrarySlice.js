@@ -2,10 +2,10 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const workoutLibrarySlice = createSlice({
   name: 'workoutLibrary',
-  initialState: null,
+  initialState: {},
   reducers: {
     addToWoLib: (state, action) => {
-      const id = Math.ceil(Math.random() * 10000);
+      const id = Math.ceil(Math.random() * 10000000);
       return { ...state, [id]: { id: id, ...action.payload.workout } };
     },
     copyWoToLib: (state, action) => {},
@@ -15,7 +15,4 @@ const workoutLibrarySlice = createSlice({
 
 export const { addToWoLib, copyWoToLib, prescribeToAthlete } =
   workoutLibrarySlice.actions;
-export const {
-  reducer: workoutLibraryReducer,
-  initialState: workoutLibraryInitialState,
-} = workoutLibrarySlice;
+export const { reducer: workoutLibraryReducer } = workoutLibrarySlice;

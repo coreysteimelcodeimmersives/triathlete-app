@@ -9,25 +9,18 @@ import TextField from '@mui/material/TextField';
 import { ENERGY_SYSTEMS } from '../../Data/EnergySystems';
 import { DISTANCE_ABV } from '../../Data/DistanceUnits';
 import { useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 
-const WorkoutCard = ({
-  title,
-  sportType,
-  energySystem,
-  durationHours,
-  durationMinutes,
-  distance,
-  distanceUnits,
-}) => {
+const WorkoutCard = ({ workoutId }) => {
   const navigate = useNavigate();
+  const workoutLibrary = useSelector((state) => state.workoutLibrary);
+  const workout = workoutLibrary[workoutId];
   return (
     <Card
       sx={{
         display: 'flex',
-        alignItems: 'center',
-        maxWidth: 345,
-        marginBottom: '2%',
-        marginTop: '-20%',
+        mx: '3%',
+        marginBottom: '3%',
       }}
       onClick={() => {
         navigate('/workout-details');
@@ -40,16 +33,18 @@ const WorkoutCard = ({
           alignItems={'center'}
           padding={'3%'}
         >
-          <WorkoutIcon sportType={sportType}></WorkoutIcon>
+          <WorkoutIcon sportType={workout.sportType}></WorkoutIcon>
           <Typography variant='h5' component='div' alignSelf={'center'}>
-            {title ? title : 'Workout Title'}
+            {workout.title ? workout.title : 'Workout Title'}
           </Typography>
         </Box>
         <CardContent sx={{ marginTop: '-5%' }}>
           <TextField
             id='outlined-read-only-input'
             label='Energy System'
-            value={energySystem ? ENERGY_SYSTEMS[energySystem] : ''}
+            value={
+              workout.energySystem ? ENERGY_SYSTEMS[workout.energySystem] : ''
+            }
             sx={{ marginLeft: '5%', marginBottom: '5%' }}
             InputLabelProps={{ style: { color: 'purple' } }}
             InputProps={{
@@ -60,7 +55,7 @@ const WorkoutCard = ({
             <TextField
               id='outlined-read-only-input'
               label='Hours'
-              value={durationHours ? durationHours : ''}
+              value={workout.durationHours ? workout.durationHours : ''}
               sx={{ marginLeft: '5%' }}
               InputLabelProps={{ style: { color: 'purple' } }}
               InputProps={{
@@ -70,7 +65,7 @@ const WorkoutCard = ({
             <TextField
               id='outlined-read-only-input'
               label='Mintues'
-              value={durationMinutes ? durationMinutes : ''}
+              value={workout.durationMinutes ? workout.durationMinutes : ''}
               sx={{ marginLeft: '5%' }}
               InputLabelProps={{ style: { color: 'purple' } }}
               InputProps={{
@@ -82,7 +77,7 @@ const WorkoutCard = ({
             <TextField
               id='outlined-read-only-input'
               label='Distance'
-              value={distance ? distance : ''}
+              value={workout.distance ? workout.distance : ''}
               sx={{ marginLeft: '5%', width: '90%' }}
               InputLabelProps={{ style: { color: 'purple' } }}
               InputProps={{
@@ -92,7 +87,9 @@ const WorkoutCard = ({
             <TextField
               id='outlined-read-only-input'
               label='Units'
-              value={distanceUnits ? DISTANCE_ABV[distanceUnits] : ''}
+              value={
+                workout.distanceUnits ? DISTANCE_ABV[workout.distanceUnits] : ''
+              }
               sx={{ marginLeft: '5%' }}
               InputLabelProps={{ style: { color: 'purple' } }}
               InputProps={{

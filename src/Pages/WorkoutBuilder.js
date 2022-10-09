@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Paper } from '@mui/material';
@@ -25,11 +25,17 @@ import {
   clearWo,
 } from '../Redux-State/WorkoutSlice';
 import { addToWoLib } from '../Redux-State/WorkoutLibrarySlice';
+import { workoutBuilderPage } from '../Redux-State/PageSlice';
 
 const WorkoutBuilder = () => {
   const navigate = useNavigate();
+  const user = useSelector((state) => state.user);
   const workout = useSelector((state) => state.workout);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(workoutBuilderPage());
+  }, []);
 
   return (
     <Layout>
@@ -105,7 +111,7 @@ const WorkoutBuilder = () => {
             onClick={() => {
               dispatch(addToWoLib({ workout }));
               dispatch(clearWo());
-              navigate('/sign-in');
+              navigate('/workout-library');
             }}
           >
             Add To Workout Library
