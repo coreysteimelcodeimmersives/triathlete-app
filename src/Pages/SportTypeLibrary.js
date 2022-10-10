@@ -5,10 +5,8 @@ import Layout from '../Components/Layout/Layout';
 import WorkoutCard from '../Components/WorkoutCard/WorkoutCard';
 import { Box } from '@mui/system';
 import { workoutLibraryPage } from '../Redux-State/PageSlice';
-import { SPORT_TYPES } from '../Data/SportTypes';
-import SportTypeCard from '../Components/Layout/SportTypeCard';
 
-const WorkoutLibrary = () => {
+const SportTypeLibrary = () => {
   const dispatch = useDispatch();
   const workoutLibrary = useSelector((state) => state.workoutLibrary);
 
@@ -19,22 +17,14 @@ const WorkoutLibrary = () => {
 
   return (
     <Layout>
-      {Object.keys(SPORT_TYPES).map((sportType) => {
+      {Object.keys(workoutLibrary).map((workoutId) => {
         return (
-          <SportTypeCard key={sportType} sportType={sportType}></SportTypeCard>
+          <WorkoutCard key={workoutId} workoutId={workoutId}></WorkoutCard>
         );
       })}
       <Box marginBottom={'10vh'}></Box>
     </Layout>
-    // <Layout>
-    //   {Object.keys(workoutLibrary).map((workoutId) => {
-    //     return (
-    //       <WorkoutCard key={workoutId} workoutId={workoutId}></WorkoutCard>
-    //     );
-    //   })}
-    //   <Box marginBottom={'10vh'}></Box>
-    // </Layout>
   );
 };
 
-export default WorkoutLibrary;
+export default SportTypeLibrary;

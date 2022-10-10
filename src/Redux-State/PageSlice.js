@@ -21,7 +21,7 @@ const pageSlice = createSlice({
     },
     workoutLibraryPage: () => {
       return {
-        leftIcon: 'TuneIcon',
+        leftIcon: null,
         titleText: 'Wo Library',
         rightIcon: 'SettingsIcon',
       };
