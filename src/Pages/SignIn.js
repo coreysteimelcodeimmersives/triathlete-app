@@ -17,7 +17,7 @@ const SignIn = () => {
   useEffect(() => {
     if (user) {
       dispatch(workoutBuilderPage());
-      navigate('/workout-builder');
+      navigate('/athlete-library');
     } else {
       dispatch(signInPage({}));
     }
@@ -47,7 +47,7 @@ const SignIn = () => {
                   password: password,
                 })
               );
-              navigate('/workout-builder');
+              navigate('/athlete-library');
               return;
             } else {
               dispatch(signOut());

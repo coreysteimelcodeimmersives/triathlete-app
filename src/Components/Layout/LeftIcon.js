@@ -1,4 +1,4 @@
-import React, { forceUpdate } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { clearWorkout, selectWorkout } from '../../Redux-State/WorkoutSlice';
@@ -14,7 +14,6 @@ const LeftIcon = () => {
   const page = useSelector((state) => state.page);
   const workout = useSelector((state) => state.workout);
   const workoutLibrary = useSelector((state) => state.workoutLibrary);
-  const ogWorkout = workoutLibrary[workout.id];
   const dispatch = useDispatch();
   const returnLeftIcon = () => {
     switch (page.leftIcon) {
@@ -61,13 +60,25 @@ const LeftIcon = () => {
         );
       }
 
-      case 'ArrowBackIosNewIcon': {
+      case 'ArrowBackIosNewIconWoEdit': {
         return (
           <ArrowBackIosNewIcon
             fontSize='large'
             onClick={() => {
-              dispatch(selectWorkout(ogWorkout));
+              dispatch(selectWorkout(workout));
               navigate('/workout-details');
+            }}
+          />
+        );
+      }
+
+      case 'ArrowBackIosNewIconWoDetails': {
+        return (
+          <ArrowBackIosNewIcon
+            fontSize='large'
+            onClick={() => {
+              dispatch(selectWorkout(workout));
+              navigate('/workout-library-filter');
             }}
           />
         );

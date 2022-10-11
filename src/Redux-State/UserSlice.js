@@ -1,4 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { useNavigate } from 'react-router-dom';
+
+const Navigate = (dest) => {
+  const navigate = useNavigate();
+  return navigate(dest);
+};
 
 const userSlice = createSlice({
   name: 'user',
@@ -6,6 +12,11 @@ const userSlice = createSlice({
   reducers: {
     signIn: (state, action) => action.payload,
     signOut: () => {},
+    // validateUserSignedIn: (state, action) => {
+    //   if (state === null) {
+    //     Navigate('/sign-in');
+    //   }
+    // },
   },
 });
 

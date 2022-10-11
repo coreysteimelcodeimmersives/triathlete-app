@@ -7,13 +7,17 @@ import Layout from '../Components/Layout/Layout';
 import { workoutDetailsPage, workoutEditPage } from '../Redux-State/PageSlice';
 import WorkoutCard from '../Components/WorkoutCard/WorkoutCard';
 import ViewWorkoutQuill from '../Components/WorkoutDetails/ViewWorkoutQuill';
+import { deleteWoFromWoLib } from '../Redux-State/WorkoutLibrarySlice';
 
 const WorkoutDetails = () => {
   const navigate = useNavigate();
+  const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const workout = useSelector((state) => state.workout);
-  const workoutId = workout.id;
   useEffect(() => {
+    if (!user) {
+      navigate('/sign-in');
+    }
     window.scrollTo(0, 0);
     dispatch(workoutDetailsPage());
   }, []);
@@ -31,7 +35,7 @@ const WorkoutDetails = () => {
             marginBottom: '10vh',
           }}
         >
-          <WorkoutCard workoutId={workoutId}></WorkoutCard>
+          <WorkoutCard workoutId={workout.id}></WorkoutCard>
           <ViewWorkoutQuill label={'Warm Up'} richText={workout.warmUp} />
           <ViewWorkoutQuill label={'Main Set'} richText={workout.mainSet} />
           <ViewWorkoutQuill label={'Cool Down'} richText={workout.coolDown} />
@@ -52,6 +56,16 @@ const WorkoutDetails = () => {
             }}
           >
             Edit Workout
+          </Button>
+          <Button
+            variant='contained'
+            sx={{ margin: '5%', marginTop: '-2%', bgcolor: 'red' }}
+            onClick={() => {
+              dispatch(deleteWoFromWoLib(workout.id));
+              navigate('/workout-library-filter');
+            }}
+          >
+            Delete Workout
           </Button>
         </Paper>
       </Box>

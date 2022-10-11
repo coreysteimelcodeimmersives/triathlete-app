@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { SPORT_TYPES } from '../Data/SportTypes';
 
 const pageSlice = createSlice({
   name: 'page',
@@ -28,14 +29,14 @@ const pageSlice = createSlice({
     },
     workoutDetailsPage: () => {
       return {
-        leftIcon: 'DeleteForeverIcon',
+        leftIcon: 'ArrowBackIosNewIconWoDetails',
         titleText: 'Wo Details',
         rightIcon: 'EditIconSelectedWorkout',
       };
     },
     workoutEditPage: () => {
       return {
-        leftIcon: 'ArrowBackIosNewIcon',
+        leftIcon: 'ArrowBackIosNewIconWoEdit',
         titleText: 'Wo Edits',
         rightIcon: 'SaveIconSelectedWorkout',
         bottomButton: 'Update Workout',
@@ -45,6 +46,15 @@ const pageSlice = createSlice({
       return {
         leftIcon: 'TuneIcon',
         titleText: 'Athletes',
+        rightIcon: 'SettingsIcon',
+      };
+    },
+    woLibFilterPage: (state, action) => {
+      return {
+        leftIcon: 'TuneIcon',
+        titleText: SPORT_TYPES[action.payload]
+          ? SPORT_TYPES[action.payload]
+          : 'Other',
         rightIcon: 'SettingsIcon',
       };
     },
@@ -58,5 +68,6 @@ export const {
   athleteLibraryPage,
   workoutDetailsPage,
   workoutEditPage,
+  woLibFilterPage,
 } = pageSlice.actions;
 export const { reducer: pageReducer } = pageSlice;

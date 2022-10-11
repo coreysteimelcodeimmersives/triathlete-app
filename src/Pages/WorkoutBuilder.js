@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Paper } from '@mui/material';
@@ -28,15 +28,21 @@ import {
   addToWoLib,
   updateWoInWoLib,
 } from '../Redux-State/WorkoutLibrarySlice';
+import { workoutBuilderPage } from '../Redux-State/PageSlice';
 
 const WorkoutBuilder = () => {
   const navigate = useNavigate();
+  const user = useSelector((state) => state.user);
   const workout = useSelector((state) => state.workout);
   const page = useSelector((state) => state.page);
   const dispatch = useDispatch();
   useEffect(() => {
+    if (!user) {
+      navigate('/sign-in');
+    }
     window.scrollTo(0, 0);
   }, []);
+
   return (
     <Layout>
       <Box display={'flex'} flexDirection={'column'} alignItems={'center'}>

@@ -3,15 +3,24 @@ import Card from '@mui/material/Card';
 import { CardActionArea, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import WorkoutIcon from '../WorkoutCard/WorkoutIcon';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { updateWoLibFilter } from '../../Redux-State/WorkoutLibFilterSlice';
 
 const SportTypeCard = ({ sportType }) => {
-  console.log(sportType);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   return (
     <Card
       sx={{
         display: 'flex',
         mx: '3%',
         marginBottom: '3%',
+      }}
+      onClick={() => {
+        dispatch(updateWoLibFilter({ key: 'sportType', value: sportType }));
+        navigate('/workout-library-filter');
       }}
     >
       <CardActionArea>

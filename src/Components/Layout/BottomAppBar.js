@@ -17,6 +17,7 @@ import {
   signInPage,
 } from '../../Redux-State/PageSlice';
 import { clearWorkout } from '../../Redux-State/WorkoutSlice';
+import { addToWoLib } from '../../Redux-State/WorkoutLibrarySlice';
 
 const StyledFab = styled(Fab)({
   position: 'absolute',
@@ -30,6 +31,8 @@ const StyledFab = styled(Fab)({
 const BottomAppBar = () => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
+  const page = useSelector((state) => state.page);
+  const workout = useSelector((state) => state.workout);
   const dispatch = useDispatch();
   return (
     <>
@@ -54,9 +57,15 @@ const BottomAppBar = () => {
               color='secondary'
               aria-label='add'
               onClick={() => {
-                dispatch(clearWorkout());
-                dispatch(workoutBuilderPage());
-                navigate('/temp-solution');
+                if (page.titleText === 'Wo Builder') {
+                  dispatch(addToWoLib({ workout }));
+                  dispatch(clearWorkout());
+                  navigate('/workout-library');
+                } else {
+                  dispatch(clearWorkout());
+                  dispatch(workoutBuilderPage());
+                  navigate('/temp-solution');
+                }
               }}
             >
               <AddIcon fontSize='large' />

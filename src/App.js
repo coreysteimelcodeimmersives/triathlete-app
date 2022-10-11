@@ -9,6 +9,7 @@ import SignIn from './Pages/SignIn';
 import WorkoutLibrary from './Pages/WorkoutLibrary';
 import AthleteLibrary from './Pages/AthleteLibrary';
 import TempSolution from './Pages/TempSolution';
+import WorkoutLibraryFilter from './Pages/WorkoutLibraryFilter';
 
 function App() {
   return (
@@ -24,6 +25,10 @@ function App() {
             <Route path='/athlete-library' element={<AthleteLibrary />} />
             <Route path='/edit-workout' element={<WorkoutBuilder />} />
             <Route path='/temp-solution' element={<TempSolution />} />
+            <Route
+              path='/workout-library-filter'
+              element={<WorkoutLibraryFilter />}
+            />
           </Routes>
         </BrowserRouter>
       </CustomThemeProvider>

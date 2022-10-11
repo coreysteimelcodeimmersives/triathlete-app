@@ -16,8 +16,8 @@ const WorkoutCard = ({ workoutId }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const workoutLibrary = useSelector((state) => state.workoutLibrary);
-  const workout = workoutLibrary[workoutId];
-  useEffect(() => {});
+  const workout = workoutLibrary.find((workout) => workout.id === workoutId);
+  useEffect(() => {}, [workoutLibrary]);
   return (
     <Card
       sx={{
