@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Button } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import Layout from '../Components/Layout/Layout';
 import { useSelector, useDispatch } from 'react-redux';
@@ -7,13 +7,18 @@ import { signIn, signOut } from '../Redux-State/UserSlice';
 import UserName from '../Components/TextField/UserName';
 import Password from '../Components/TextField/Password';
 import { signInPage, workoutBuilderPage } from '../Redux-State/PageSlice';
+import Axios from '../Utils/Axios';
 
 const SignIn = () => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [userRegForm, setUserRegForm] = useState({
+    email: '',
+    password: '',
+  });
+
   useEffect(() => {
     if (user) {
       dispatch(workoutBuilderPage());
@@ -22,42 +27,55 @@ const SignIn = () => {
       dispatch(signInPage({}));
     }
   }, []);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await Axios.post('/sign-in', {
+        credentials: userRegForm,
+      });
+      const fetchedUser = response.data.user;
+      dispatch(signIn(fetchedUser));
+      setError('');
+      navigate('/athlete-library');
+    } catch (e) {
+      console.log(e);
+      setError(e.response ? e.response.data : e.message);
+    }
+  };
+
   return (
     <Layout rightIcon={''} titleText={'TriCoach'} leftIcon={''}>
-      <Box
-        display={'flex'}
-        flexDirection={'column'}
-        alignItems={'center'}
-        justifyContent={'center'}
-        height={'70vh'}
-      >
-        {!user && (
-          <>
-            <UserName setEmail={setEmail}></UserName>
-            <Password setPassword={setPassword}></Password>
-          </>
-        )}
-        <Button
-          variant='outlined'
-          onClick={() => {
-            if (!user) {
-              dispatch(
-                signIn({
-                  email: email,
-                  password: password,
-                })
-              );
-              navigate('/athlete-library');
-              return;
-            } else {
-              dispatch(signOut());
-              return;
-            }
-          }}
+      <form action='submit' onSubmit={handleSubmit}>
+        <Box
+          display={'flex'}
+          flexDirection={'column'}
+          alignItems={'center'}
+          justifyContent={'center'}
+          height={'70vh'}
         >
-          {!user ? 'Log In' : 'Log Out'}
-        </Button>
-      </Box>
+          <UserName userRegForm={userRegForm} setUserRegForm={setUserRegForm} />
+          <Password userRegForm={userRegForm} setUserRegForm={setUserRegForm} />
+          <Button variant='outlined' type='form' sx={{ margin: '1%' }}>
+            Sign In
+          </Button>
+          <Box sx={{ margin: '3%' }}>
+            <Typography
+              sx={{
+                color: 'purple',
+              }}
+              onClick={() => {
+                navigate('/register-user');
+              }}
+            >
+              Create Account
+            </Typography>
+          </Box>
+          <Box sx={{ margin: '3%' }}>
+            <Typography sx={{ color: 'red' }}>{error}</Typography>
+          </Box>
+        </Box>
+      </form>
     </Layout>
   );
 };

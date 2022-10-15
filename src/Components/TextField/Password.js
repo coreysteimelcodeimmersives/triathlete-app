@@ -9,12 +9,12 @@ import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
-const Password = ({ setPassword }) => {
+const Password = ({ userRegForm, setUserRegForm }) => {
   const [passwordText, setPasswordText] = useState({ password: '' });
 
   const handleChange = (prop) => (event) => {
     setPasswordText({ ...passwordText, [prop]: event.target.value });
-    setPassword(event.target.value);
+    setUserRegForm({ ...userRegForm, password: event.target.value });
   };
 
   const handleClickShowPassword = () => {
@@ -60,6 +60,7 @@ const Password = ({ setPassword }) => {
               </InputAdornment>
             }
             label='Password'
+            required
           />
         </FormControl>
       </div>

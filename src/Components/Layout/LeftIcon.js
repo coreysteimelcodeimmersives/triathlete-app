@@ -8,6 +8,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import TuneIcon from '@mui/icons-material/Tune';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import { tuneFilterWoLibPage } from '../../Redux-State/PageSlice';
 
 const LeftIcon = () => {
   const navigate = useNavigate();
@@ -38,12 +39,13 @@ const LeftIcon = () => {
           />
         );
       }
-      case 'TuneIcon': {
+      case 'TuneIconFilterWoLib': {
         return (
           <TuneIcon
             fontSize='large'
             onClick={() => {
-              // navigate('/sign-in');
+              dispatch(tuneFilterWoLibPage());
+              navigate('/tune-filter');
             }}
           />
         );
@@ -73,6 +75,18 @@ const LeftIcon = () => {
       }
 
       case 'ArrowBackIosNewIconWoDetails': {
+        return (
+          <ArrowBackIosNewIcon
+            fontSize='large'
+            onClick={() => {
+              dispatch(selectWorkout(workout));
+              navigate('/workout-library-filter');
+            }}
+          />
+        );
+      }
+
+      case 'ArrowBackIosNewIconFilterWoLib': {
         return (
           <ArrowBackIosNewIcon
             fontSize='large'

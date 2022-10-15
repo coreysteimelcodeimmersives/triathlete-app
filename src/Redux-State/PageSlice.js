@@ -51,11 +51,25 @@ const pageSlice = createSlice({
     },
     woLibFilterPage: (state, action) => {
       return {
-        leftIcon: 'TuneIcon',
+        leftIcon: 'TuneIconFilterWoLib',
         titleText: SPORT_TYPES[action.payload]
           ? SPORT_TYPES[action.payload]
           : 'Other',
         rightIcon: 'SettingsIcon',
+      };
+    },
+    tuneFilterWoLibPage: (state, action) => {
+      return {
+        leftIcon: 'ArrowBackIosNewIconFilterWoLib',
+        titleText: 'Filter',
+        rightIcon: 'SettingsIcon',
+      };
+    },
+    settingsPage: (state, action) => {
+      return {
+        leftIcon: null,
+        titleText: 'Settings',
+        rightIcon: null,
       };
     },
   },
@@ -69,5 +83,7 @@ export const {
   workoutDetailsPage,
   workoutEditPage,
   woLibFilterPage,
+  tuneFilterWoLibPage,
+  settingsPage,
 } = pageSlice.actions;
 export const { reducer: pageReducer } = pageSlice;

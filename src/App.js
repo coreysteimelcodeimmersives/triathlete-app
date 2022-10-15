@@ -10,6 +10,9 @@ import WorkoutLibrary from './Pages/WorkoutLibrary';
 import AthleteLibrary from './Pages/AthleteLibrary';
 import TempSolution from './Pages/TempSolution';
 import WorkoutLibraryFilter from './Pages/WorkoutLibraryFilter';
+import TuneFilterWoLib from './Pages/TuneFilterWoLib';
+import Settings from './Pages/Settings';
+import RegisterUser from './Pages/RegisterUser';
 
 function App() {
   return (
@@ -29,6 +32,9 @@ function App() {
               path='/workout-library-filter'
               element={<WorkoutLibraryFilter />}
             />
+            <Route path='/tune-filter' element={<TuneFilterWoLib />} />
+            <Route path='/settings' element={<Settings />} />
+            <Route path='/register-user' element={<RegisterUser />} />
           </Routes>
         </BrowserRouter>
       </CustomThemeProvider>

@@ -9,7 +9,7 @@ import {
   addToWoLib,
   updateWoInWoLib,
 } from '../../Redux-State/WorkoutLibrarySlice';
-import { workoutEditPage } from '../../Redux-State/PageSlice';
+import { workoutEditPage, settingsPage } from '../../Redux-State/PageSlice';
 
 const RightIcon = () => {
   const page = useSelector((state) => state.page);
@@ -46,7 +46,8 @@ const RightIcon = () => {
           <SettingsIcon
             fontSize='large'
             onClick={() => {
-              // navigate('/sign-in');
+              dispatch(settingsPage());
+              navigate('/settings');
             }}
           />
         );
