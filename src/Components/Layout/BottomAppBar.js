@@ -15,9 +15,11 @@ import {
   workoutLibraryPage,
   athleteLibraryPage,
   signInPage,
+  weekCalendar,
 } from '../../Redux-State/PageSlice';
 import { clearWorkout } from '../../Redux-State/WorkoutSlice';
 import { addToWoLib } from '../../Redux-State/WorkoutLibrarySlice';
+import PendingActionsIcon from '@mui/icons-material/PendingActions';
 
 const StyledFab = styled(Fab)({
   position: 'absolute',
@@ -43,16 +45,30 @@ const BottomAppBar = () => {
           sx={{ top: 'auto', bottom: 0 }}
         >
           <Toolbar>
-            <IconButton
-              color='inherit'
-              label='Athlete Library'
-              onClick={() => {
-                dispatch(athleteLibraryPage());
-                navigate('/athlete-library');
-              }}
-            >
-              <GroupsIcon fontSize='large' />
-            </IconButton>
+            {user.isAdmin && (
+              <IconButton
+                color='inherit'
+                label='Athlete Library'
+                onClick={() => {
+                  dispatch(athleteLibraryPage());
+                  navigate('/athlete-library');
+                }}
+              >
+                <GroupsIcon fontSize='large' />
+              </IconButton>
+            )}
+            {!user.isAdmin && (
+              <IconButton
+                color='inherit'
+                label='Training Calendar'
+                onClick={() => {
+                  dispatch(weekCalendar());
+                  navigate('/calendar');
+                }}
+              >
+                <PendingActionsIcon fontSize='large' />
+              </IconButton>
+            )}
             <StyledFab
               color='secondary'
               aria-label='add'

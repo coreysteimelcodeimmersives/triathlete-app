@@ -13,7 +13,6 @@ const AthleteLibrary = () => {
       navigate('/sign-in');
     }
     window.scrollTo(0, 0);
-    dispatch(athleteLibraryPage());
   }, []);
   return <Layout> </Layout>;
 };

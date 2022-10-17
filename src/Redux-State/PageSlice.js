@@ -58,18 +58,25 @@ const pageSlice = createSlice({
         rightIcon: 'SettingsIcon',
       };
     },
-    tuneFilterWoLibPage: (state, action) => {
+    tuneFilterWoLibPage: () => {
       return {
         leftIcon: 'ArrowBackIosNewIconFilterWoLib',
         titleText: 'Filter',
         rightIcon: 'SettingsIcon',
       };
     },
-    settingsPage: (state, action) => {
+    settingsPage: () => {
       return {
         leftIcon: null,
         titleText: 'Settings',
         rightIcon: null,
+      };
+    },
+    weekCalendar: () => {
+      return {
+        leftIcon: null,
+        titleText: 'Calendar',
+        rightIcon: 'SettingsIcon',
       };
     },
   },
@@ -85,5 +92,6 @@ export const {
   woLibFilterPage,
   tuneFilterWoLibPage,
   settingsPage,
+  weekCalendar,
 } = pageSlice.actions;
 export const { reducer: pageReducer } = pageSlice;

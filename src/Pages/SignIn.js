@@ -3,10 +3,14 @@ import { Box, Button, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import Layout from '../Components/Layout/Layout';
 import { useSelector, useDispatch } from 'react-redux';
-import { signIn, signOut } from '../Redux-State/UserSlice';
+import { signIn } from '../Redux-State/UserSlice';
 import UserName from '../Components/TextField/UserName';
 import Password from '../Components/TextField/Password';
-import { signInPage, workoutBuilderPage } from '../Redux-State/PageSlice';
+import {
+  signInPage,
+  athleteLibraryPage,
+  weekCalendar,
+} from '../Redux-State/PageSlice';
 import Axios from '../Utils/Axios';
 
 const SignIn = () => {
@@ -20,11 +24,14 @@ const SignIn = () => {
   });
 
   useEffect(() => {
-    if (user) {
-      dispatch(workoutBuilderPage());
-      navigate('/athlete-library');
-    } else {
+    if (!user) {
       dispatch(signInPage({}));
+    } else if (!user.isAdmin) {
+      dispatch(weekCalendar());
+      navigate('/calendar');
+    } else if (user.isAdmin) {
+      dispatch(athleteLibraryPage());
+      navigate('/athlete-library');
     }
   }, []);
 
@@ -37,7 +44,8 @@ const SignIn = () => {
       const fetchedUser = response.data.user;
       dispatch(signIn(fetchedUser));
       setError('');
-      navigate('/athlete-library');
+
+      navigate('/calendar');
     } catch (e) {
       console.log(e);
       setError(e.response ? e.response.data : e.message);
@@ -45,7 +53,7 @@ const SignIn = () => {
   };
 
   return (
-    <Layout rightIcon={''} titleText={'TriCoach'} leftIcon={''}>
+    <Layout>
       <form action='submit' onSubmit={handleSubmit}>
         <Box
           display={'flex'}

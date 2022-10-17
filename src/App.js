@@ -13,6 +13,7 @@ import WorkoutLibraryFilter from './Pages/WorkoutLibraryFilter';
 import TuneFilterWoLib from './Pages/TuneFilterWoLib';
 import Settings from './Pages/Settings';
 import RegisterUser from './Pages/RegisterUser';
+import WeekCalendar from './Pages/WeekCalendar';
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
             <Route path='/tune-filter' element={<TuneFilterWoLib />} />
             <Route path='/settings' element={<Settings />} />
             <Route path='/register-user' element={<RegisterUser />} />
+            <Route path='/calendar' element={<WeekCalendar />} />
           </Routes>
         </BrowserRouter>
       </CustomThemeProvider>
