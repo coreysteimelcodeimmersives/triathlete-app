@@ -18,9 +18,9 @@ const WeekCalendar = () => {
       weekStartsOn: 1,
     })
   );
-  const [weeksFromNow, setWeeksFromNow] = useState(0);
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
+  const update = useSelector((state) => state.update);
   const dispatch = useDispatch();
   const daysOfWeek = [
     'Monday',
@@ -37,8 +37,13 @@ const WeekCalendar = () => {
       navigate('/sign-in');
     }
     dispatch(weekCalendar());
+    setStartWeekDate(
+      startOfWeek(new Date(), {
+        weekStartsOn: 1,
+      })
+    );
     window.scrollTo(0, 0);
-  }, []);
+  }, [update]);
   return (
     <Layout>
       <Box

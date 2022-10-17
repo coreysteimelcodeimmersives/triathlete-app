@@ -74,7 +74,7 @@ const pageSlice = createSlice({
     },
     weekCalendar: () => {
       return {
-        leftIcon: null,
+        leftIcon: 'TodayIcon',
         titleText: 'Calendar',
         rightIcon: 'SettingsIcon',
       };

@@ -7,6 +7,7 @@ import {
 } from './WorkoutLibrarySlice';
 import { pageReducer } from './PageSlice';
 import { workoutLibFilterReducer } from './WorkoutLibFilterSlice';
+import { updateReducer } from './Update';
 
 const preloadedState = JSON.parse(localStorage.getItem('TriCoach.app'))
   ? JSON.parse(localStorage.getItem('TriCoach.app'))
@@ -16,6 +17,7 @@ const preloadedState = JSON.parse(localStorage.getItem('TriCoach.app'))
       workoutLibrary: woLibInitialState,
       page: { rightIcon: '', titleText: 'TriCoach', leftIcon: '' },
       workoutLibFilter: null,
+      update: false,
     };
 
 const store = configureStore({
@@ -25,6 +27,7 @@ const store = configureStore({
     workoutLibrary: workoutLibraryReducer,
     page: pageReducer,
     workoutLibFilter: workoutLibFilterReducer,
+    update: updateReducer,
   },
   preloadedState: preloadedState,
 });

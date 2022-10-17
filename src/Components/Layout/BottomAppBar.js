@@ -14,7 +14,6 @@ import {
   workoutBuilderPage,
   workoutLibraryPage,
   athleteLibraryPage,
-  signInPage,
   weekCalendar,
 } from '../../Redux-State/PageSlice';
 import { clearWorkout } from '../../Redux-State/WorkoutSlice';
@@ -74,13 +73,14 @@ const BottomAppBar = () => {
               aria-label='add'
               onClick={() => {
                 if (page.titleText === 'Wo Builder') {
-                  dispatch(addToWoLib({ workout }));
-                  dispatch(clearWorkout());
-                  navigate('/workout-library');
+                  // dispatch(addToWoLib({ workout }));
+                  // dispatch(clearWorkout());
+                  // navigate('/workout-library');
+                  return;
                 } else {
                   dispatch(clearWorkout());
                   dispatch(workoutBuilderPage());
-                  navigate('/temp-solution');
+                  navigate('/workout-builder');
                 }
               }}
             >

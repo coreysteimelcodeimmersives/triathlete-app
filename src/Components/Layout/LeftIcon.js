@@ -9,12 +9,15 @@ import TuneIcon from '@mui/icons-material/Tune';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { tuneFilterWoLibPage } from '../../Redux-State/PageSlice';
+import TodayIcon from '@mui/icons-material/Today';
+import { doUpdate } from '../../Redux-State/Update';
 
 const LeftIcon = () => {
   const navigate = useNavigate();
   const page = useSelector((state) => state.page);
   const workout = useSelector((state) => state.workout);
   const workoutLibrary = useSelector((state) => state.workoutLibrary);
+  const update = useSelector((state) => state.update);
   const dispatch = useDispatch();
   const returnLeftIcon = () => {
     switch (page.leftIcon) {
@@ -24,7 +27,7 @@ const LeftIcon = () => {
             fontSize='large'
             onClick={() => {
               dispatch(clearWorkout());
-              navigate('/temp-solution');
+              dispatch(doUpdate());
             }}
           />
         );
@@ -93,6 +96,18 @@ const LeftIcon = () => {
             onClick={() => {
               dispatch(selectWorkout(workout));
               navigate('/workout-library-filter');
+            }}
+          />
+        );
+      }
+
+      case 'TodayIcon': {
+        return (
+          <TodayIcon
+            fontSize='large'
+            onClick={() => {
+              dispatch(doUpdate());
+              navigate('/calendar');
             }}
           />
         );

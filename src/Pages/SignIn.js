@@ -25,7 +25,7 @@ const SignIn = () => {
 
   useEffect(() => {
     if (!user) {
-      dispatch(signInPage({}));
+      dispatch(signInPage());
     } else if (!user.isAdmin) {
       dispatch(weekCalendar());
       navigate('/calendar');

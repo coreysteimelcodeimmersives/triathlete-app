@@ -8,7 +8,6 @@ import { Provider } from 'react-redux';
 import SignIn from './Pages/SignIn';
 import WorkoutLibrary from './Pages/WorkoutLibrary';
 import AthleteLibrary from './Pages/AthleteLibrary';
-import TempSolution from './Pages/TempSolution';
 import WorkoutLibraryFilter from './Pages/WorkoutLibraryFilter';
 import TuneFilterWoLib from './Pages/TuneFilterWoLib';
 import Settings from './Pages/Settings';
@@ -28,7 +27,6 @@ function App() {
             <Route path='/workout-library' element={<WorkoutLibrary />} />
             <Route path='/athlete-library' element={<AthleteLibrary />} />
             <Route path='/edit-workout' element={<WorkoutBuilder />} />
-            <Route path='/temp-solution' element={<TempSolution />} />
             <Route
               path='/workout-library-filter'
               element={<WorkoutLibraryFilter />}
