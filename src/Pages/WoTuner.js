@@ -13,7 +13,6 @@ import {
 } from '@mui/material';
 import { Box } from '@mui/system';
 import React, { useState } from 'react';
-import SelectAutoWidth from '../Components/Inputs/SelectAutoWidth';
 import Layout from '../Components/Layout/Layout';
 import { ENERGY_SYSTEMS } from '../Data/EnergySystems';
 
@@ -108,9 +107,11 @@ const WoTuner = () => {
                 </Select>
               </FormControl>
             </Box>
-            <Button variant='contained' sx={{ margin: '5%' }}>
-              Tiny Paws
-            </Button>
+            <Box width={'100%'} display={'flex'} justifyContent={'center'}>
+              <Button variant='contained' sx={{ m: '5%', width: 150 }}>
+                Tiny Paws
+              </Button>
+            </Box>
           </Box>
         </CardActionArea>
       </Card>
