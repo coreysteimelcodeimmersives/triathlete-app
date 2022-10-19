@@ -9,7 +9,7 @@ import SignIn from './Pages/SignIn';
 import WorkoutLibrary from './Pages/WorkoutLibrary';
 import AthleteLibrary from './Pages/AthleteLibrary';
 import WorkoutLibraryFilter from './Pages/WorkoutLibraryFilter';
-import TuneFilterWoLib from './Pages/TuneFilterWoLib';
+import WoTuner from './Pages/WoTuner';
 import Settings from './Pages/Settings';
 import RegisterUser from './Pages/RegisterUser';
 import WeekCalendar from './Pages/WeekCalendar';
@@ -31,7 +31,7 @@ function App() {
               path='/workout-library-filter'
               element={<WorkoutLibraryFilter />}
             />
-            <Route path='/tune-filter' element={<TuneFilterWoLib />} />
+            <Route path='/wo-tuner' element={<WoTuner />} />
             <Route path='/settings' element={<Settings />} />
             <Route path='/register-user' element={<RegisterUser />} />
             <Route path='/calendar' element={<WeekCalendar />} />

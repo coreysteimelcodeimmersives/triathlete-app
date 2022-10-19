@@ -61,8 +61,8 @@ const pageSlice = createSlice({
     tuneFilterWoLibPage: () => {
       return {
         leftIcon: 'ArrowBackIosNewIconFilterWoLib',
-        titleText: 'Filter',
-        rightIcon: 'SettingsIcon',
+        titleText: 'Wo Tuner',
+        rightIcon: null,
       };
     },
     settingsPage: () => {

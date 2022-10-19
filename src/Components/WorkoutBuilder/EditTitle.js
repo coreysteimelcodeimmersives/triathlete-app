@@ -7,12 +7,8 @@ import { updateTitle } from '../../Redux-State/WorkoutSlice';
 const EditTitle = () => {
   const workout = useSelector((state) => state.workout);
   const update = useSelector((state) => state.update);
-  const [workoutData, setWorkoutData] = useState({ ...workout });
   const dispatch = useDispatch();
-  useEffect(() => {
-    console.log(workout);
-    setWorkoutData({ ...workout });
-  }, [workout, update]);
+  useEffect(() => {}, []);
   return (
     <Box
       sx={{

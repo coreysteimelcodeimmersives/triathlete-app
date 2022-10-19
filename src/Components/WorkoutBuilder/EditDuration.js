@@ -10,13 +10,13 @@ const EditDuration = ({ label, keyVar, dispatchFunc }) => {
       id='outlined-number'
       label={label}
       type='number'
-      defaultValue={workout[keyVar] ? workout[keyVar] : ''}
       InputLabelProps={{
         shrink: true,
         style: { color: 'purple' },
         padding: '5%',
       }}
       sx={{ margin: '2%' }}
+      value={workout[keyVar] ? workout[keyVar] : ''}
       onChange={(e) => {
         dispatch(dispatchFunc({ [keyVar]: e.target.value }));
       }}

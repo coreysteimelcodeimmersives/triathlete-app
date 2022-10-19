@@ -48,7 +48,7 @@ const LeftIcon = () => {
             fontSize='large'
             onClick={() => {
               dispatch(tuneFilterWoLibPage());
-              navigate('/tune-filter');
+              navigate('/wo-tuner');
             }}
           />
         );

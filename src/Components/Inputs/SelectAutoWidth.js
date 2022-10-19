@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { InputLabel } from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 const SelectAutoWidth = ({ setMinWidth, label, keyVar, map, dispatchFunc }) => {
   const workout = useSelector((state) => state.workout);
+  const update = useSelector((state) => state.update);
   const [value, setValue] = useState('');
   const dispatch = useDispatch();
 
@@ -15,6 +16,9 @@ const SelectAutoWidth = ({ setMinWidth, label, keyVar, map, dispatchFunc }) => {
     dispatch(dispatchFunc({ [keyVar]: event.target.value }));
   };
 
+  useEffect(() => {
+    setValue('');
+  }, [update]);
   return (
     <div>
       <FormControl sx={{ m: 1, minWidth: setMinWidth }}>

@@ -28,8 +28,8 @@ const EditDistance = () => {
         id='outlined'
         label='Distance'
         type='number'
-        defaultValue={workout.distanceValue ? workout.distanceValue : ''}
         InputLabelProps={{ style: { color: 'purple' } }}
+        value={workout.distanceValue ? workout.distanceValue : ''}
         onChange={(e) => {
           dispatch(updateDistanceValue({ distanceValue: e.target.value }));
         }}
