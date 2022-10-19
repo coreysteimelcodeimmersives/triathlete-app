@@ -7,7 +7,10 @@ import { workoutLibraryPage } from '../Redux-State/PageSlice';
 import { SPORT_TYPES } from '../Data/SportTypes';
 import SportTypeCard from '../Components/Layout/SportTypeCard';
 import { Card, CardActionArea, Typography } from '@mui/material';
-import { clearWorkoutLibFilter } from '../Redux-State/WorkoutLibFilterSlice';
+import {
+  clearWorkoutLibFilter,
+  updateFilterSportType,
+} from '../Redux-State/WorkoutLibFilterSlice';
 import WorkoutIcon from '../Components/WorkoutCard/WorkoutIcon';
 
 const WorkoutLibrary = () => {
@@ -20,6 +23,7 @@ const WorkoutLibrary = () => {
     }
     window.scrollTo(0, 0);
     dispatch(workoutLibraryPage());
+    dispatch(clearWorkoutLibFilter());
   }, []);
 
   return (
@@ -36,7 +40,7 @@ const WorkoutLibrary = () => {
           marginBottom: '3%',
         }}
         onClick={() => {
-          dispatch(clearWorkoutLibFilter());
+          dispatch(updateFilterSportType({ sportType: null }));
           navigate('/workout-library-filter');
         }}
       >
@@ -47,7 +51,7 @@ const WorkoutLibrary = () => {
             alignItems={'center'}
             padding={'3%'}
           >
-            <WorkoutIcon sportType={SPORT_TYPES.CUSTOM}></WorkoutIcon>
+            <WorkoutIcon sportType={null}></WorkoutIcon>
             <Typography
               variant='h4'
               sx={{

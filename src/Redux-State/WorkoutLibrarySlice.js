@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-
 export const woLibInitialState = [];
 
 const workoutLibrarySlice = createSlice({
@@ -7,8 +6,8 @@ const workoutLibrarySlice = createSlice({
   initialState: woLibInitialState,
   reducers: {
     addToWoLib: (state, action) => {
-      const id = Math.ceil(Math.random() * 10000000);
-      return [...state, { id: id, ...action.payload.workout }];
+      // const id = Math.ceil(Math.random() * 10000000);
+      return [...state, { ...action.payload.workout }];
     },
     prescribeToAthlete: (state, action) => {},
     updateWoInWoLib: (state, action) => {

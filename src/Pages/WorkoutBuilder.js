@@ -23,25 +23,35 @@ import {
   updateDurationMinutes,
   updateDurationHours,
   clearWorkout,
+  addId,
 } from '../Redux-State/WorkoutSlice';
 import {
   addToWoLib,
   updateWoInWoLib,
 } from '../Redux-State/WorkoutLibrarySlice';
-import { workoutBuilderPage } from '../Redux-State/PageSlice';
+import {
+  workoutBuilderPage,
+  workoutDetailsPage,
+} from '../Redux-State/PageSlice';
+import { updateWoLibFilter } from '../Redux-State/WorkoutLibFilterSlice';
+import { doUpdate } from '../Redux-State/UpdateSlice';
 
 const WorkoutBuilder = () => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
   const workout = useSelector((state) => state.workout);
   const page = useSelector((state) => state.page);
+  const update = useSelector((state) => state.update);
   const dispatch = useDispatch();
   useEffect(() => {
     if (!user) {
       navigate('/sign-in');
     }
+    if (page.titleText === 'Wo Builder') {
+      dispatch(addId({ id: Math.ceil(Math.random() * 10000000) }));
+    }
     window.scrollTo(0, 0);
-  }, []);
+  }, [update]);
 
   return (
     <Layout>
@@ -117,8 +127,10 @@ const WorkoutBuilder = () => {
             onClick={() => {
               if (page.titleText === 'Wo Builder') {
                 dispatch(addToWoLib({ workout }));
+
                 dispatch(clearWorkout());
-                navigate('/workout-library');
+                dispatch(doUpdate());
+                window.scrollTo(0, 0);
               }
               if (page.titleText === 'Wo Edits') {
                 dispatch(updateWoInWoLib({ workout }));

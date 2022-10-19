@@ -7,7 +7,7 @@ import {
 } from './WorkoutLibrarySlice';
 import { pageReducer } from './PageSlice';
 import { workoutLibFilterReducer } from './WorkoutLibFilterSlice';
-import { updateReducer } from './Update';
+import { updateReducer } from './UpdateSlice';
 
 const preloadedState = JSON.parse(localStorage.getItem('TriCoach.app'))
   ? JSON.parse(localStorage.getItem('TriCoach.app'))

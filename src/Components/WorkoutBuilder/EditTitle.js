@@ -6,7 +6,6 @@ import { updateTitle } from '../../Redux-State/WorkoutSlice';
 
 const EditTitle = () => {
   const workout = useSelector((state) => state.workout);
-  const update = useSelector((state) => state.update);
   const dispatch = useDispatch();
   useEffect(() => {}, []);
   return (
@@ -22,7 +21,6 @@ const EditTitle = () => {
         label='Workout Title'
         type='text'
         InputLabelProps={{ style: { color: 'purple' } }}
-        // defaultValue={workout.title ? workout.title : ''}
         value={workout.title ? workout.title : ''}
         onChange={(e) => {
           dispatch(updateTitle({ title: e.target.value }));

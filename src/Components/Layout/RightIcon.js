@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import SaveIcon from '@mui/icons-material/Save';
-import { clearWorkout } from '../../Redux-State/WorkoutSlice';
+import { addId, clearWorkout } from '../../Redux-State/WorkoutSlice';
 import SettingsIcon from '@mui/icons-material/Settings';
 import EditIcon from '@mui/icons-material/Edit';
 import {
@@ -10,6 +10,7 @@ import {
   updateWoInWoLib,
 } from '../../Redux-State/WorkoutLibrarySlice';
 import { workoutEditPage, settingsPage } from '../../Redux-State/PageSlice';
+import { doUpdate } from '../../Redux-State/UpdateSlice';
 
 const RightIcon = () => {
   const page = useSelector((state) => state.page);
@@ -23,9 +24,11 @@ const RightIcon = () => {
           <SaveIcon
             fontSize='large'
             onClick={() => {
+              dispatch(addId({ id: Math.ceil(Math.random() * 10000000) }));
               dispatch(addToWoLib({ workout }));
               dispatch(clearWorkout());
-              navigate('/workout-library');
+              dispatch(doUpdate());
+              // navigate('/workout-library');
             }}
           />
         );

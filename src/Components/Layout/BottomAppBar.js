@@ -75,7 +75,7 @@ const BottomAppBar = () => {
                 if (page.titleText === 'Wo Builder') {
                   // dispatch(addToWoLib({ workout }));
                   // dispatch(clearWorkout());
-                  // navigate('/workout-library');
+                  // navigate('/workout-details');
                   return;
                 } else {
                   dispatch(clearWorkout());

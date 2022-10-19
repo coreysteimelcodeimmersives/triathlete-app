@@ -5,7 +5,7 @@ import { Box } from '@mui/system';
 import WorkoutIcon from '../WorkoutCard/WorkoutIcon';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { updateWoLibFilter } from '../../Redux-State/WorkoutLibFilterSlice';
+import { updateFilterSportType } from '../../Redux-State/WorkoutLibFilterSlice';
 
 const SportTypeCard = ({ sportType }) => {
   const navigate = useNavigate();
@@ -19,7 +19,7 @@ const SportTypeCard = ({ sportType }) => {
         marginBottom: '3%',
       }}
       onClick={() => {
-        dispatch(updateWoLibFilter({ key: 'sportType', value: sportType }));
+        dispatch(updateFilterSportType({ sportType: sportType }));
         navigate('/workout-library-filter');
       }}
     >

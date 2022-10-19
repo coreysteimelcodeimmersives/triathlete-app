@@ -55,7 +55,7 @@ const pageSlice = createSlice({
         titleText: SPORT_TYPES[action.payload]
           ? SPORT_TYPES[action.payload]
           : 'Other',
-        rightIcon: 'SettingsIcon',
+        rightIcon: null,
       };
     },
     tuneFilterWoLibPage: () => {

@@ -20,6 +20,10 @@ const workoutSlice = createSlice({
   name: 'workout',
   initialState: {},
   reducers: {
+    addId: (state, action) => {
+      console.log('add id');
+      return { ...state, id: action.payload.id };
+    },
     updateTitle: (state, action) => {
       return { ...state, title: action.payload.title };
     },
@@ -66,6 +70,7 @@ const workoutSlice = createSlice({
 });
 
 export const {
+  addId,
   updateTitle,
   updateSportType,
   updateEnergySystem,

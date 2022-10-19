@@ -4,8 +4,8 @@ import DirectionsBikeIcon from '@mui/icons-material/DirectionsBike';
 import DirectionsRunIcon from '@mui/icons-material/DirectionsRun';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import TimerIcon from '@mui/icons-material/Timer';
+import SportsGymnasticsIcon from '@mui/icons-material/SportsGymnastics';
 import { SPORT_TYPES } from '../../Data/SportTypes';
-import { Box } from '@mui/system';
 
 const WorkoutIcon = ({ sportType }) => {
   const returnSportTypeIcon = () => {
@@ -53,10 +53,10 @@ const WorkoutIcon = ({ sportType }) => {
 
       default: {
         return (
-          <TimerIcon
+          <SportsGymnasticsIcon
             color='error'
             sx={{ fontSize: 50, marginRight: '3%' }}
-          ></TimerIcon>
+          ></SportsGymnasticsIcon>
         );
       }
     }

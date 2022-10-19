@@ -1,45 +1,71 @@
 import {
   Button,
-  Card,
-  CardActionArea,
   Checkbox,
   FormControl,
   FormControlLabel,
   FormGroup,
-  InputLabel,
-  MenuItem,
-  Select,
+  FormLabel,
+  Paper,
+  Radio,
+  RadioGroup,
   Typography,
 } from '@mui/material';
 import { Box } from '@mui/system';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import Layout from '../Components/Layout/Layout';
 import { ENERGY_SYSTEMS } from '../Data/EnergySystems';
+import { tuneFilterWoLibPage } from '../Redux-State/PageSlice';
+import {
+  updateFilterEnergySystem,
+  updateFilterCriteria,
+  updateFilterOrder,
+  selectAllEnergySystems,
+} from '../Redux-State/WorkoutLibFilterSlice';
 
 const WoTuner = () => {
-  const [criteria, setCriteria] = useState('');
-  const [order, setOrder] = useState('');
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const user = useSelector((state) => state.user);
+  const workoutLibFilter = useSelector((state) => state.workoutLibFilter);
+
+  const handleCheckClick = (event) => {
+    console.log(event.target.checked);
+
+    console.log(ENERGY_SYSTEMS[event.target.id]);
+  };
 
   const handleCriteriaChange = (event) => {
-    setCriteria(event.target.value);
-    console.log('Sort Criteria is ... ', event.target.value);
+    dispatch(updateFilterCriteria({ criteria: event.target.value }));
   };
 
   const handleOrderChange = (event) => {
-    setOrder(event.target.value);
-    console.log('Sort Order is ... ', event.target.value);
+    dispatch(updateFilterOrder({ order: event.target.value }));
   };
+
+  useEffect(() => {
+    if (!user) {
+      navigate('/sign-in');
+      window.scrollTo(0, 0);
+    }
+    window.scrollTo(0, 0);
+    dispatch(tuneFilterWoLibPage());
+  }, []);
 
   return (
     <Layout>
-      <Card
-        sx={{
-          display: 'flex',
-          mx: '3%',
-          marginBottom: '3%',
-        }}
-      >
-        <CardActionArea>
+      <Box display={'flex'} flexDirection={'column'} alignItems={'center'}>
+        <Paper
+          elevation={3}
+          sx={{
+            width: '95%',
+            display: 'flex',
+            flexDirection: 'column',
+            flexWrap: 'true',
+            marginBottom: '10vh',
+          }}
+        >
           <Box
             display={'flex'}
             flexDirection={'column'}
@@ -48,73 +74,153 @@ const WoTuner = () => {
           >
             <Typography variant='h6'>Energy Systems</Typography>
             <FormGroup>
-              {Object.keys(ENERGY_SYSTEMS).map((energy) => {
+              {Object.keys(ENERGY_SYSTEMS).map((energy, idx) => {
                 return (
                   <FormControlLabel
                     key={energy}
-                    control={<Checkbox sx={{ color: 'purple' }} />}
+                    control={
+                      <Checkbox
+                        id={energy}
+                        sx={{ color: 'purple' }}
+                        checked={workoutLibFilter.energySystem[idx]}
+                        onClick={handleCheckClick}
+                      />
+                    }
                     label={ENERGY_SYSTEMS[energy]}
                     sx={{ color: 'purple' }}
                   ></FormControlLabel>
                 );
               })}
             </FormGroup>
-            <Typography variant='h6'>Sort</Typography>
             <Box
               display={'flex'}
               flexDirection={'row'}
-              justifyContent={'space-evenly'}
+              width={'100%'}
+              justifyContent={'space-around'}
+            >
+              <Button
+                variant='contained'
+                sx={{ m: '2%' }}
+                onClick={() => {
+                  dispatch(updateFilterEnergySystem({ energySystem: [] }));
+                }}
+              >
+                Clear All
+              </Button>
+              <Button
+                variant='contained'
+                sx={{ m: '2%' }}
+                onClick={() => {
+                  dispatch(selectAllEnergySystems());
+                }}
+              >
+                Select All
+              </Button>
+            </Box>
+            <Box
+              display={'flex'}
+              flexDirection={'row'}
+              justifyContent={'center'}
               width={'100%'}
             >
-              <FormControl sx={{ m: 1, minWidth: '40%' }}>
-                <InputLabel
-                  id='demo-simple-select-label'
+              <Typography variant='h6'>Sort</Typography>
+            </Box>
+            <Box
+              display={'flex'}
+              flexDirection={'row'}
+              justifyContent={'space-around'}
+              width={'100%'}
+            >
+              <FormControl>
+                <FormLabel
+                  id='demo-radio-buttons-group-label'
                   sx={{ color: 'purple' }}
                 >
                   Criteria
-                </InputLabel>
-                <Select
-                  labelId='demo-simple-select-label'
-                  id='demo-simple-select'
-                  value={criteria}
-                  label='Criteria'
+                </FormLabel>
+                <RadioGroup
+                  aria-labelledby='demo-radio-buttons-group-label'
+                  value={workoutLibFilter.criteria}
+                  name='radio-buttons-group'
                   onChange={handleCriteriaChange}
-                  autoWidth
-                  label={'Criteria'}
                 >
-                  <MenuItem value={'title'}>Title</MenuItem>
-                  <MenuItem value={'totalDuration'}>Duration</MenuItem>
-                </Select>
+                  <FormControlLabel
+                    value='title'
+                    control={
+                      <Radio
+                        sx={{
+                          color: 'purple',
+                          '&.Mui-checked': {
+                            color: 'purple',
+                          },
+                        }}
+                      />
+                    }
+                    label='Title'
+                  />
+                  <FormControlLabel
+                    value='totalDuration'
+                    control={
+                      <Radio
+                        sx={{
+                          color: 'purple',
+                          '&.Mui-checked': {
+                            color: 'purple',
+                          },
+                        }}
+                      />
+                    }
+                    label='Duration'
+                  />
+                </RadioGroup>
               </FormControl>
-              <FormControl sx={{ m: 1, minWidth: '40%' }}>
-                <InputLabel
-                  id='demo-simple-select-label'
+              <FormControl>
+                <FormLabel
+                  id='demo-radio-buttons-group-label'
                   sx={{ color: 'purple' }}
                 >
                   Order
-                </InputLabel>
-                <Select
-                  labelId='demo-simple-select-label'
-                  id='demo-simple-select'
-                  value={order}
-                  label='Order'
+                </FormLabel>
+                <RadioGroup
+                  aria-labelledby='demo-radio-buttons-group-label'
+                  value={workoutLibFilter.order}
+                  name='radio-buttons-group'
                   onChange={handleOrderChange}
-                  autoWidth
-                  label={'Order'}
                 >
-                  <MenuItem value={'asc'}>Ascending</MenuItem>
-                  <MenuItem value={'desc'}>Descending</MenuItem>
-                </Select>
+                  <FormControlLabel
+                    value='asc'
+                    control={
+                      <Radio
+                        sx={{
+                          color: 'purple',
+                          '&.Mui-checked': {
+                            color: 'purple',
+                          },
+                        }}
+                      />
+                    }
+                    label='Ascend'
+                  />
+                  <FormControlLabel
+                    value='desc'
+                    control={
+                      <Radio
+                        sx={{
+                          color: 'purple',
+                          '&.Mui-checked': {
+                            color: 'purple',
+                          },
+                        }}
+                      />
+                    }
+                    label='Descend'
+                  />
+                </RadioGroup>
               </FormControl>
             </Box>
-            <Box width={'100%'} display={'flex'} justifyContent={'center'}>
-              <Button variant='contained' sx={{ m: '5%', width: 150 }}>
-                Tiny Paws
-              </Button>
-            </Box>
           </Box>
-        </CardActionArea>
-      </Card>
+        </Paper>
+      </Box>
     </Layout>
   );
 };
