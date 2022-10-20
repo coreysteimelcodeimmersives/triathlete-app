@@ -11,11 +11,13 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { tuneFilterWoLibPage } from '../../Redux-State/PageSlice';
 import TodayIcon from '@mui/icons-material/Today';
 import { doUpdate } from '../../Redux-State/UpdateSlice';
+import { copyWoLib } from '../../Redux-State/FilteredSortedWoLibSlice';
 
 const LeftIcon = () => {
   const navigate = useNavigate();
   const page = useSelector((state) => state.page);
   const workout = useSelector((state) => state.workout);
+  const workoutLibrary = useSelector((state) => state.workoutLibrary);
 
   const dispatch = useDispatch();
   const returnLeftIcon = () => {
@@ -46,6 +48,7 @@ const LeftIcon = () => {
           <TuneIcon
             fontSize='large'
             onClick={() => {
+              dispatch(copyWoLib(workoutLibrary));
               dispatch(tuneFilterWoLibPage());
               navigate('/wo-tuner');
             }}
@@ -93,7 +96,7 @@ const LeftIcon = () => {
           <ArrowBackIosNewIcon
             fontSize='large'
             onClick={() => {
-              dispatch(selectWorkout(workout));
+              // dispatch(selectWorkout(workout));
               navigate('/workout-library-filter');
             }}
           />

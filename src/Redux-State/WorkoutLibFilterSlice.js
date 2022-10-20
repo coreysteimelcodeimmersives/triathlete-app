@@ -3,13 +3,14 @@ import { ENERGY_SYSTEMS } from '../Data/EnergySystems';
 
 export const workoutLibFilterIntVal = {
   sportType: null,
-  energySystem: [
-    { [ENERGY_SYSTEMS.N_M]: true },
-    { [ENERGY_SYSTEMS.A_C]: true },
-    { [ENERGY_SYSTEMS.F_T_P]: true },
-    { [ENERGY_SYSTEMS.SUB_T]: true },
-    { [ENERGY_SYSTEMS.AEROBIC_BASE]: true },
-  ],
+  energySystem: {
+    [ENERGY_SYSTEMS.N_M]: true,
+    [ENERGY_SYSTEMS.A_C]: true,
+    [ENERGY_SYSTEMS.F_T_P]: true,
+    [ENERGY_SYSTEMS.M_A_P]: false,
+    [ENERGY_SYSTEMS.SUB_T]: true,
+    [ENERGY_SYSTEMS.AEROBIC_BASE]: true,
+  },
   criteria: 'title',
   order: 'asc',
 };
@@ -22,7 +23,13 @@ const workoutLibFilterSlice = createSlice({
       return { ...state, sportType: action.payload.sportType };
     },
     updateFilterEnergySystem: (state, action) => {
-      return { ...state, energySystem: action.payload.energySystem };
+      return {
+        ...state,
+        energySystem: {
+          ...state.energySystem,
+          [action.payload.key]: action.payload.value,
+        },
+      };
     },
     updateFilterCriteria: (state, action) => {
       return { ...state, criteria: action.payload.criteria };
@@ -36,13 +43,27 @@ const workoutLibFilterSlice = createSlice({
     selectAllEnergySystems: (state, action) => {
       return {
         ...state,
-        energySystem: [
-          { [ENERGY_SYSTEMS.N_M]: true },
-          { [ENERGY_SYSTEMS.A_C]: true },
-          { [ENERGY_SYSTEMS.F_T_P]: true },
-          { [ENERGY_SYSTEMS.SUB_T]: true },
-          { [ENERGY_SYSTEMS.AEROBIC_BASE]: true },
-        ],
+        energySystem: {
+          [ENERGY_SYSTEMS.N_M]: true,
+          [ENERGY_SYSTEMS.A_C]: true,
+          [ENERGY_SYSTEMS.F_T_P]: true,
+          [ENERGY_SYSTEMS.M_A_P]: true,
+          [ENERGY_SYSTEMS.SUB_T]: true,
+          [ENERGY_SYSTEMS.AEROBIC_BASE]: true,
+        },
+      };
+    },
+    clearAllEnergySystems: (state, action) => {
+      return {
+        ...state,
+        energySystem: {
+          [ENERGY_SYSTEMS.N_M]: false,
+          [ENERGY_SYSTEMS.A_C]: false,
+          [ENERGY_SYSTEMS.F_T_P]: false,
+          [ENERGY_SYSTEMS.M_A_P]: false,
+          [ENERGY_SYSTEMS.SUB_T]: false,
+          [ENERGY_SYSTEMS.AEROBIC_BASE]: false,
+        },
       };
     },
   },
@@ -55,5 +76,6 @@ export const {
   updateFilterOrder,
   clearWorkoutLibFilter,
   selectAllEnergySystems,
+  clearAllEnergySystems,
 } = workoutLibFilterSlice.actions;
 export const { reducer: workoutLibFilterReducer } = workoutLibFilterSlice;

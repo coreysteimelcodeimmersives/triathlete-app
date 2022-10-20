@@ -12,10 +12,15 @@ import {
   updateFilterSportType,
 } from '../Redux-State/WorkoutLibFilterSlice';
 import WorkoutIcon from '../Components/WorkoutCard/WorkoutIcon';
+import {
+  copyWoLib,
+  filterWoLibBySportType,
+} from '../Redux-State/FilteredSortedWoLibSlice';
 
 const WorkoutLibrary = () => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
+  const workoutLibrary = useSelector((state) => state.workoutLibrary);
   const dispatch = useDispatch();
   useEffect(() => {
     if (!user) {
@@ -24,6 +29,7 @@ const WorkoutLibrary = () => {
     window.scrollTo(0, 0);
     dispatch(workoutLibraryPage());
     dispatch(clearWorkoutLibFilter());
+    dispatch(copyWoLib(workoutLibrary));
   }, []);
 
   return (
@@ -41,6 +47,9 @@ const WorkoutLibrary = () => {
         }}
         onClick={() => {
           dispatch(updateFilterSportType({ sportType: null }));
+          dispatch(
+            filterWoLibBySportType({ woLib: workoutLibrary, sportType: null })
+          );
           navigate('/workout-library-filter');
         }}
       >

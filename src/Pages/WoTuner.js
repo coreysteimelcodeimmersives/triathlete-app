@@ -16,24 +16,55 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Layout from '../Components/Layout/Layout';
 import { ENERGY_SYSTEMS } from '../Data/EnergySystems';
+import {
+  copyWoLib,
+  filterWoLibByEnergySystem,
+  filterWoLibBySportType,
+} from '../Redux-State/FilteredSortedWoLibSlice';
 import { tuneFilterWoLibPage } from '../Redux-State/PageSlice';
 import {
   updateFilterEnergySystem,
   updateFilterCriteria,
   updateFilterOrder,
   selectAllEnergySystems,
+  clearAllEnergySystems,
 } from '../Redux-State/WorkoutLibFilterSlice';
 
 const WoTuner = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
+  const workoutLibrary = useSelector((state) => state.workoutLibrary);
   const workoutLibFilter = useSelector((state) => state.workoutLibFilter);
+  const filteredSortedWoLib = useSelector((state) => state.filteredSortedWoLib);
+
+  const handleFilterAndSort = async () => {
+    await dispatch(copyWoLib(workoutLibrary));
+    await dispatch(
+      filterWoLibBySportType({
+        woLib: workoutLibrary,
+        sportType: workoutLibFilter.sportType,
+      })
+    );
+    await dispatch(
+      filterWoLibByEnergySystem({
+        woLib: filteredSortedWoLib,
+        engSysFilter: workoutLibFilter.energySystem,
+      })
+    );
+    navigate('/workout-library-filter');
+  };
 
   const handleCheckClick = (event) => {
     console.log(event.target.checked);
 
     console.log(ENERGY_SYSTEMS[event.target.id]);
+    dispatch(
+      updateFilterEnergySystem({
+        key: ENERGY_SYSTEMS[event.target.id],
+        value: event.target.checked,
+      })
+    );
   };
 
   const handleCriteriaChange = (event) => {
@@ -51,6 +82,12 @@ const WoTuner = () => {
     }
     window.scrollTo(0, 0);
     dispatch(tuneFilterWoLibPage());
+    dispatch(
+      filterWoLibBySportType({
+        woLib: workoutLibrary,
+        sportType: workoutLibFilter.sportType,
+      })
+    );
   }, []);
 
   return (
@@ -70,7 +107,7 @@ const WoTuner = () => {
             display={'flex'}
             flexDirection={'column'}
             alignItems={'center'}
-            padding={'3%'}
+            padding={'1%'}
           >
             <Typography variant='h6'>Energy Systems</Typography>
             <FormGroup>
@@ -82,7 +119,9 @@ const WoTuner = () => {
                       <Checkbox
                         id={energy}
                         sx={{ color: 'purple' }}
-                        checked={workoutLibFilter.energySystem[idx]}
+                        checked={
+                          workoutLibFilter.energySystem[ENERGY_SYSTEMS[energy]]
+                        }
                         onClick={handleCheckClick}
                       />
                     }
@@ -102,7 +141,7 @@ const WoTuner = () => {
                 variant='contained'
                 sx={{ m: '2%' }}
                 onClick={() => {
-                  dispatch(updateFilterEnergySystem({ energySystem: [] }));
+                  dispatch(clearAllEnergySystems());
                 }}
               >
                 Clear All
@@ -218,6 +257,13 @@ const WoTuner = () => {
                 </RadioGroup>
               </FormControl>
             </Box>
+            <Button
+              variant='contained'
+              sx={{ m: '2%' }}
+              onClick={handleFilterAndSort}
+            >
+              Filter & Sort
+            </Button>
           </Box>
         </Paper>
       </Box>

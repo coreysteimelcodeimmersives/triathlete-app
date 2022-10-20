@@ -11,60 +11,81 @@ const WorkoutLibraryFilter = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
-  const workoutLibrary = useSelector((state) => state.workoutLibrary);
+  const filteredSortedWoLib = useSelector((state) => state.filteredSortedWoLib);
+  // const workoutLibrary = useSelector((state) => state.workoutLibrary);
   const workoutLibFilter = useSelector((state) => state.workoutLibFilter);
-  const [filteredWoLibArr, setFilteredWoLibArr] = useState(workoutLibrary);
+  // const [filteredWoLibArr, setFilteredWoLibArr] = useState(workoutLibrary);
 
-  const applySportTypeFilterToWoLib = () => {
-    if (!workoutLibFilter.sportType) {
-      setFilteredWoLibArr(
-        workoutLibrary.filter((workout) => {
-          return !workout.hasOwnProperty('sportType');
-        })
-      );
-    } else {
-      // First Filter By Sport Type
-      setFilteredWoLibArr(
-        workoutLibrary.filter((workout) => {
-          return workout.sportType === workoutLibFilter.sportType;
-        })
-      );
-      // Second Filter By Energy
+  // const filterBySportType = () => {
+  //   if (!workoutLibFilter.sportType) {
+  //     setFilteredWoLibArr(
+  //       workoutLibrary.filter((workout) => {
+  //         return !workout.hasOwnProperty('sportType');
+  //       })
+  //     );
+  //   } else {
+  //     // First Filter By Sport Type
+  //     setFilteredWoLibArr(
+  //       workoutLibrary.filter((workout) => {
+  //         return workout.sportType === workoutLibFilter.sportType;
+  //       })
+  //     );
+  //   }
+  // };
 
-      // setFilteredWoLibArr(
-      //   filteredWoLibArr.filter((workout) => {
-      //     if (
-      //       workoutLibFilter.energySystem.includes(
-      //         ENERGY_SYSTEMS[workout.energySystem]
-      //       )
-      //     ) {
-      //       return workout;
-      //     }
-      //   })
-      // );
-      // Third Sort
-      // switch (workoutLibFilter.sort) {
-      //   case 'titleAsc': {
-      //     const titleAsc = filteredWoLibArr.sort();
-      //     // return setFilteredWoLibArr(titleAsc);
-      //   }
-      //   case 'titleDesc': {
-      //     const titleDesc = filteredWoLibArr.reverse();
-      //     console.log(titleDesc);
-      //     // return setFilteredWoLibArr(titleDesc);
-      //   }
-      //   default: {
-      //     // const titleAsc = filteredWoLibArr.sort();
-      //     // return setFilteredWoLibArr(titleAsc);
-      //   }
-      // }
-    }
-
-    //durationAsc: null,
-    // durationDesc: null,
-    // titleAsc: true,
-    // titleDesc: null,
-  };
+  // // Second Filter By Energy
+  // const filterByEnergySystem = (copyFilterWoLibArr) => {
+  //   // const copyFilterWoLibArr = filteredWoLibArr;
+  //   // setFilteredWoLibArr(
+  //   copyFilterWoLibArr.filter((workout) => {
+  //     // if (
+  //     //   workoutLibFilter.energySystem[ENERGY_SYSTEMS][workout.energySystem]
+  //     // ) {
+  //     return workout;
+  //     // }
+  //   });
+  //   // );
+  // };
+  // //Third Sort
+  // const sortByTitleFilteredWoLibArr = (copyFilterWoLibArr) => {
+  //   if (workoutLibFilter.criteria === 'title') {
+  //     // const copyFilterWoLibArr = filteredWoLibArr;
+  //     if (workoutLibFilter.order === 'asc') {
+  //       // setFilteredWoLibArr(
+  //       copyFilterWoLibArr.sort((a, b) => {
+  //         let fa = a.title.toLowerCase(),
+  //           fb = b.title.toLowerCase();
+  //         if (fa < fb) {
+  //           return -1;
+  //         }
+  //         if (fa > fb) {
+  //           return 1;
+  //         }
+  //         return 0;
+  //       });
+  //       // );
+  //       return;
+  //     }
+  //     if (workoutLibFilter.order === 'desc') {
+  //       // setFilteredWoLibArr(
+  //       copyFilterWoLibArr.sort((a, b) => {
+  //         let fa = a.title.toLowerCase(),
+  //           fb = b.title.toLowerCase();
+  //         if (fa < fb) {
+  //           return 1;
+  //         }
+  //         if (fa > fb) {
+  //           return -1;
+  //         }
+  //         return 0;
+  //       });
+  //       // );
+  //       return;
+  //     }
+  //     return;
+  //   }
+  //   return;
+  // };
 
   useEffect(() => {
     if (!user) {
@@ -72,18 +93,22 @@ const WorkoutLibraryFilter = () => {
     }
     window.scrollTo(0, 0);
     dispatch(woLibFilterPage(workoutLibFilter.sportType));
-    applySportTypeFilterToWoLib();
-  }, [workoutLibFilter]);
+    // filterBySportType();
+    // const filteredWoLibEnergySysArr = filterByEnergySystem(
+    //   filteredWoLibSportTypeArr
+    // );
+    // const sortedWoLibArr = sortByTitleFilteredWoLibArr(
+    //   filteredWoLibEnergySysArr
+    // );
+  }, []);
 
-  console.log(filteredWoLibArr);
   return (
     <Layout>
-      {workoutLibrary &&
-        filteredWoLibArr.map((workout) => {
-          return (
-            <WorkoutCard key={workout.id} workoutId={workout.id}></WorkoutCard>
-          );
-        })}
+      {filteredSortedWoLib.map((workout) => {
+        return (
+          <WorkoutCard key={workout.id} workoutId={workout.id}></WorkoutCard>
+        );
+      })}
       <Box marginBottom={'10vh'}></Box>
     </Layout>
   );
