@@ -19,6 +19,8 @@ import {
 import { clearWorkout } from '../../Redux-State/WorkoutSlice';
 import { addToWoLib } from '../../Redux-State/WorkoutLibrarySlice';
 import PendingActionsIcon from '@mui/icons-material/PendingActions';
+import { clearWorkoutLibFilter } from '../../Redux-State/WorkoutLibFilterSlice';
+import { doUpdate } from '../../Redux-State/UpdateSlice';
 
 const StyledFab = styled(Fab)({
   position: 'absolute',
@@ -90,7 +92,9 @@ const BottomAppBar = () => {
             <IconButton
               color='inherit'
               onClick={() => {
+                dispatch(doUpdate());
                 dispatch(workoutLibraryPage());
+                dispatch(clearWorkoutLibFilter());
                 navigate('/workout-library');
               }}
             >

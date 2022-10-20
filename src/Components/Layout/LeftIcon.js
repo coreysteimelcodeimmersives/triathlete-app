@@ -11,13 +11,24 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { tuneFilterWoLibPage } from '../../Redux-State/PageSlice';
 import TodayIcon from '@mui/icons-material/Today';
 import { doUpdate } from '../../Redux-State/UpdateSlice';
-import { copyWoLib } from '../../Redux-State/FilteredSortedWoLibSlice';
+import {
+  copyWoLib,
+  filterAndSortCopyWoLib,
+  filterWoLibBySportType,
+} from '../../Redux-State/FilteredSortedWoLibSlice';
+import {
+  copyWorkoutLibFilter,
+  hardSetWorkoutLibFilter,
+  updateFilterSportType,
+} from '../../Redux-State/WorkoutLibFilterSlice';
 
 const LeftIcon = () => {
   const navigate = useNavigate();
   const page = useSelector((state) => state.page);
   const workout = useSelector((state) => state.workout);
   const workoutLibrary = useSelector((state) => state.workoutLibrary);
+  const workoutLibFilter = useSelector((state) => state.workoutLibFilter);
+  const filteredSortedWoLib = useSelector((state) => state.filteredSortedWoLib);
 
   const dispatch = useDispatch();
   const returnLeftIcon = () => {
@@ -49,6 +60,7 @@ const LeftIcon = () => {
             fontSize='large'
             onClick={() => {
               dispatch(copyWoLib(workoutLibrary));
+              dispatch(copyWorkoutLibFilter(workoutLibFilter));
               dispatch(tuneFilterWoLibPage());
               navigate('/wo-tuner');
             }}
@@ -84,7 +96,12 @@ const LeftIcon = () => {
           <ArrowBackIosNewIcon
             fontSize='large'
             onClick={() => {
-              dispatch(selectWorkout(workout));
+              dispatch(
+                filterWoLibBySportType({
+                  woLib: workoutLibrary,
+                  sportType: workout.sportType,
+                })
+              );
               navigate('/workout-library-filter');
             }}
           />
@@ -96,7 +113,13 @@ const LeftIcon = () => {
           <ArrowBackIosNewIcon
             fontSize='large'
             onClick={() => {
-              // dispatch(selectWorkout(workout));
+              dispatch(hardSetWorkoutLibFilter(workoutLibFilter.copy));
+              dispatch(
+                filterAndSortCopyWoLib({
+                  woLib: filteredSortedWoLib,
+                  engSysFilter: workoutLibFilter.copy.energySystem,
+                })
+              );
               navigate('/workout-library-filter');
             }}
           />

@@ -23,13 +23,13 @@ const RightIcon = () => {
         return (
           <SaveIcon
             fontSize='large'
-            onClick={() => {
-              dispatch(addId({ id: Math.ceil(Math.random() * 10000000) }));
-              dispatch(addToWoLib({ workout }));
-              dispatch(clearWorkout());
-              dispatch(doUpdate());
-              // navigate('/workout-library');
-            }}
+            // onClick={() => {
+            //   dispatch(addId({ id: Math.ceil(Math.random() * 10000000) }));
+            //   dispatch(addToWoLib({ workout }));
+            //   dispatch(clearWorkout());
+            //   dispatch(doUpdate());
+            // navigate('/workout-library');
+            // }}
           />
         );
       }

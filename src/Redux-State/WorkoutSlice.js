@@ -16,6 +16,22 @@ export const woInitialState = {
   athleteNotes: '',
 };
 
+const getDurObj = (hours, mins) => {
+  const hoursToMins = Number(hours) * 60;
+  console.log(hoursToMins);
+  const totalDuration = hoursToMins + Number(mins);
+  console.log(totalDuration);
+  const newHours = Math.floor(totalDuration / 60);
+  console.log(newHours);
+  const newMins = totalDuration % 60;
+  console.log(newMins);
+  return {
+    totalDuration: totalDuration,
+    durationHours: newHours,
+    durationMinutes: newMins,
+  };
+};
+
 const workoutSlice = createSlice({
   name: 'workout',
   initialState: {},
@@ -33,11 +49,24 @@ const workoutSlice = createSlice({
     updateEnergySystem: (state, action) => {
       return { ...state, energySystem: action.payload.energySystem };
     },
-    updateDurationHours: (state, action) => {
-      return { ...state, durationHours: action.payload.durationHours };
-    },
-    updateDurationMinutes: (state, action) => {
-      return { ...state, durationMinutes: action.payload.durationMinutes };
+    updateDuration: (state, action) => {
+      let hours = action.payload.durationHours;
+      if (!hours) {
+        hours = 0;
+      }
+      console.log(hours);
+      let mins = action.payload.durationMinutes;
+      if (!mins) {
+        mins = 0;
+      }
+      console.log(mins);
+      const durObj = getDurObj(hours, mins);
+      return {
+        ...state,
+        durationMinutes: durObj.durationMinutes,
+        durationHours: durObj.durationHours,
+        totalDuration: durObj.totalDuration,
+      };
     },
     updateDistanceValue: (state, action) => {
       return { ...state, distanceValue: action.payload.distanceValue };
@@ -74,8 +103,7 @@ export const {
   updateTitle,
   updateSportType,
   updateEnergySystem,
-  updateDurationHours,
-  updateDurationMinutes,
+  updateDuration,
   updateDistanceValue,
   updateDistanceUnits,
   updateWarmUp,

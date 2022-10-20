@@ -7,7 +7,7 @@ export const workoutLibFilterIntVal = {
     [ENERGY_SYSTEMS.N_M]: true,
     [ENERGY_SYSTEMS.A_C]: true,
     [ENERGY_SYSTEMS.F_T_P]: true,
-    [ENERGY_SYSTEMS.M_A_P]: false,
+    [ENERGY_SYSTEMS.M_A_P]: true,
     [ENERGY_SYSTEMS.SUB_T]: true,
     [ENERGY_SYSTEMS.AEROBIC_BASE]: true,
   },
@@ -39,6 +39,12 @@ const workoutLibFilterSlice = createSlice({
     },
     clearWorkoutLibFilter: () => {
       return workoutLibFilterIntVal;
+    },
+    copyWorkoutLibFilter: (state, action) => {
+      return { ...state, copy: { ...action.payload, copy: undefined } };
+    },
+    hardSetWorkoutLibFilter: (state, action) => {
+      return { ...action.payload, copy: undefined };
     },
     selectAllEnergySystems: (state, action) => {
       return {
@@ -75,6 +81,8 @@ export const {
   updateFilterCriteria,
   updateFilterOrder,
   clearWorkoutLibFilter,
+  copyWorkoutLibFilter,
+  hardSetWorkoutLibFilter,
   selectAllEnergySystems,
   clearAllEnergySystems,
 } = workoutLibFilterSlice.actions;

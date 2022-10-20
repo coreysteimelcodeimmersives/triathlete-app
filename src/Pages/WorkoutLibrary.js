@@ -6,16 +6,8 @@ import { Box } from '@mui/system';
 import { workoutLibraryPage } from '../Redux-State/PageSlice';
 import { SPORT_TYPES } from '../Data/SportTypes';
 import SportTypeCard from '../Components/Layout/SportTypeCard';
-import { Card, CardActionArea, Typography } from '@mui/material';
-import {
-  clearWorkoutLibFilter,
-  updateFilterSportType,
-} from '../Redux-State/WorkoutLibFilterSlice';
-import WorkoutIcon from '../Components/WorkoutCard/WorkoutIcon';
-import {
-  copyWoLib,
-  filterWoLibBySportType,
-} from '../Redux-State/FilteredSortedWoLibSlice';
+import { clearWorkoutLibFilter } from '../Redux-State/WorkoutLibFilterSlice';
+import { copyWoLib } from '../Redux-State/FilteredSortedWoLibSlice';
 
 const WorkoutLibrary = () => {
   const navigate = useNavigate();
@@ -39,47 +31,6 @@ const WorkoutLibrary = () => {
           <SportTypeCard key={sportType} sportType={sportType}></SportTypeCard>
         );
       })}
-      <Card
-        sx={{
-          display: 'flex',
-          mx: '3%',
-          marginBottom: '3%',
-        }}
-        onClick={() => {
-          dispatch(updateFilterSportType({ sportType: null }));
-          dispatch(
-            filterWoLibBySportType({ woLib: workoutLibrary, sportType: null })
-          );
-          navigate('/workout-library-filter');
-        }}
-      >
-        <CardActionArea>
-          <Box
-            display={'flex'}
-            flexDirection={'row'}
-            alignItems={'center'}
-            padding={'3%'}
-          >
-            <WorkoutIcon sportType={null}></WorkoutIcon>
-            <Typography
-              variant='h4'
-              sx={{
-                display: { xs: 'flex', md: 'none' },
-                fontFamily: 'monospace',
-                fontWeight: 700,
-                letterSpacing: '.3rem',
-                color: 'black',
-                textDecoration: 'none',
-                width: '70%',
-                px: '10%',
-                justifyContent: 'center',
-              }}
-            >
-              OTHER
-            </Typography>
-          </Box>
-        </CardActionArea>
-      </Card>
       <Box marginBottom={'10vh'}></Box>
     </Layout>
   );

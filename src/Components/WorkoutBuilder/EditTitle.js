@@ -4,7 +4,7 @@ import TextField from '@mui/material/TextField';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateTitle } from '../../Redux-State/WorkoutSlice';
 
-const EditTitle = () => {
+const EditTitle = ({ error }) => {
   const workout = useSelector((state) => state.workout);
   const dispatch = useDispatch();
   useEffect(() => {}, []);
@@ -25,6 +25,8 @@ const EditTitle = () => {
         onChange={(e) => {
           dispatch(updateTitle({ title: e.target.value }));
         }}
+        required
+        error={error}
       ></TextField>
     </Box>
   );

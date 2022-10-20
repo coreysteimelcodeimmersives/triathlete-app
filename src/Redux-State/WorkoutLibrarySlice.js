@@ -6,15 +6,12 @@ const workoutLibrarySlice = createSlice({
   initialState: woLibInitialState,
   reducers: {
     addToWoLib: (state, action) => {
-      // const id = Math.ceil(Math.random() * 10000000);
       return [...state, { ...action.payload.workout }];
     },
     prescribeToAthlete: (state, action) => {},
     updateWoInWoLib: (state, action) => {
-      console.log(action.payload);
       return state.map((workout) => {
         if (workout.id === action.payload.workout.id) {
-          console.log('found it');
           return action.payload.workout;
         }
         return workout;

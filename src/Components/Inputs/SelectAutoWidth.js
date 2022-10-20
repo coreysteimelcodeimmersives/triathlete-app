@@ -5,7 +5,15 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { useDispatch, useSelector } from 'react-redux';
 
-const SelectAutoWidth = ({ setMinWidth, label, keyVar, map, dispatchFunc }) => {
+const SelectAutoWidth = ({
+  setMinWidth,
+  label,
+  keyVar,
+  map,
+  dispatchFunc,
+  required,
+  error,
+}) => {
   const workout = useSelector((state) => state.workout);
   const update = useSelector((state) => state.update);
   const [value, setValue] = useState('');
@@ -21,7 +29,11 @@ const SelectAutoWidth = ({ setMinWidth, label, keyVar, map, dispatchFunc }) => {
   }, [update]);
   return (
     <div>
-      <FormControl sx={{ m: 1, minWidth: setMinWidth }}>
+      <FormControl
+        error={error}
+        required={required}
+        sx={{ m: 0.5, minWidth: setMinWidth }}
+      >
         <InputLabel
           id='demo-simple-select-autowidth-label'
           sx={{ color: 'purple' }}
@@ -34,7 +46,7 @@ const SelectAutoWidth = ({ setMinWidth, label, keyVar, map, dispatchFunc }) => {
           value={workout[keyVar] ? workout[keyVar] : value}
           onChange={handleChange}
           autoWidth
-          label={label}
+          label={`${label}*`}
         >
           <MenuItem value=''>
             <em>None</em>

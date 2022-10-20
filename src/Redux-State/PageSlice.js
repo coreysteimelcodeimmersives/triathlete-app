@@ -16,7 +16,7 @@ const pageSlice = createSlice({
       return {
         leftIcon: 'ClearIconNewWorkout',
         titleText: 'Wo Builder',
-        rightIcon: 'SaveIconNewWorkout',
+        rightIcon: null,
         bottomButton: 'Add to Workout Library',
       };
     },
@@ -38,7 +38,7 @@ const pageSlice = createSlice({
       return {
         leftIcon: 'ArrowBackIosNewIconWoEdit',
         titleText: 'Wo Edits',
-        rightIcon: 'SaveIconSelectedWorkout',
+        rightIcon: null,
         bottomButton: 'Update Workout',
       };
     },

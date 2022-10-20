@@ -16,12 +16,9 @@ const EditDistance = () => {
     <Box
       display={'flex'}
       flexDirection={'row'}
-      component='form'
       sx={{
         width: '75vw',
       }}
-      noValidate
-      autoComplete='off'
     >
       <TextField
         sx={{ m: 1, marginLeft: '3%' }}
@@ -40,6 +37,8 @@ const EditDistance = () => {
         keyVar={'distanceUnits'}
         map={DISTANCE_ABV}
         dispatchFunc={updateDistanceUnits}
+        required={false}
+        error={false}
       ></SelectAutoWidth>
     </Box>
   );

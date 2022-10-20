@@ -18,8 +18,9 @@ import Layout from '../Components/Layout/Layout';
 import { ENERGY_SYSTEMS } from '../Data/EnergySystems';
 import {
   copyWoLib,
-  filterWoLibByEnergySystem,
+  filterAndSortCopyWoLib,
   filterWoLibBySportType,
+  sortWoLibByDurationAsc,
 } from '../Redux-State/FilteredSortedWoLibSlice';
 import { tuneFilterWoLibPage } from '../Redux-State/PageSlice';
 import {
@@ -38,27 +39,19 @@ const WoTuner = () => {
   const workoutLibFilter = useSelector((state) => state.workoutLibFilter);
   const filteredSortedWoLib = useSelector((state) => state.filteredSortedWoLib);
 
-  const handleFilterAndSort = async () => {
-    await dispatch(copyWoLib(workoutLibrary));
-    await dispatch(
-      filterWoLibBySportType({
-        woLib: workoutLibrary,
-        sportType: workoutLibFilter.sportType,
-      })
-    );
-    await dispatch(
-      filterWoLibByEnergySystem({
+  const handleFilterAndSort = () => {
+    dispatch(
+      filterAndSortCopyWoLib({
         woLib: filteredSortedWoLib,
         engSysFilter: workoutLibFilter.energySystem,
+        criteria: workoutLibFilter.criteria,
+        order: workoutLibFilter.order,
       })
     );
     navigate('/workout-library-filter');
   };
 
   const handleCheckClick = (event) => {
-    console.log(event.target.checked);
-
-    console.log(ENERGY_SYSTEMS[event.target.id]);
     dispatch(
       updateFilterEnergySystem({
         key: ENERGY_SYSTEMS[event.target.id],
@@ -111,7 +104,7 @@ const WoTuner = () => {
           >
             <Typography variant='h6'>Energy Systems</Typography>
             <FormGroup>
-              {Object.keys(ENERGY_SYSTEMS).map((energy, idx) => {
+              {Object.keys(ENERGY_SYSTEMS).map((energy) => {
                 return (
                   <FormControlLabel
                     key={energy}
