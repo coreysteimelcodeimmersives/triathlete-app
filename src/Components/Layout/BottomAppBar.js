@@ -17,7 +17,6 @@ import {
   weekCalendar,
 } from '../../Redux-State/PageSlice';
 import { clearWorkout } from '../../Redux-State/WorkoutSlice';
-import { addToWoLib } from '../../Redux-State/WorkoutLibrarySlice';
 import PendingActionsIcon from '@mui/icons-material/PendingActions';
 import { clearWorkoutLibFilter } from '../../Redux-State/WorkoutLibFilterSlice';
 import { doUpdate } from '../../Redux-State/UpdateSlice';
@@ -35,7 +34,6 @@ const BottomAppBar = () => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
   const page = useSelector((state) => state.page);
-  const workout = useSelector((state) => state.workout);
   const dispatch = useDispatch();
   return (
     <>
@@ -63,7 +61,6 @@ const BottomAppBar = () => {
                 color='inherit'
                 label='Training Calendar'
                 onClick={() => {
-                  dispatch(weekCalendar());
                   navigate('/calendar');
                 }}
               >
@@ -75,9 +72,6 @@ const BottomAppBar = () => {
               aria-label='add'
               onClick={() => {
                 if (page.titleText === 'Wo Builder') {
-                  // dispatch(addToWoLib({ workout }));
-                  // dispatch(clearWorkout());
-                  // navigate('/workout-details');
                   return;
                 } else {
                   dispatch(clearWorkout());
@@ -93,7 +87,6 @@ const BottomAppBar = () => {
               color='inherit'
               onClick={() => {
                 dispatch(doUpdate());
-                dispatch(workoutLibraryPage());
                 dispatch(clearWorkoutLibFilter());
                 navigate('/workout-library');
               }}

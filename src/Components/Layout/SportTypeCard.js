@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Card from '@mui/material/Card';
 import { CardActionArea, Typography } from '@mui/material';
 import { Box } from '@mui/system';
@@ -42,7 +42,6 @@ const SportTypeCard = ({ sportType }) => {
           <Typography
             variant='h4'
             sx={{
-              display: { xs: 'flex', md: 'none' },
               fontFamily: 'monospace',
               fontWeight: 700,
               letterSpacing: '.3rem',

@@ -18,7 +18,7 @@ const preloadedState = JSON.parse(localStorage.getItem('TriCoach.app'))
       workoutLibrary: woLibInitialState,
       page: { rightIcon: '', titleText: 'TriCoach', leftIcon: '' },
       workoutLibFilter: null,
-      update: false,
+      update: { general: false, woBuilder: false },
       filteredSortedWoLib: [],
     };
 

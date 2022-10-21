@@ -44,7 +44,6 @@ const SignIn = () => {
       const fetchedUser = response.data.user;
       dispatch(signIn(fetchedUser));
       setError('');
-
       navigate('/calendar');
     } catch (e) {
       console.log(e);

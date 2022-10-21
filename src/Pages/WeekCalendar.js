@@ -3,7 +3,7 @@ import Layout from '../Components/Layout/Layout';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { weekCalendar } from '../Redux-State/PageSlice';
-import { Box, Card, CardActionArea, Typography } from '@mui/material';
+import { Box, Card, Typography } from '@mui/material';
 import addDays from 'date-fns/addDays';
 import startOfWeek from 'date-fns/startOfWeek';
 import format from 'date-fns/format';
@@ -20,7 +20,7 @@ const WeekCalendar = () => {
   );
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
-  const update = useSelector((state) => state.update);
+  const update = useSelector((state) => state.update.general);
   const dispatch = useDispatch();
   const daysOfWeek = [
     'Monday',
@@ -61,13 +61,11 @@ const WeekCalendar = () => {
         <Typography
           variant='h6'
           sx={{
-            display: { xs: 'flex', md: 'none' },
             fontFamily: 'monospace',
             fontWeight: 900,
             letterSpacing: '.05rem',
             color: 'purple',
             textDecoration: 'none',
-            width: '70%',
             px: '10%',
             justifyContent: 'center',
           }}

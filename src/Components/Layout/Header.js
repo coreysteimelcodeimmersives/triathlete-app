@@ -14,21 +14,18 @@ const ResponsiveAppBar = () => {
 
   return (
     <>
-      <AppBar position='static'>
-        <Container maxWidth='xl'>
+      <AppBar position='static' sx={{ width: '100vw' }}>
+        <Container>
           <Toolbar
             disableGutters
-            sx={{ display: 'flex', justifyContent: 'space-around' }}
+            sx={{
+              display: 'flex',
+              justifyContent: 'space-between',
+            }}
           >
-            <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
+            <Box>
               {page.rightIcon !== '' && (
-                <IconButton
-                  size='large'
-                  aria-label='account of current user'
-                  aria-controls='menu-appbar'
-                  aria-haspopup='true'
-                  color='inherit'
-                >
+                <IconButton size='large' color='inherit'>
                   <LeftIcon />
                 </IconButton>
               )}
@@ -36,29 +33,20 @@ const ResponsiveAppBar = () => {
             <Typography
               variant='h5'
               sx={{
-                display: { xs: 'flex', md: 'none' },
                 fontFamily: 'monospace',
                 fontWeight: 900,
                 letterSpacing: '.05rem',
                 color: 'inherit',
                 textDecoration: 'none',
-                width: '70%',
                 px: '10%',
                 justifyContent: 'center',
               }}
             >
               {!page.titleText ? 'TriCoach' : page.titleText}
             </Typography>
-
             <Box sx={{}}>
               {page.leftIcon !== '' && (
-                <IconButton
-                  size='large'
-                  aria-label='account of current user'
-                  aria-controls='menu-appbar'
-                  aria-haspopup='true'
-                  color='inherit'
-                >
+                <IconButton size='large' color='inherit'>
                   <RightIcon />
                 </IconButton>
               )}

@@ -3,30 +3,32 @@ import { InputLabel } from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 const SelectAutoWidth = ({
   setMinWidth,
   label,
   keyVar,
   map,
-  dispatchFunc,
   required,
   error,
+  workoutBuilderForm,
+  setWorkoutBuilderForm,
 }) => {
-  const workout = useSelector((state) => state.workout);
-  const update = useSelector((state) => state.update);
+  const woUpdate = useSelector((state) => state.update.woBuilder);
   const [value, setValue] = useState('');
-  const dispatch = useDispatch();
 
   const handleChange = (event) => {
     setValue(event.target.value);
-    dispatch(dispatchFunc({ [keyVar]: event.target.value }));
+    setWorkoutBuilderForm({
+      ...workoutBuilderForm,
+      [keyVar]: event.target.value,
+    });
   };
 
   useEffect(() => {
     setValue('');
-  }, [update]);
+  }, [woUpdate]);
   return (
     <div>
       <FormControl
@@ -43,7 +45,9 @@ const SelectAutoWidth = ({
         <Select
           labelId='demo-simple-select-autowidth-label'
           id='demo-simple-select-autowidth'
-          value={workout[keyVar] ? workout[keyVar] : value}
+          value={
+            workoutBuilderForm[keyVar] ? workoutBuilderForm[keyVar] : value
+          }
           onChange={handleChange}
           autoWidth
           label={`${label}*`}

@@ -10,7 +10,7 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { tuneFilterWoLibPage } from '../../Redux-State/PageSlice';
 import TodayIcon from '@mui/icons-material/Today';
-import { doUpdate } from '../../Redux-State/UpdateSlice';
+import { doClearWoBuilderForm, doUpdate } from '../../Redux-State/UpdateSlice';
 import {
   copyWoLib,
   filterAndSortCopyWoLib,
@@ -38,8 +38,8 @@ const LeftIcon = () => {
           <ClearIcon
             fontSize='large'
             onClick={() => {
-              dispatch(clearWorkout());
-              dispatch(doUpdate());
+              // dispatch(clearWorkout());
+              dispatch(doClearWoBuilderForm());
             }}
           />
         );

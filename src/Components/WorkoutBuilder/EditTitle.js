@@ -1,17 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import { useSelector, useDispatch } from 'react-redux';
-import { updateTitle } from '../../Redux-State/WorkoutSlice';
+import { useSelector } from 'react-redux';
 
-const EditTitle = ({ error }) => {
-  const workout = useSelector((state) => state.workout);
-  const dispatch = useDispatch();
-  useEffect(() => {}, []);
+const EditTitle = ({ error, workoutBuilderForm, setWorkoutBuilderForm }) => {
   return (
     <Box
       sx={{
-        '& > :not(style)': { m: 1, width: '95%' },
+        '& > :not(style)': { m: 1, width: '97%' },
+        display: 'flex',
+        justifyContent: 'center',
       }}
       noValidate
       autoComplete='off'
@@ -21,9 +19,12 @@ const EditTitle = ({ error }) => {
         label='Workout Title'
         type='text'
         InputLabelProps={{ style: { color: 'purple' } }}
-        value={workout.title ? workout.title : ''}
+        value={workoutBuilderForm.title ? workoutBuilderForm.title : ''}
         onChange={(e) => {
-          dispatch(updateTitle({ title: e.target.value }));
+          setWorkoutBuilderForm({
+            ...workoutBuilderForm,
+            title: e.target.value,
+          });
         }}
         required
         error={error}

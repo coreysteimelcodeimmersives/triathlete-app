@@ -4,20 +4,36 @@ import { useSelector, useDispatch } from 'react-redux';
 import { updateDuration } from '../../Redux-State/WorkoutSlice';
 import { doUpdate } from '../../Redux-State/UpdateSlice';
 
-const EditDuration = ({ label, keyVar, oppVar, error }) => {
-  const workout = useSelector((state) => state.workout);
-  const update = useSelector((state) => state.update);
+const EditDuration = ({
+  label,
+  keyVar,
+  oppVar,
+  error,
+  workoutBuilderForm,
+  setWorkoutBuilderForm,
+}) => {
   const dispatch = useDispatch();
+  const update = useSelector((state) => state.update.general);
+  const [durValue, setDurValue] = useState(Number(workoutBuilderForm[keyVar]));
 
-  const [durValue, setDurValue] = useState(Number(workout[keyVar]));
+  const handleChange = (e) => {
+    // setDurValue(Number(e.target.value));
+    setWorkoutBuilderForm({
+      ...workoutBuilderForm,
+      [keyVar]: Number(e.target.value),
+      [oppVar]: Number(workoutBuilderForm[oppVar]),
+    });
+    dispatch(doUpdate());
+  };
 
   useEffect(() => {
-    if (Number(workout[keyVar]) === 0) {
+    if (Number(workoutBuilderForm[keyVar]) === 0) {
       setDurValue('0');
       return;
     }
-    setDurValue(Number(workout[keyVar]));
-  }, [workout.totalDuration, update]);
+
+    setDurValue(Number(workoutBuilderForm[keyVar]));
+  }, [workoutBuilderForm.totalDuration, update]);
 
   return (
     <TextField
@@ -32,15 +48,8 @@ const EditDuration = ({ label, keyVar, oppVar, error }) => {
       }}
       sx={{ margin: '2%' }}
       value={durValue}
-      onChange={(e) => {
-        dispatch(
-          updateDuration({
-            [keyVar]: Number(e.target.value),
-            [oppVar]: Number(workout[oppVar]),
-          })
-        );
-        dispatch(doUpdate());
-      }}
+      // value={workoutBuilderForm[keyVar]}
+      onChange={handleChange}
       required
     />
   );

@@ -5,7 +5,12 @@ import BottomAppBar from './BottomAppBar';
 const Layout = (props) => {
   const { children } = props;
   return (
-    <Box display='flex' flexDirection='column' maxHeight='100vh'>
+    <Box
+      display='flex'
+      flexDirection='column'
+      maxHeight='100vh'
+      maxWidth={'100vw'}
+    >
       <Box>
         <ResponsiveAppBar />
       </Box>

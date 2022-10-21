@@ -25,7 +25,7 @@ const modules = {
 
 const QuillEditor = ({ keyVar, dispatchFunc }) => {
   const workout = useSelector((state) => state.workout);
-  const update = useSelector((state) => state.update);
+  const update = useSelector((state) => state.update.woBuilder);
   const [value, setValue] = useState(workout[keyVar] ? workout[keyVar] : '');
   const editorRef = useRef();
   const dispatch = useDispatch();
