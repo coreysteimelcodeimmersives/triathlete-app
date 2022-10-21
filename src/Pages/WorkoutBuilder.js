@@ -12,16 +12,7 @@ import SelectAutoWidth from '../Components/Inputs/SelectAutoWidth';
 import EditDuration from '../Components/WorkoutBuilder/EditDuration';
 import EditDistance from '../Components/WorkoutBuilder/EditDistance';
 import EditWorkoutQuill from '../Components/WorkoutBuilder/EditWorkoutQuill';
-import {
-  updateSportType,
-  updateEnergySystem,
-  updateWarmUp,
-  updateMainSet,
-  updateCoolDown,
-  updateSpecialNotes,
-  updateAthleteNotes,
-  addId,
-} from '../Redux-State/WorkoutSlice';
+import { selectWorkout } from '../Redux-State/WorkoutSlice';
 import {
   addToWoLib,
   updateWoInWoLib,
@@ -32,6 +23,7 @@ import { workoutBuilderPage } from '../Redux-State/PageSlice';
 
 const WorkoutBuilder = () => {
   const initialWo = {
+    id: Math.ceil(Math.random() * 10000000),
     title: '',
     sportType: '',
     energySystem: '',
@@ -63,13 +55,9 @@ const WorkoutBuilder = () => {
 
   const getDurObj = (hours, mins) => {
     const hoursToMins = Number(hours) * 60;
-    console.log(hoursToMins);
     const totalDuration = hoursToMins + Number(mins);
-    console.log(totalDuration);
     const newHours = Math.floor(totalDuration / 60);
-    console.log(newHours);
     const newMins = totalDuration % 60;
-    console.log(newMins);
     return {
       totalDuration: totalDuration,
       durationHours: newHours,
@@ -79,40 +67,53 @@ const WorkoutBuilder = () => {
 
   const dispatch = useDispatch();
 
+  const handleResetReqFields = () => {
+    if (!workoutBuilderForm.title) {
+      setTitleError(true);
+    } else {
+      setTitleError(false);
+    }
+    if (!workoutBuilderForm.sportType) {
+      setSportTypeError(true);
+    } else {
+      setSportTypeError(false);
+    }
+    if (!workoutBuilderForm.energySystem) {
+      setEnergySystemError(true);
+    } else {
+      setEnergySystemError(false);
+    }
+    if (!workoutBuilderForm.totalDuration) {
+      setTotalDurationError(true);
+    } else {
+      setTotalDurationError(false);
+    }
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
+    console.log('submit wo');
+    console.log(workoutBuilderForm);
+
     try {
       if (page.titleText === 'Wo Builder') {
-        dispatch(addToWoLib({ workout }));
+        dispatch(selectWorkout(workoutBuilderForm));
+        dispatch(addToWoLib({ workout: workoutBuilderForm }));
       }
       if (page.titleText === 'Wo Edits') {
-        dispatch(updateWoInWoLib({ workout }));
+        dispatch(selectWorkout(workoutBuilderForm));
+        dispatch(updateWoInWoLib({ workout: workoutBuilderForm }));
       }
-      dispatch(copyWoLib(workoutLibrary));
-      dispatch(updateFilterSportType({ sportType: workout.sportType }));
       navigate('/workout-details');
     } catch (e) {}
   };
 
   useEffect(() => {
-    if (!user) {
-      navigate('/sign-in');
-    }
-    if (page.titleText === 'Wo Edits') {
-      setWorkoutBuilderForm({ ...workout });
-    }
-    if (page.titleText !== 'Wo Builder' || page.titleText !== 'Wo Edits') {
-      dispatch(workoutBuilderPage());
-    }
-
-    window.scrollTo(0, 0);
-  }, []);
-
-  useEffect(() => {
-    // if (page.titleText === 'Wo Builder') {
-    console.log('here');
     setWorkoutBuilderForm({ ...initialWo });
-    // }
+    setTitleError(false);
+    setSportTypeError(false);
+    setEnergySystemError(false);
+    setTotalDurationError(false);
   }, [woUpdate]);
 
   useEffect(() => {
@@ -127,6 +128,21 @@ const WorkoutBuilder = () => {
       totalDuration: durObj.totalDuration,
     });
   }, [generalUpdate]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    if (!user) {
+      navigate('/sign-in');
+      return;
+    }
+    if (page.titleText === 'Wo Edits') {
+      setWorkoutBuilderForm(workout);
+      return;
+    }
+    if (page.titleText !== 'Wo Builder' || page.titleText !== 'Wo Edits') {
+      dispatch(workoutBuilderPage());
+    }
+  }, []);
 
   return (
     <Layout>
@@ -163,7 +179,7 @@ const WorkoutBuilder = () => {
                 setWorkoutBuilderForm={setWorkoutBuilderForm}
               ></SelectAutoWidth>
               <SelectAutoWidth
-                setMinWidth={160}
+                setMinWidth={205}
                 label={'Energy System'}
                 keyVar={'energySystem'}
                 map={ENERGY_ABV}
@@ -202,54 +218,38 @@ const WorkoutBuilder = () => {
             <EditWorkoutQuill
               label={'Warm Up'}
               keyVar={'warmUp'}
-              dispatchFunc={updateWarmUp}
+              workoutBuilderForm={workoutBuilderForm}
+              setWorkoutBuilderForm={setWorkoutBuilderForm}
             ></EditWorkoutQuill>
             <EditWorkoutQuill
               label={'Main Set'}
               keyVar={'mainSet'}
-              dispatchFunc={updateMainSet}
+              workoutBuilderForm={workoutBuilderForm}
+              setWorkoutBuilderForm={setWorkoutBuilderForm}
             ></EditWorkoutQuill>
             <EditWorkoutQuill
               label={'Cool Down'}
               keyVar={'coolDown'}
-              dispatchFunc={updateCoolDown}
+              workoutBuilderForm={workoutBuilderForm}
+              setWorkoutBuilderForm={setWorkoutBuilderForm}
             ></EditWorkoutQuill>
             <EditWorkoutQuill
               label={'Special Notes From Coach'}
               keyVar={'specialNotes'}
-              dispatchFunc={updateSpecialNotes}
+              workoutBuilderForm={workoutBuilderForm}
+              setWorkoutBuilderForm={setWorkoutBuilderForm}
             ></EditWorkoutQuill>
             <EditWorkoutQuill
               label={'Athlete Notes'}
               keyVar={'athleteNotes'}
-              dispatchFunc={updateAthleteNotes}
+              workoutBuilderForm={workoutBuilderForm}
+              setWorkoutBuilderForm={setWorkoutBuilderForm}
             ></EditWorkoutQuill>
             <Button
               variant='contained'
               sx={{ margin: '5%', marginTop: '-2%' }}
               type='form'
-              onClick={() => {
-                if (!workoutBuilderForm.title) {
-                  setTitleError(true);
-                } else {
-                  setTitleError(false);
-                }
-                if (!workout.sportType) {
-                  setSportTypeError(true);
-                } else {
-                  setSportTypeError(false);
-                }
-                if (!workout.energySystem) {
-                  setEnergySystemError(true);
-                } else {
-                  setEnergySystemError(false);
-                }
-                if (!workout.totalDuration) {
-                  setTotalDurationError(true);
-                } else {
-                  setTotalDurationError(false);
-                }
-              }}
+              onClick={handleResetReqFields}
             >
               {page.bottomButton}
             </Button>

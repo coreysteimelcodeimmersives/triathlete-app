@@ -8,18 +8,23 @@ import { workoutDetailsPage, workoutEditPage } from '../Redux-State/PageSlice';
 import WorkoutCard from '../Components/WorkoutCard/WorkoutCard';
 import ViewWorkoutQuill from '../Components/WorkoutDetails/ViewWorkoutQuill';
 import { deleteWoFromWoLib } from '../Redux-State/WorkoutLibrarySlice';
+import { copyWoLib } from '../Redux-State/FilteredSortedWoLibSlice';
+import { updateFilterSportType } from '../Redux-State/WorkoutLibFilterSlice';
 
 const WorkoutDetails = () => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const workout = useSelector((state) => state.workout);
+  const workoutLibrary = useSelector((state) => state.workoutLibrary);
   useEffect(() => {
     if (!user) {
       navigate('/sign-in');
     }
     window.scrollTo(0, 0);
     dispatch(workoutDetailsPage());
+    dispatch(copyWoLib(workoutLibrary));
+    dispatch(updateFilterSportType({ sportType: workout.sportType }));
   }, []);
   return (
     <Layout>

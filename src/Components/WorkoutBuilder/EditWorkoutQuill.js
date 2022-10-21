@@ -2,7 +2,12 @@ import React from 'react';
 import QuillEditor from '../Quill/QuillEditor';
 import { Box } from '@mui/system';
 
-const EditWorkoutQuill = ({ label, keyVar, dispatchFunc }) => {
+const EditWorkoutQuill = ({
+  label,
+  keyVar,
+  workoutBuilderForm,
+  setWorkoutBuilderForm,
+}) => {
   return (
     <Box
       id='outlined-read-only-input'
@@ -14,7 +19,11 @@ const EditWorkoutQuill = ({ label, keyVar, dispatchFunc }) => {
       }}
     >
       {label}
-      <QuillEditor keyVar={keyVar} dispatchFunc={dispatchFunc}></QuillEditor>
+      <QuillEditor
+        keyVar={keyVar}
+        workoutBuilderForm={workoutBuilderForm}
+        setWorkoutBuilderForm={setWorkoutBuilderForm}
+      ></QuillEditor>
     </Box>
   );
 };

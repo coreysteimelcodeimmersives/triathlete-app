@@ -1,10 +1,25 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box } from '@mui/system';
 import { TextField } from '@mui/material';
 import SelectAutoWidth from '../Inputs/SelectAutoWidth';
 import { DISTANCE_ABV } from '../../Data/DistanceUnits';
 
 const EditDistance = ({ workoutBuilderForm, setWorkoutBuilderForm }) => {
+  const [value, setValue] = useState(Number(workoutBuilderForm.distanceValue));
+  const handleChange = (e) => {
+    setWorkoutBuilderForm({
+      ...workoutBuilderForm,
+      distanceValue: e.target.value,
+    });
+  };
+  useEffect(() => {
+    if (Number(workoutBuilderForm.distanceValue) === 0) {
+      setValue('');
+      return;
+    }
+    setValue(workoutBuilderForm.distanceValue);
+  }, [workoutBuilderForm.distanceValue]);
+
   return (
     <Box
       display={'flex'}
@@ -21,17 +36,9 @@ const EditDistance = ({ workoutBuilderForm, setWorkoutBuilderForm }) => {
         label='Distance'
         type='number'
         InputLabelProps={{ style: { color: 'purple' } }}
-        value={
-          workoutBuilderForm.distanceValue
-            ? workoutBuilderForm.distanceValue
-            : ''
-        }
-        onChange={(e) => {
-          setWorkoutBuilderForm({
-            ...workoutBuilderForm,
-            distanceValue: e.target.value,
-          });
-        }}
+        value={value}
+        onChange={handleChange}
+        autoComplete='false'
       ></TextField>
       <SelectAutoWidth
         setMinWidth={80}

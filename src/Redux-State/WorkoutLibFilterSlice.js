@@ -20,7 +20,7 @@ const workoutLibFilterSlice = createSlice({
   initialState: workoutLibFilterIntVal,
   reducers: {
     updateFilterSportType: (state, action) => {
-      return { ...state, sportType: action.payload.sportType };
+      return { ...workoutLibFilterIntVal, sportType: action.payload.sportType };
     },
     updateFilterEnergySystem: (state, action) => {
       return {

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { TextField } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
-import { updateDuration } from '../../Redux-State/WorkoutSlice';
 import { doUpdate } from '../../Redux-State/UpdateSlice';
 
 const EditDuration = ({
@@ -17,7 +16,6 @@ const EditDuration = ({
   const [durValue, setDurValue] = useState(Number(workoutBuilderForm[keyVar]));
 
   const handleChange = (e) => {
-    // setDurValue(Number(e.target.value));
     setWorkoutBuilderForm({
       ...workoutBuilderForm,
       [keyVar]: Number(e.target.value),
@@ -48,7 +46,6 @@ const EditDuration = ({
       }}
       sx={{ margin: '2%' }}
       value={durValue}
-      // value={workoutBuilderForm[keyVar]}
       onChange={handleChange}
       required
     />

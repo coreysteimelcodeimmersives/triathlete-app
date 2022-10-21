@@ -23,20 +23,22 @@ const modules = {
   ],
 };
 
-const QuillEditor = ({ keyVar, dispatchFunc }) => {
-  const workout = useSelector((state) => state.workout);
+const QuillEditor = ({ keyVar, workoutBuilderForm, setWorkoutBuilderForm }) => {
   const update = useSelector((state) => state.update.woBuilder);
-  const [value, setValue] = useState(workout[keyVar] ? workout[keyVar] : '');
+  const [value, setValue] = useState(workoutBuilderForm[keyVar]);
   const editorRef = useRef();
-  const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(dispatchFunc({ [keyVar]: value }));
+    setWorkoutBuilderForm({ ...workoutBuilderForm, [keyVar]: value });
   }, [value]);
 
   useEffect(() => {
     setValue('');
   }, [update]);
+
+  useEffect(() => {
+    setValue(workoutBuilderForm[keyVar]);
+  }, []);
 
   return (
     <ReactQuill
