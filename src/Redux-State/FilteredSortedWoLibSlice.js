@@ -67,6 +67,9 @@ const filteredSortedWoLibSlice = createSlice({
       sortWoLib(woLib, action.payload.criteria, action.payload.order);
       return woLib;
     },
+    clearFilteredSortedLib: () => {
+      return [];
+    },
   },
 });
 
@@ -78,5 +81,6 @@ export const {
   sortWoLibByTitleDesc,
   sortWoLibByDurationAsc,
   sortWoLibByDurationDesc,
+  clearFilteredSortedLib,
 } = filteredSortedWoLibSlice.actions;
 export const { reducer: filteredSortedWoLibReducer } = filteredSortedWoLibSlice;

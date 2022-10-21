@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import Axios from '../Utils/Axios';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { Paper } from '@mui/material';
+import { Paper, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import Layout from '../Components/Layout/Layout';
 import EditTitle from '../Components/WorkoutBuilder/EditTitle';
@@ -23,7 +24,7 @@ import { workoutBuilderPage } from '../Redux-State/PageSlice';
 
 const WorkoutBuilder = () => {
   const initialWo = {
-    id: Math.ceil(Math.random() * 10000000),
+    // id: Math.ceil(Math.random() * 10000000),
     title: '',
     sportType: '',
     energySystem: '',
@@ -45,6 +46,7 @@ const WorkoutBuilder = () => {
   const page = useSelector((state) => state.page);
   const generalUpdate = useSelector((state) => state.update.general);
   const woUpdate = useSelector((state) => state.update.woBuilder);
+  const [error, setError] = useState('');
   const [titleError, setTitleError] = useState(false);
   const [sportTypeError, setSportTypeError] = useState(false);
   const [energySystemError, setEnergySystemError] = useState(false);
@@ -90,15 +92,16 @@ const WorkoutBuilder = () => {
     }
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log('submit wo');
-    console.log(workoutBuilderForm);
-
     try {
       if (page.titleText === 'Wo Builder') {
-        dispatch(selectWorkout(workoutBuilderForm));
-        dispatch(addToWoLib({ workout: workoutBuilderForm }));
+        const woRes = await Axios.post('/add-workout', {
+          workoutData: { ...workoutBuilderForm },
+        });
+        dispatch(selectWorkout(woRes.data.workout));
+        dispatch(addToWoLib({ workout: woRes.data.workout }));
+        setError('');
       }
       if (page.titleText === 'Wo Edits') {
         dispatch(selectWorkout(workoutBuilderForm));
@@ -253,6 +256,9 @@ const WorkoutBuilder = () => {
             >
               {page.bottomButton}
             </Button>
+            <Box sx={{ margin: '5%' }}>
+              <Typography sx={{ color: 'red' }}>{error}</Typography>
+            </Box>
           </Paper>
         </Box>
       </form>

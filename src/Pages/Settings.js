@@ -6,6 +6,11 @@ import { Button, Typography } from '@mui/material';
 import { signOut } from '../Redux-State/UserSlice';
 import { Box } from '@mui/system';
 import Axios from '../Utils/Axios';
+import { clearWorkout } from '../Redux-State/WorkoutSlice';
+import { clearWorkoutLibrary } from '../Redux-State/WorkoutLibrarySlice';
+import { signInPage } from '../Redux-State/PageSlice';
+import { clearWorkoutLibFilter } from '../Redux-State/WorkoutLibFilterSlice';
+import { clearFilteredSortedLib } from '../Redux-State/FilteredSortedWoLibSlice';
 
 const Settings = () => {
   const navigate = useNavigate();
@@ -22,9 +27,14 @@ const Settings = () => {
   const handleSignOut = async () => {
     try {
       await Axios.get('/sign-out');
+      dispatch(clearWorkout());
+      dispatch(clearWorkoutLibrary());
+      dispatch(signInPage());
+      dispatch(clearWorkoutLibFilter());
+      dispatch(clearFilteredSortedLib());
       dispatch(signOut());
       setError('');
-      navigate('/');
+      navigate('/sign-in');
     } catch (e) {
       console.log(e);
       setError(e.response ? e.response.data : e.message);

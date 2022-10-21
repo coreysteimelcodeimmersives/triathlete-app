@@ -26,7 +26,7 @@ const RegisterUser = () => {
       });
       const { user } = response.data;
       dispatch(signIn(user));
-      navigate('/athlete-library');
+      navigate('/calendar');
     } catch (e) {
       console.log(e);
       setError(e.message);

@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import Axios from '../Utils/Axios';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Layout from '../Components/Layout/Layout';
@@ -8,6 +9,7 @@ import { SPORT_TYPES } from '../Data/SportTypes';
 import SportTypeCard from '../Components/Layout/SportTypeCard';
 import { clearWorkoutLibFilter } from '../Redux-State/WorkoutLibFilterSlice';
 import { copyWoLib } from '../Redux-State/FilteredSortedWoLibSlice';
+import { hardUpdate } from '../Redux-State/WorkoutLibrarySlice';
 
 const WorkoutLibrary = () => {
   const navigate = useNavigate();
@@ -15,10 +17,15 @@ const WorkoutLibrary = () => {
   const workoutLibrary = useSelector((state) => state.workoutLibrary);
   const dispatch = useDispatch();
   useEffect(() => {
+    const updateWoLib = async () => {
+      const libRes = await Axios.get('/get-workouts');
+      dispatch(hardUpdate(libRes.data.workouts));
+    };
     if (!user) {
       navigate('/sign-in');
     }
     window.scrollTo(0, 0);
+    updateWoLib();
     dispatch(workoutLibraryPage());
     dispatch(clearWorkoutLibFilter());
     dispatch(copyWoLib(workoutLibrary));

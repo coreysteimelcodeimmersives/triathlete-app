@@ -44,7 +44,11 @@ const SignIn = () => {
       const fetchedUser = response.data.user;
       dispatch(signIn(fetchedUser));
       setError('');
-      navigate('/calendar');
+      if (fetchedUser.isAdmin) {
+        navigate('/athlete-library');
+      } else {
+        navigate('/calendar');
+      }
     } catch (e) {
       console.log(e);
       setError(e.response ? e.response.data : e.message);

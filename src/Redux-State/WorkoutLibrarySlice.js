@@ -5,6 +5,9 @@ const workoutLibrarySlice = createSlice({
   name: 'workoutLibrary',
   initialState: woLibInitialState,
   reducers: {
+    hardUpdate: (state, action) => {
+      return [...action.payload];
+    },
     addToWoLib: (state, action) => {
       return [...state, { ...action.payload.workout }];
     },
@@ -20,13 +23,18 @@ const workoutLibrarySlice = createSlice({
     deleteWoFromWoLib: (state, action) => {
       return state.filter((workout) => workout.id !== action.payload);
     },
+    clearWorkoutLibrary: () => {
+      return woLibInitialState;
+    },
   },
 });
 
 export const {
+  hardUpdate,
   addToWoLib,
   prescribeToAthlete,
   updateWoInWoLib,
   deleteWoFromWoLib,
+  clearWorkoutLibrary,
 } = workoutLibrarySlice.actions;
 export const { reducer: workoutLibraryReducer } = workoutLibrarySlice;
