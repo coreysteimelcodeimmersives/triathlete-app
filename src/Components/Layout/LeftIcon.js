@@ -113,14 +113,15 @@ const LeftIcon = () => {
             fontSize='large'
             onClick={() => {
               console.log('click');
-              dispatch(hardSetWorkoutLibFilter(copyWorkoutLibFilter));
+
               dispatch(
                 filterAndSortWoLib({
                   woLib: workoutLibrary,
                   engSysFilter: workoutLibFilter.copy.energySystem,
                 })
               );
-              // navigate('/workout-library-filter');
+              dispatch(hardSetWorkoutLibFilter(workoutLibFilter.copy));
+              navigate('/workout-library-filter');
             }}
           />
         );
