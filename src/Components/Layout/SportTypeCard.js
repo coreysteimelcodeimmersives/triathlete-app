@@ -6,12 +6,12 @@ import WorkoutIcon from '../WorkoutCard/WorkoutIcon';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateFilterSportType } from '../../Redux-State/WorkoutLibFilterSlice';
-import { filterWoLibBySportType } from '../../Redux-State/FilteredSortedWoLibSlice';
+import { filterWoLibBySportType } from '../../Redux-State/WorkoutLibrarySlice';
 
 const SportTypeCard = ({ sportType }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const workoutLibrary = useSelector((state) => state.workoutLibrary);
+  const workoutLibrary = useSelector((state) => state.workoutLibrary.woLib);
 
   return (
     <Card

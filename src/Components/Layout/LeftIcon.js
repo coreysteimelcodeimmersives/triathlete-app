@@ -2,7 +2,11 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { clearWorkout, selectWorkout } from '../../Redux-State/WorkoutSlice';
-import { deleteWoFromWoLib } from '../../Redux-State/WorkoutLibrarySlice';
+import {
+  deleteWoFromWoLib,
+  filterAndSortWoLib,
+  filterWoLibBySportType,
+} from '../../Redux-State/WorkoutLibrarySlice';
 import ClearIcon from '@mui/icons-material/Clear';
 import PersonIcon from '@mui/icons-material/Person';
 import TuneIcon from '@mui/icons-material/Tune';
@@ -12,23 +16,16 @@ import { tuneFilterWoLibPage } from '../../Redux-State/PageSlice';
 import TodayIcon from '@mui/icons-material/Today';
 import { doClearWoBuilderForm, doUpdate } from '../../Redux-State/UpdateSlice';
 import {
-  copyWoLib,
-  filterAndSortCopyWoLib,
-  filterWoLibBySportType,
-} from '../../Redux-State/FilteredSortedWoLibSlice';
-import {
   copyWorkoutLibFilter,
   hardSetWorkoutLibFilter,
-  updateFilterSportType,
 } from '../../Redux-State/WorkoutLibFilterSlice';
 
 const LeftIcon = () => {
   const navigate = useNavigate();
   const page = useSelector((state) => state.page);
   const workout = useSelector((state) => state.workout);
-  const workoutLibrary = useSelector((state) => state.workoutLibrary);
+  const workoutLibrary = useSelector((state) => state.workoutLibrary.woLib);
   const workoutLibFilter = useSelector((state) => state.workoutLibFilter);
-  const filteredSortedWoLib = useSelector((state) => state.filteredSortedWoLib);
 
   const dispatch = useDispatch();
   const returnLeftIcon = () => {
@@ -59,7 +56,6 @@ const LeftIcon = () => {
           <TuneIcon
             fontSize='large'
             onClick={() => {
-              dispatch(copyWoLib(workoutLibrary));
               dispatch(copyWorkoutLibFilter(workoutLibFilter));
               dispatch(tuneFilterWoLibPage());
               navigate('/wo-tuner');
@@ -115,8 +111,8 @@ const LeftIcon = () => {
             onClick={() => {
               dispatch(hardSetWorkoutLibFilter(workoutLibFilter.copy));
               dispatch(
-                filterAndSortCopyWoLib({
-                  woLib: filteredSortedWoLib,
+                filterAndSortWoLib({
+                  woLib: workoutLibrary,
                   engSysFilter: workoutLibFilter.copy.energySystem,
                 })
               );

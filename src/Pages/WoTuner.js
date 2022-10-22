@@ -11,17 +11,11 @@ import {
   Typography,
 } from '@mui/material';
 import { Box } from '@mui/system';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Layout from '../Components/Layout/Layout';
 import { ENERGY_SYSTEMS } from '../Data/EnergySystems';
-import {
-  copyWoLib,
-  filterAndSortCopyWoLib,
-  filterWoLibBySportType,
-  sortWoLibByDurationAsc,
-} from '../Redux-State/FilteredSortedWoLibSlice';
 import { tuneFilterWoLibPage } from '../Redux-State/PageSlice';
 import {
   updateFilterEnergySystem,
@@ -30,19 +24,25 @@ import {
   selectAllEnergySystems,
   clearAllEnergySystems,
 } from '../Redux-State/WorkoutLibFilterSlice';
+import {
+  filterAndSortWoLib,
+  filterWoLibBySportType,
+} from '../Redux-State/WorkoutLibrarySlice';
 
 const WoTuner = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
-  const workoutLibrary = useSelector((state) => state.workoutLibrary);
+  const workoutLibrary = useSelector((state) => state.workoutLibrary.woLib);
+  const copyWorkoutLibrary = useSelector(
+    (state) => state.workoutLibrary.copyWoLib
+  );
   const workoutLibFilter = useSelector((state) => state.workoutLibFilter);
-  const filteredSortedWoLib = useSelector((state) => state.filteredSortedWoLib);
 
   const handleFilterAndSort = () => {
     dispatch(
-      filterAndSortCopyWoLib({
-        woLib: filteredSortedWoLib,
+      filterAndSortWoLib({
+        copyWoLib: copyWorkoutLibrary,
         engSysFilter: workoutLibFilter.energySystem,
         criteria: workoutLibFilter.criteria,
         order: workoutLibFilter.order,
@@ -75,12 +75,12 @@ const WoTuner = () => {
     }
     window.scrollTo(0, 0);
     dispatch(tuneFilterWoLibPage());
-    dispatch(
-      filterWoLibBySportType({
-        woLib: workoutLibrary,
-        sportType: workoutLibFilter.sportType,
-      })
-    );
+    // dispatch(
+    //   filterWoLibBySportType({
+    //     woLib: workoutLibrary,
+    //     sportType: workoutLibFilter.sportType,
+    //   })
+    // );
   }, []);
 
   return (

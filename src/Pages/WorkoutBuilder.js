@@ -16,15 +16,13 @@ import EditWorkoutQuill from '../Components/WorkoutBuilder/EditWorkoutQuill';
 import { selectWorkout } from '../Redux-State/WorkoutSlice';
 import {
   addToWoLib,
+  hardUpdate,
   updateWoInWoLib,
 } from '../Redux-State/WorkoutLibrarySlice';
-import { updateFilterSportType } from '../Redux-State/WorkoutLibFilterSlice';
-import { copyWoLib } from '../Redux-State/FilteredSortedWoLibSlice';
 import { workoutBuilderPage } from '../Redux-State/PageSlice';
 
 const WorkoutBuilder = () => {
   const initialWo = {
-    // id: Math.ceil(Math.random() * 10000000),
     title: '',
     sportType: '',
     energySystem: '',
@@ -42,7 +40,6 @@ const WorkoutBuilder = () => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
   const workout = useSelector((state) => state.workout);
-  const workoutLibrary = useSelector((state) => state.workoutLibrary);
   const page = useSelector((state) => state.page);
   const generalUpdate = useSelector((state) => state.update.general);
   const woUpdate = useSelector((state) => state.update.woBuilder);
@@ -100,15 +97,23 @@ const WorkoutBuilder = () => {
           workoutData: { ...workoutBuilderForm },
         });
         dispatch(selectWorkout(woRes.data.workout));
-        dispatch(addToWoLib({ workout: woRes.data.workout }));
+        const libRes = await Axios.get('/get-workouts');
+        dispatch(hardUpdate(libRes.data.workouts));
         setError('');
       }
       if (page.titleText === 'Wo Edits') {
-        dispatch(selectWorkout(workoutBuilderForm));
+        console.log(workoutBuilderForm);
+        const updateWoRes = await Axios.post('/update-workout', {
+          workoutData: { ...workoutBuilderForm },
+        });
+        dispatch(selectWorkout(updateWoRes.data.workout));
         dispatch(updateWoInWoLib({ workout: workoutBuilderForm }));
+        setError('');
       }
       navigate('/workout-details');
-    } catch (e) {}
+    } catch (e) {
+      setError(e.response ? e.response.data : e.message);
+    }
   };
 
   useEffect(() => {
@@ -256,7 +261,7 @@ const WorkoutBuilder = () => {
             >
               {page.bottomButton}
             </Button>
-            <Box sx={{ margin: '5%' }}>
+            <Box sx={{ mb: '3%', display: 'flex', justifyContent: 'center' }}>
               <Typography sx={{ color: 'red' }}>{error}</Typography>
             </Box>
           </Paper>

@@ -59,10 +59,10 @@ const RightIcon = () => {
         return (
           <SaveIcon
             fontSize='large'
-            onClick={() => {
-              dispatch(updateWoInWoLib({ workout }));
-              navigate('/workout-details');
-            }}
+            // onClick={() => {
+            //   dispatch(updateWoInWoLib({ workout }));
+            //   navigate('/workout-details');
+            // }}
           />
         );
       }

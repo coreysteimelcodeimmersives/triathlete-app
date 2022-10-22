@@ -8,7 +8,7 @@ import { workoutLibraryPage } from '../Redux-State/PageSlice';
 
 const SportTypeLibrary = () => {
   const dispatch = useDispatch();
-  const workoutLibrary = useSelector((state) => state.workoutLibrary);
+  const workoutLibrary = useSelector((state) => state.workoutLibrary.woLib);
 
   useEffect(() => {
     window.scrollTo(0, 0);

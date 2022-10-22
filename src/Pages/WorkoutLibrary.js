@@ -8,13 +8,11 @@ import { workoutLibraryPage } from '../Redux-State/PageSlice';
 import { SPORT_TYPES } from '../Data/SportTypes';
 import SportTypeCard from '../Components/Layout/SportTypeCard';
 import { clearWorkoutLibFilter } from '../Redux-State/WorkoutLibFilterSlice';
-import { copyWoLib } from '../Redux-State/FilteredSortedWoLibSlice';
 import { hardUpdate } from '../Redux-State/WorkoutLibrarySlice';
 
 const WorkoutLibrary = () => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
-  const workoutLibrary = useSelector((state) => state.workoutLibrary);
   const dispatch = useDispatch();
   useEffect(() => {
     const updateWoLib = async () => {
@@ -28,7 +26,6 @@ const WorkoutLibrary = () => {
     updateWoLib();
     dispatch(workoutLibraryPage());
     dispatch(clearWorkoutLibFilter());
-    dispatch(copyWoLib(workoutLibrary));
   }, []);
 
   return (

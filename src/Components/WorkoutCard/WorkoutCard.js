@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Card from '@mui/material/Card';
 import { CardActionArea } from '@mui/material';
 import { Box } from '@mui/system';
@@ -15,9 +15,11 @@ import { selectWorkout } from '../../Redux-State/WorkoutSlice';
 const WorkoutCard = ({ workoutId }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const workoutLibrary = useSelector((state) => state.workoutLibrary);
-  const workout = workoutLibrary.find((workout) => workout.id === workoutId);
-  useEffect(() => {}, [workoutLibrary]);
+  const workoutLibrary = useSelector((state) => state.workoutLibrary.woLib);
+  const [workout, setWorkout] = useState({});
+  useEffect(() => {
+    setWorkout(workoutLibrary.find((workout) => workout.id === workoutId));
+  }, []);
   return (
     <Card
       sx={{

@@ -8,7 +8,6 @@ import {
 import { pageReducer } from './PageSlice';
 import { workoutLibFilterReducer } from './WorkoutLibFilterSlice';
 import { updateReducer } from './UpdateSlice';
-import { filteredSortedWoLibReducer } from './FilteredSortedWoLibSlice';
 
 const preloadedState = JSON.parse(localStorage.getItem('TriCoach.app'))
   ? JSON.parse(localStorage.getItem('TriCoach.app'))
@@ -19,7 +18,6 @@ const preloadedState = JSON.parse(localStorage.getItem('TriCoach.app'))
       page: { rightIcon: '', titleText: 'TriCoach', leftIcon: '' },
       workoutLibFilter: null,
       update: { general: false, woBuilder: false },
-      filteredSortedWoLib: [],
     };
 
 const store = configureStore({
@@ -30,7 +28,6 @@ const store = configureStore({
     page: pageReducer,
     workoutLibFilter: workoutLibFilterReducer,
     update: updateReducer,
-    filteredSortedWoLib: filteredSortedWoLibReducer,
   },
   preloadedState: preloadedState,
 });
