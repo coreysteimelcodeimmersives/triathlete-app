@@ -77,16 +77,19 @@ const workoutLibrarySlice = createSlice({
       const woLib = action.payload.woLib.filter((workout) => {
         return workout.sportType === action.payload.sportType;
       });
-      return { woLib: woLib, copyWoLib: woLib };
+      return { woLib: [...woLib], copyWoLib: [...woLib] };
     },
     filterAndSortWoLib: (state, action) => {
-      const woLib = action.payload.copyWoLib.filter((workout) => {
+      const updateWoLib = action.payload.woLib.filter((workout) => {
         if (action.payload.engSysFilter[ENERGY_SYSTEMS[workout.energySystem]]) {
           return workout;
         }
       });
-      sortWoLib(woLib, action.payload.criteria, action.payload.order);
-      return { ...state, woLib: woLib };
+      sortWoLib(updateWoLib, action.payload.criteria, action.payload.order);
+      return { ...state, woLib: updateWoLib };
+    },
+    resetWoLibWithCopy: (state, action) => {
+      return { ...state, woLib: [...action.payload] };
     },
   },
 });
@@ -100,5 +103,6 @@ export const {
   clearWorkoutLibrary,
   filterWoLibBySportType,
   filterAndSortWoLib,
+  resetWoLibWithCopy,
 } = workoutLibrarySlice.actions;
 export const { reducer: workoutLibraryReducer } = workoutLibrarySlice;

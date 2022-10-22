@@ -11,6 +11,7 @@ import {
 } from '../../Redux-State/WorkoutLibrarySlice';
 import { workoutEditPage, settingsPage } from '../../Redux-State/PageSlice';
 import { doUpdate } from '../../Redux-State/UpdateSlice';
+import TodayIcon from '@mui/icons-material/Today';
 
 const RightIcon = () => {
   const page = useSelector((state) => state.page);
@@ -63,6 +64,17 @@ const RightIcon = () => {
             //   dispatch(updateWoInWoLib({ workout }));
             //   navigate('/workout-details');
             // }}
+          />
+        );
+      }
+      case 'TodayIcon': {
+        return (
+          <TodayIcon
+            fontSize='large'
+            onClick={() => {
+              dispatch(doUpdate());
+              navigate('/calendar-week');
+            }}
           />
         );
       }

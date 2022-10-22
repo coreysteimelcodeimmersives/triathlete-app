@@ -44,7 +44,7 @@ const workoutLibFilterSlice = createSlice({
       return { ...state, copy: { ...action.payload, copy: undefined } };
     },
     hardSetWorkoutLibFilter: (state, action) => {
-      return { ...action.payload, copy: undefined };
+      return { ...action.payload };
     },
     selectAllEnergySystems: (state, action) => {
       return {

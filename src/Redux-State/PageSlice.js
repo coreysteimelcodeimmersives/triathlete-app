@@ -72,11 +72,18 @@ const pageSlice = createSlice({
         rightIcon: null,
       };
     },
-    weekCalendar: () => {
+    weekCalendarPage: () => {
       return {
         leftIcon: 'TodayIcon',
         titleText: 'Calendar',
         rightIcon: 'SettingsIcon',
+      };
+    },
+    athleteWeekCalPage: (state, action) => {
+      return {
+        leftIcon: 'ArrowBackIosNewIconAthleteLib',
+        titleText: action.payload,
+        rightIcon: 'TodayIcon',
       };
     },
   },
@@ -92,6 +99,7 @@ export const {
   woLibFilterPage,
   tuneFilterWoLibPage,
   settingsPage,
-  weekCalendar,
+  weekCalendarPage,
+  athleteWeekCalPage,
 } = pageSlice.actions;
 export const { reducer: pageReducer } = pageSlice;

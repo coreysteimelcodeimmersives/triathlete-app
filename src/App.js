@@ -34,7 +34,7 @@ function App() {
             <Route path='/wo-tuner' element={<WoTuner />} />
             <Route path='/settings' element={<Settings />} />
             <Route path='/register-user' element={<RegisterUser />} />
-            <Route path='/calendar' element={<WeekCalendar />} />
+            <Route path='/calendar-week' element={<WeekCalendar />} />
           </Routes>
         </BrowserRouter>
       </CustomThemeProvider>

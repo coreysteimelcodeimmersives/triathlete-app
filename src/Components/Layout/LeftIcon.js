@@ -12,7 +12,10 @@ import PersonIcon from '@mui/icons-material/Person';
 import TuneIcon from '@mui/icons-material/Tune';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import { tuneFilterWoLibPage } from '../../Redux-State/PageSlice';
+import {
+  athleteLibraryPage,
+  tuneFilterWoLibPage,
+} from '../../Redux-State/PageSlice';
 import TodayIcon from '@mui/icons-material/Today';
 import { doClearWoBuilderForm, doUpdate } from '../../Redux-State/UpdateSlice';
 import {
@@ -56,8 +59,8 @@ const LeftIcon = () => {
           <TuneIcon
             fontSize='large'
             onClick={() => {
+              console.log('click');
               dispatch(copyWorkoutLibFilter(workoutLibFilter));
-              dispatch(tuneFilterWoLibPage());
               navigate('/wo-tuner');
             }}
           />
@@ -109,14 +112,15 @@ const LeftIcon = () => {
           <ArrowBackIosNewIcon
             fontSize='large'
             onClick={() => {
-              dispatch(hardSetWorkoutLibFilter(workoutLibFilter.copy));
+              console.log('click');
+              dispatch(hardSetWorkoutLibFilter(copyWorkoutLibFilter));
               dispatch(
                 filterAndSortWoLib({
                   woLib: workoutLibrary,
                   engSysFilter: workoutLibFilter.copy.energySystem,
                 })
               );
-              navigate('/workout-library-filter');
+              // navigate('/workout-library-filter');
             }}
           />
         );
@@ -128,7 +132,19 @@ const LeftIcon = () => {
             fontSize='large'
             onClick={() => {
               dispatch(doUpdate());
-              navigate('/calendar');
+              navigate('/calendar-week');
+            }}
+          />
+        );
+      }
+
+      case 'ArrowBackIosNewIconAthleteLib': {
+        return (
+          <ArrowBackIosNewIcon
+            fontSize='large'
+            onClick={() => {
+              dispatch(athleteLibraryPage);
+              navigate('/athlete-library');
             }}
           />
         );

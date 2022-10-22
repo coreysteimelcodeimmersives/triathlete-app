@@ -9,7 +9,7 @@ import Password from '../Components/TextField/Password';
 import {
   signInPage,
   athleteLibraryPage,
-  weekCalendar,
+  weekCalendarPage,
 } from '../Redux-State/PageSlice';
 import Axios from '../Utils/Axios';
 
@@ -27,7 +27,7 @@ const SignIn = () => {
     if (!user) {
       dispatch(signInPage());
     } else if (!user.isAdmin) {
-      dispatch(weekCalendar());
+      dispatch(weekCalendarPage());
       navigate('/calendar');
     } else if (user.isAdmin) {
       dispatch(athleteLibraryPage());

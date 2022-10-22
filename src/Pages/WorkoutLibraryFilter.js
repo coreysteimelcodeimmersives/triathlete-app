@@ -25,7 +25,7 @@ const WorkoutLibraryFilter = () => {
     dispatch(woLibFilterPage(workoutLibFilter.sportType));
     dispatch(
       filterAndSortWoLib({
-        copyWoLib: copyWorkoutLibrary,
+        woLib: workoutLibrary,
         engSysFilter: workoutLibFilter.energySystem,
         criteria: workoutLibFilter.criteria,
         order: workoutLibFilter.order,

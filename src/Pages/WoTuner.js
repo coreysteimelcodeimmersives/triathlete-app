@@ -27,22 +27,21 @@ import {
 import {
   filterAndSortWoLib,
   filterWoLibBySportType,
+  resetWoLibWithCopy,
 } from '../Redux-State/WorkoutLibrarySlice';
 
 const WoTuner = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
-  const workoutLibrary = useSelector((state) => state.workoutLibrary.woLib);
-  const copyWorkoutLibrary = useSelector(
-    (state) => state.workoutLibrary.copyWoLib
-  );
+  const workoutLibrary = useSelector((state) => state.workoutLibrary);
   const workoutLibFilter = useSelector((state) => state.workoutLibFilter);
 
   const handleFilterAndSort = () => {
     dispatch(
       filterAndSortWoLib({
-        copyWoLib: copyWorkoutLibrary,
+        woLib: workoutLibrary.woLib,
+        copyWoLib: workoutLibrary.copyWoLib,
         engSysFilter: workoutLibFilter.energySystem,
         criteria: workoutLibFilter.criteria,
         order: workoutLibFilter.order,
@@ -75,12 +74,7 @@ const WoTuner = () => {
     }
     window.scrollTo(0, 0);
     dispatch(tuneFilterWoLibPage());
-    // dispatch(
-    //   filterWoLibBySportType({
-    //     woLib: workoutLibrary,
-    //     sportType: workoutLibFilter.sportType,
-    //   })
-    // );
+    dispatch(resetWoLibWithCopy(workoutLibrary.copyWoLib));
   }, []);
 
   return (

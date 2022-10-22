@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Layout from '../Components/Layout/Layout';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { weekCalendar } from '../Redux-State/PageSlice';
+import { weekCalendarPage } from '../Redux-State/PageSlice';
 import { Box, Card, Typography } from '@mui/material';
 import addDays from 'date-fns/addDays';
 import startOfWeek from 'date-fns/startOfWeek';
@@ -36,7 +36,7 @@ const WeekCalendar = () => {
     if (!user) {
       navigate('/sign-in');
     }
-    dispatch(weekCalendar());
+    // dispatch(weekCalendar());
     setStartWeekDate(
       startOfWeek(new Date(), {
         weekStartsOn: 1,

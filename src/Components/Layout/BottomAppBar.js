@@ -12,14 +12,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import {
   workoutBuilderPage,
-  workoutLibraryPage,
-  athleteLibraryPage,
-  weekCalendar,
+  weekCalendarPage,
 } from '../../Redux-State/PageSlice';
 import { clearWorkout } from '../../Redux-State/WorkoutSlice';
 import PendingActionsIcon from '@mui/icons-material/PendingActions';
-import { clearWorkoutLibFilter } from '../../Redux-State/WorkoutLibFilterSlice';
-import { doUpdate } from '../../Redux-State/UpdateSlice';
 
 const StyledFab = styled(Fab)({
   position: 'absolute',
@@ -49,7 +45,6 @@ const BottomAppBar = () => {
                 color='inherit'
                 label='Athlete Library'
                 onClick={() => {
-                  dispatch(athleteLibraryPage());
                   navigate('/athlete-library');
                 }}
               >
@@ -61,7 +56,8 @@ const BottomAppBar = () => {
                 color='inherit'
                 label='Training Calendar'
                 onClick={() => {
-                  navigate('/calendar');
+                  dispatch(weekCalendarPage());
+                  navigate('/calendar-week');
                 }}
               >
                 <PendingActionsIcon fontSize='large' />
@@ -86,8 +82,6 @@ const BottomAppBar = () => {
             <IconButton
               color='inherit'
               onClick={() => {
-                dispatch(doUpdate());
-                dispatch(clearWorkoutLibFilter());
                 navigate('/workout-library');
               }}
             >

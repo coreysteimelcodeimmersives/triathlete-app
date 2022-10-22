@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Axios from '../Utils/Axios';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -9,15 +9,23 @@ import { SPORT_TYPES } from '../Data/SportTypes';
 import SportTypeCard from '../Components/Layout/SportTypeCard';
 import { clearWorkoutLibFilter } from '../Redux-State/WorkoutLibFilterSlice';
 import { hardUpdate } from '../Redux-State/WorkoutLibrarySlice';
+import { Typography } from '@mui/material';
 
 const WorkoutLibrary = () => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
+  const [error, setError] = useState('');
   useEffect(() => {
+    setError('');
     const updateWoLib = async () => {
-      const libRes = await Axios.get('/get-workouts');
-      dispatch(hardUpdate(libRes.data.workouts));
+      try {
+        const libRes = await Axios.get('/get-workouts');
+        dispatch(hardUpdate(libRes.data.workouts));
+        setError('');
+      } catch (e) {
+        setError(e.response ? e.response.data : e.message);
+      }
     };
     if (!user) {
       navigate('/sign-in');
@@ -35,6 +43,9 @@ const WorkoutLibrary = () => {
           <SportTypeCard key={sportType} sportType={sportType}></SportTypeCard>
         );
       })}
+      <Box sx={{ mb: '3%', display: 'flex', justifyContent: 'center' }}>
+        <Typography sx={{ color: 'red' }}>{error}</Typography>
+      </Box>
       <Box marginBottom={'10vh'}></Box>
     </Layout>
   );
