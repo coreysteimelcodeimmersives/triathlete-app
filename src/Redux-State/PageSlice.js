@@ -81,9 +81,17 @@ const pageSlice = createSlice({
     },
     athleteWeekCalPage: (state, action) => {
       return {
-        leftIcon: 'ArrowBackIosNewIconAthleteLib',
+        leftIcon: 'TodayIcon',
         titleText: action.payload,
-        rightIcon: 'TodayIcon',
+        rightIcon: null,
+      };
+    },
+    dayViewPage: (state, action) => {
+      return {
+        leftIcon: 'ArrowBackWeekCal',
+        titleText: action.payload.athleteFirstName,
+        rightIcon: null,
+        date: action.payload.date,
       };
     },
   },
@@ -101,5 +109,6 @@ export const {
   settingsPage,
   weekCalendarPage,
   athleteWeekCalPage,
+  dayViewPage,
 } = pageSlice.actions;
 export const { reducer: pageReducer } = pageSlice;

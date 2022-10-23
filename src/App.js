@@ -13,6 +13,7 @@ import WoTuner from './Pages/WoTuner';
 import Settings from './Pages/Settings';
 import RegisterUser from './Pages/RegisterUser';
 import WeekCalendar from './Pages/WeekCalendar';
+import DayView from './Pages/DayView';
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
             <Route path='/settings' element={<Settings />} />
             <Route path='/register-user' element={<RegisterUser />} />
             <Route path='/calendar-week' element={<WeekCalendar />} />
+            <Route path='/day-view' element={<DayView />} />
           </Routes>
         </BrowserRouter>
       </CustomThemeProvider>

@@ -14,7 +14,9 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import {
   athleteLibraryPage,
+  athleteWeekCalPage,
   tuneFilterWoLibPage,
+  weekCalendarPage,
 } from '../../Redux-State/PageSlice';
 import TodayIcon from '@mui/icons-material/Today';
 import { doClearWoBuilderForm, doUpdate } from '../../Redux-State/UpdateSlice';
@@ -29,6 +31,7 @@ const LeftIcon = () => {
   const workout = useSelector((state) => state.workout);
   const workoutLibrary = useSelector((state) => state.workoutLibrary.woLib);
   const workoutLibFilter = useSelector((state) => state.workoutLibFilter);
+  const athlete = useSelector((state) => state.athleteLibrary.athlete);
 
   const dispatch = useDispatch();
   const returnLeftIcon = () => {
@@ -139,13 +142,13 @@ const LeftIcon = () => {
         );
       }
 
-      case 'ArrowBackIosNewIconAthleteLib': {
+      case 'ArrowBackWeekCal': {
         return (
           <ArrowBackIosNewIcon
             fontSize='large'
             onClick={() => {
-              dispatch(athleteLibraryPage);
-              navigate('/athlete-library');
+              dispatch(athleteWeekCalPage(athlete.firstName));
+              navigate('/calendar-week');
             }}
           />
         );

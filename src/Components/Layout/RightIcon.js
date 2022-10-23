@@ -67,17 +67,7 @@ const RightIcon = () => {
           />
         );
       }
-      case 'TodayIcon': {
-        return (
-          <TodayIcon
-            fontSize='large'
-            onClick={() => {
-              dispatch(doUpdate());
-              navigate('/calendar-week');
-            }}
-          />
-        );
-      }
+
       default: {
         return <SaveIcon fontSize='large' sx={{ opacity: 0 }} />;
       }

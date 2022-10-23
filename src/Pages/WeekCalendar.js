@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Layout from '../Components/Layout/Layout';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { weekCalendarPage } from '../Redux-State/PageSlice';
+import { dayViewPage, weekCalendarPage } from '../Redux-State/PageSlice';
 import { Box, Card, Typography } from '@mui/material';
 import addDays from 'date-fns/addDays';
 import startOfWeek from 'date-fns/startOfWeek';
@@ -18,9 +18,14 @@ const WeekCalendar = () => {
       weekStartsOn: 1,
     })
   );
+  const handleDayClick = (date, athleteFirstName) => {
+    dispatch(dayViewPage({ date, athleteFirstName }));
+    navigate('/day-view');
+  };
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
   const update = useSelector((state) => state.update.general);
+  const athlete = useSelector((state) => state.athleteLibrary.athlete);
   const dispatch = useDispatch();
   const daysOfWeek = [
     'Monday',
@@ -100,6 +105,9 @@ const WeekCalendar = () => {
                 mx: '2%',
                 marginBottom: '3%',
                 p: '3%',
+              }}
+              onClick={() => {
+                handleDayClick(fnsDay, athlete.firstName);
               }}
             >
               <Box sx={{ display: 'flex', flexDirection: 'column' }}>
