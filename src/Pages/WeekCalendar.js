@@ -13,6 +13,7 @@ import addWeeks from 'date-fns/addWeeks';
 import subWeeks from 'date-fns/subWeeks';
 import formatISO from 'date-fns/formatISO';
 import { parseISO } from 'date-fns';
+import WorkoutIcon from '../Components/WorkoutCard/WorkoutIcon';
 
 const WeekCalendar = () => {
   const [startWeekDate, setStartWeekDate] = useState(
@@ -28,6 +29,10 @@ const WeekCalendar = () => {
   const user = useSelector((state) => state.user);
   const update = useSelector((state) => state.update.general);
   const athlete = useSelector((state) => state.athleteLibrary.athlete);
+  const page = useSelector((state) => state.page);
+  const athleteWorkouts = useSelector(
+    (state) => state.athleteLibrary.athlete.workouts
+  );
   const pageDate = useSelector((state) => state.page.date);
   const dispatch = useDispatch();
   const daysOfWeek = [
@@ -115,6 +120,9 @@ const WeekCalendar = () => {
           const fnsDay = addDays(startWeekDate, idx);
           const fnsDate = format(fnsDay, 'PP');
           const pageDate = formatISO(fnsDay);
+          const workoutsArr = athleteWorkouts.filter((workout) => {
+            return workout.date === pageDate;
+          });
           return (
             <Card
               key={day}
@@ -134,6 +142,24 @@ const WeekCalendar = () => {
                 <Typography>
                   {day}, {fnsDate}
                 </Typography>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    flexWrap: 'wrap',
+                    width: '95vw',
+                  }}
+                >
+                  {workoutsArr.map((workout, idx) => {
+                    return (
+                      <Box sx={{ px: '2%' }} key={idx}>
+                        <WorkoutIcon
+                          sportType={workout.sportType}
+                        ></WorkoutIcon>
+                      </Box>
+                    );
+                  })}
+                </Box>
               </Box>
             </Card>
           );

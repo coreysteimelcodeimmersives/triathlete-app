@@ -19,7 +19,8 @@ import {
   hardUpdate,
   updateWoInWoLib,
 } from '../Redux-State/WorkoutLibrarySlice';
-import { workoutBuilderPage } from '../Redux-State/PageSlice';
+import { athleteWoDetails, workoutBuilderPage } from '../Redux-State/PageSlice';
+import { selectAthlete } from '../Redux-State/AthleteLibrarySlice';
 
 const WorkoutBuilder = () => {
   const initialWo = {
@@ -38,6 +39,7 @@ const WorkoutBuilder = () => {
     athleteNotes: '',
   };
   const navigate = useNavigate();
+  const athleteId = useSelector((state) => state.athleteLibrary.athlete.id);
   const user = useSelector((state) => state.user);
   const workout = useSelector((state) => state.workout);
   const page = useSelector((state) => state.page);
@@ -102,12 +104,27 @@ const WorkoutBuilder = () => {
         setError('');
       }
       if (page.titleText === 'Wo Edits') {
-        console.log(workoutBuilderForm);
         const updateWoRes = await Axios.post('/update-workout', {
           workoutData: { ...workoutBuilderForm },
         });
         dispatch(selectWorkout(updateWoRes.data.workout));
         dispatch(updateWoInWoLib({ workout: workoutBuilderForm }));
+        setError('');
+      }
+      if (page.athleteWoDetails) {
+        const woRes = await Axios.post('/athlete-update-workout', {
+          workoutData: { ...workoutBuilderForm },
+          athleteId: athleteId,
+        });
+
+        dispatch(selectWorkout(workoutBuilderForm));
+        dispatch(selectAthlete(woRes.data.athlete));
+        dispatch(
+          athleteWoDetails({
+            athleteFirstName: page.titleText,
+            date: page.date,
+          })
+        );
         setError('');
       }
       navigate('/workout-details');
@@ -143,7 +160,8 @@ const WorkoutBuilder = () => {
       navigate('/sign-in');
       return;
     }
-    if (page.titleText === 'Wo Edits') {
+
+    if (page.titleText === 'Wo Edits' || page.athleteWoDetails) {
       setWorkoutBuilderForm(workout);
       return;
     }

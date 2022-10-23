@@ -127,6 +127,25 @@ const pageSlice = createSlice({
         date: action.payload.date,
       };
     },
+    athleteWoDetails: (state, action) => {
+      return {
+        leftIcon: 'ArrowBackDayView',
+        titleText: action.payload.athleteFirstName,
+        rightIcon: null,
+        date: action.payload.date,
+        athleteWoDetails: true,
+      };
+    },
+    athleteWoDetailsEditPage: (state, action) => {
+      return {
+        leftIcon: 'ArrowBackToWoDetails',
+        titleText: action.payload.athleteFirstName,
+        rightIcon: null,
+        date: action.payload.date,
+        athleteWoDetails: true,
+        bottomButton: 'Update Workout',
+      };
+    },
   },
 });
 
@@ -147,5 +166,7 @@ export const {
   addWoWoFilterBySport,
   addWoWoTuner,
   addWoWoSelectWo,
+  athleteWoDetails,
+  athleteWoDetailsEditPage,
 } = pageSlice.actions;
 export const { reducer: pageReducer } = pageSlice;

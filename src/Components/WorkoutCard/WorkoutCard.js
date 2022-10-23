@@ -18,9 +18,14 @@ const WorkoutCard = ({ workoutId }) => {
   const dispatch = useDispatch();
   const workoutLibrary = useSelector((state) => state.workoutLibrary.woLib);
   const page = useSelector((state) => state.page);
+  const state = useSelector((state) => state);
   const [workout, setWorkout] = useState({});
   useEffect(() => {
-    setWorkout(workoutLibrary.find((workout) => workout.id === workoutId));
+    if (!page.athleteWoDetails) {
+      setWorkout(workoutLibrary.find((workout) => workout.id === workoutId));
+    } else {
+      setWorkout(state.workout);
+    }
   }, []);
   return (
     <Card
@@ -30,7 +35,7 @@ const WorkoutCard = ({ workoutId }) => {
         marginBottom: '3%',
       }}
       onClick={() => {
-        if (page.date) {
+        if (page.date && !page.athleteWoDetails) {
           dispatch(
             addWoWoSelectWo({
               athleteFirstName: page.titleText,

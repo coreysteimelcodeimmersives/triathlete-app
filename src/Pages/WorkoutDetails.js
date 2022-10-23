@@ -5,6 +5,7 @@ import { Button, Paper, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import Layout from '../Components/Layout/Layout';
 import {
+  athleteWoDetailsEditPage,
   dayViewPage,
   workoutDetailsPage,
   workoutEditPage,
@@ -53,12 +54,25 @@ const WorkoutDetails = () => {
 
   const handleDelete = async () => {
     try {
-      const res = await Axios.post('/delete-workout', {
-        workoutId: workout.id,
-      });
-      dispatch(deleteWoFromWoLib(workout.id));
-      setError('');
-      navigate('/workout-library-filter');
+      if (!page.athleteWoDetails) {
+        const res = await Axios.post('/delete-workout', {
+          workoutId: workout.id,
+        });
+        dispatch(deleteWoFromWoLib(workout.id));
+        setError('');
+        navigate('/workout-library-filter');
+      } else {
+        const res = await Axios.post('/athlete-delete-workout', {
+          workoutId: workout.id,
+          athleteId: state.athleteLibrary.athlete.id,
+        });
+        dispatch(selectAthlete(res.data.athlete));
+        dispatch(
+          dayViewPage({ athleteFirstName: res.data.firstName, date: page.date })
+        );
+        setError('');
+        navigate('/day-view');
+      }
     } catch (e) {}
   };
 
@@ -87,7 +101,7 @@ const WorkoutDetails = () => {
             marginBottom: '10vh',
           }}
         >
-          {page.date && (
+          {page.date && !page.athleteWoDetails && (
             <>
               <Button
                 variant='contained'
@@ -111,27 +125,37 @@ const WorkoutDetails = () => {
             label={'Athlete Notes'}
             richText={workout.athleteNotes}
           />
-          {!page.date && (
-            <>
-              <Button
-                variant='contained'
-                sx={{ margin: '5%', marginTop: '-2%' }}
-                onClick={() => {
-                  dispatch(workoutEditPage());
-                  navigate('/edit-workout');
-                }}
-              >
-                Edit Workout
-              </Button>
-              <Button
-                variant='contained'
-                sx={{ margin: '5%', marginTop: '-2%', bgcolor: 'red' }}
-                onClick={handleDelete}
-              >
-                Delete Workout
-              </Button>
-            </>
-          )}
+          {!page.date ||
+            (page.athleteWoDetails && (
+              <>
+                <Button
+                  variant='contained'
+                  sx={{ margin: '5%', marginTop: '-2%' }}
+                  onClick={() => {
+                    if (!page.athleteWoDetails) {
+                      dispatch(workoutEditPage());
+                    } else {
+                      dispatch(
+                        athleteWoDetailsEditPage({
+                          athleteFirstName: page.titleText,
+                          date: page.date,
+                        })
+                      );
+                    }
+                    navigate('/edit-workout');
+                  }}
+                >
+                  Edit Workout
+                </Button>
+                <Button
+                  variant='contained'
+                  sx={{ margin: '5%', marginTop: '-2%', bgcolor: 'red' }}
+                  onClick={handleDelete}
+                >
+                  Delete Workout
+                </Button>
+              </>
+            ))}
           <Box sx={{ mb: '3%', display: 'flex', justifyContent: 'center' }}>
             <Typography sx={{ color: 'red' }}>{error}</Typography>
           </Box>

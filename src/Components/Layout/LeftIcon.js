@@ -17,6 +17,7 @@ import {
   addWoWoLib,
   athleteLibraryPage,
   athleteWeekCalPage,
+  athleteWoDetails,
   dayViewPage,
   tuneFilterWoLibPage,
   weekCalendarPage,
@@ -239,6 +240,23 @@ const LeftIcon = () => {
                 })
               );
               navigate('/workout-library-filter');
+            }}
+          />
+        );
+      }
+
+      case 'ArrowBackToWoDetails': {
+        return (
+          <ArrowBackIosNewIcon
+            fontSize='large'
+            onClick={() => {
+              dispatch(
+                athleteWoDetails({
+                  athleteFirstName: page.titleText,
+                  date: page.date,
+                })
+              );
+              navigate('/day-view');
             }}
           />
         );
