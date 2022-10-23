@@ -55,7 +55,7 @@ const WeekCalendar = () => {
     dispatch(
       athleteWeekCalPage({
         firstName: athlete.firstName,
-        date: newDate,
+        date: newDate.toISOString(),
       })
     );
   }, [update]);
