@@ -11,11 +11,13 @@ import { DISTANCE_ABV } from '../../Data/DistanceUnits';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectWorkout } from '../../Redux-State/WorkoutSlice';
+import { addWoWoSelectWo } from '../../Redux-State/PageSlice';
 
 const WorkoutCard = ({ workoutId }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const workoutLibrary = useSelector((state) => state.workoutLibrary.woLib);
+  const page = useSelector((state) => state.page);
   const [workout, setWorkout] = useState({});
   useEffect(() => {
     setWorkout(workoutLibrary.find((workout) => workout.id === workoutId));
@@ -28,6 +30,14 @@ const WorkoutCard = ({ workoutId }) => {
         marginBottom: '3%',
       }}
       onClick={() => {
+        if (page.date) {
+          dispatch(
+            addWoWoSelectWo({
+              athleteFirstName: page.titleText,
+              date: page.date,
+            })
+          );
+        }
         dispatch(selectWorkout(workout));
         navigate('/workout-details');
       }}

@@ -4,7 +4,10 @@ import { useNavigate } from 'react-router-dom';
 import Layout from '../Components/Layout/Layout';
 import WorkoutCard from '../Components/WorkoutCard/WorkoutCard';
 import { Box } from '@mui/system';
-import { woLibFilterPage } from '../Redux-State/PageSlice';
+import {
+  addWoWoFilterBySport,
+  woLibFilterPage,
+} from '../Redux-State/PageSlice';
 import { filterAndSortWoLib } from '../Redux-State/WorkoutLibrarySlice';
 
 const WorkoutLibraryFilter = () => {
@@ -12,9 +15,7 @@ const WorkoutLibraryFilter = () => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
   const workoutLibrary = useSelector((state) => state.workoutLibrary.woLib);
-  const copyWorkoutLibrary = useSelector(
-    (state) => state.workoutLibrary.copyWoLib
-  );
+  const page = useSelector((state) => state.page);
   const workoutLibFilter = useSelector((state) => state.workoutLibFilter);
 
   useEffect(() => {
@@ -22,7 +23,11 @@ const WorkoutLibraryFilter = () => {
       navigate('/sign-in');
     }
     window.scrollTo(0, 0);
-    dispatch(woLibFilterPage(workoutLibFilter.sportType));
+
+    if (!page.date) {
+      dispatch(woLibFilterPage(workoutLibFilter.sportType));
+    }
+
     dispatch(
       filterAndSortWoLib({
         woLib: workoutLibrary,

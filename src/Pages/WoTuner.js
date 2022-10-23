@@ -16,7 +16,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Layout from '../Components/Layout/Layout';
 import { ENERGY_SYSTEMS } from '../Data/EnergySystems';
-import { tuneFilterWoLibPage } from '../Redux-State/PageSlice';
+import {
+  addWoWoFilterBySport,
+  tuneFilterWoLibPage,
+} from '../Redux-State/PageSlice';
 import {
   updateFilterEnergySystem,
   updateFilterCriteria,
@@ -36,6 +39,7 @@ const WoTuner = () => {
   const user = useSelector((state) => state.user);
   const workoutLibrary = useSelector((state) => state.workoutLibrary);
   const workoutLibFilter = useSelector((state) => state.workoutLibFilter);
+  const page = useSelector((state) => state.page);
 
   const handleFilterAndSort = () => {
     dispatch(
@@ -45,6 +49,12 @@ const WoTuner = () => {
         engSysFilter: workoutLibFilter.energySystem,
         criteria: workoutLibFilter.criteria,
         order: workoutLibFilter.order,
+      })
+    );
+    dispatch(
+      addWoWoFilterBySport({
+        athleteFirstName: page.titleText,
+        date: page.date,
       })
     );
     navigate('/workout-library-filter');
@@ -73,7 +83,10 @@ const WoTuner = () => {
       window.scrollTo(0, 0);
     }
     window.scrollTo(0, 0);
-    dispatch(tuneFilterWoLibPage());
+    if (!page.date) {
+      dispatch(tuneFilterWoLibPage());
+    }
+
     dispatch(resetWoLibWithCopy(workoutLibrary.copyWoLib));
   }, []);
 

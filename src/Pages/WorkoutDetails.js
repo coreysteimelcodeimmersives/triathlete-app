@@ -4,19 +4,52 @@ import { useNavigate } from 'react-router-dom';
 import { Button, Paper, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import Layout from '../Components/Layout/Layout';
-import { workoutDetailsPage, workoutEditPage } from '../Redux-State/PageSlice';
+import {
+  dayViewPage,
+  workoutDetailsPage,
+  workoutEditPage,
+} from '../Redux-State/PageSlice';
 import WorkoutCard from '../Components/WorkoutCard/WorkoutCard';
 import ViewWorkoutQuill from '../Components/WorkoutDetails/ViewWorkoutQuill';
 import { deleteWoFromWoLib } from '../Redux-State/WorkoutLibrarySlice';
 import { updateFilterSportType } from '../Redux-State/WorkoutLibFilterSlice';
 import Axios from '../Utils/Axios';
+import { selectAthlete } from '../Redux-State/AthleteLibrarySlice';
 
 const WorkoutDetails = () => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
+  const page = useSelector((state) => state.page);
   const dispatch = useDispatch();
   const workout = useSelector((state) => state.workout);
+  const state = useSelector((state) => state);
   const [error, setError] = useState('');
+
+  const addWorkout = async () => {
+    try {
+      let athleteId = '';
+      if (state.athleteLibrary) {
+        athleteId = state.athleteLibrary.athlete.id;
+      } else {
+        athleteId = user.id;
+      }
+      const id = Math.ceil(Math.random() * 10000000);
+      const date = page.date;
+      const updateWo = { ...workout, id: id, date: date };
+      const res = await Axios.post('/athlete-add-workout', {
+        workoutData: updateWo,
+        athleteId: athleteId,
+      });
+      dispatch(selectAthlete(res.data.athlete));
+      dispatch(
+        dayViewPage({ athleteFirstName: page.titleText, date: page.date })
+      );
+      setError('');
+      navigate('/day-view');
+    } catch (e) {
+      setError(e.response ? e.response.data : e.message);
+    }
+  };
 
   const handleDelete = async () => {
     try {
@@ -26,17 +59,18 @@ const WorkoutDetails = () => {
       dispatch(deleteWoFromWoLib(workout.id));
       setError('');
       navigate('/workout-library-filter');
-    } catch (e) {
-      setError(e.response ? e.response.data : e.message);
-    }
+    } catch (e) {}
   };
 
   useEffect(() => {
     if (!user) {
       navigate('/sign-in');
     }
+    if (!page.date) {
+      dispatch(workoutDetailsPage());
+    }
     window.scrollTo(0, 0);
-    dispatch(workoutDetailsPage());
+
     dispatch(updateFilterSportType({ sportType: workout.sportType }));
   }, []);
   return (
@@ -53,6 +87,18 @@ const WorkoutDetails = () => {
             marginBottom: '10vh',
           }}
         >
+          {page.date && (
+            <>
+              <Button
+                variant='contained'
+                color='success'
+                sx={{ margin: '5%', marginTop: '-1%' }}
+                onClick={addWorkout}
+              >
+                Add Workout
+              </Button>
+            </>
+          )}
           <WorkoutCard workoutId={workout.id}></WorkoutCard>
           <ViewWorkoutQuill label={'Warm Up'} richText={workout.warmUp} />
           <ViewWorkoutQuill label={'Main Set'} richText={workout.mainSet} />
@@ -65,23 +111,27 @@ const WorkoutDetails = () => {
             label={'Athlete Notes'}
             richText={workout.athleteNotes}
           />
-          <Button
-            variant='contained'
-            sx={{ margin: '5%', marginTop: '-2%' }}
-            onClick={() => {
-              dispatch(workoutEditPage());
-              navigate('/edit-workout');
-            }}
-          >
-            Edit Workout
-          </Button>
-          <Button
-            variant='contained'
-            sx={{ margin: '5%', marginTop: '-2%', bgcolor: 'red' }}
-            onClick={handleDelete}
-          >
-            Delete Workout
-          </Button>
+          {!page.date && (
+            <>
+              <Button
+                variant='contained'
+                sx={{ margin: '5%', marginTop: '-2%' }}
+                onClick={() => {
+                  dispatch(workoutEditPage());
+                  navigate('/edit-workout');
+                }}
+              >
+                Edit Workout
+              </Button>
+              <Button
+                variant='contained'
+                sx={{ margin: '5%', marginTop: '-2%', bgcolor: 'red' }}
+                onClick={handleDelete}
+              >
+                Delete Workout
+              </Button>
+            </>
+          )}
           <Box sx={{ mb: '3%', display: 'flex', justifyContent: 'center' }}>
             <Typography sx={{ color: 'red' }}>{error}</Typography>
           </Box>

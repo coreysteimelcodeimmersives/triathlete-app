@@ -13,8 +13,11 @@ import TuneIcon from '@mui/icons-material/Tune';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import {
+  addWoWoFilterBySport,
+  addWoWoLib,
   athleteLibraryPage,
   athleteWeekCalPage,
+  dayViewPage,
   tuneFilterWoLibPage,
   weekCalendarPage,
 } from '../../Redux-State/PageSlice';
@@ -41,12 +44,12 @@ const LeftIcon = () => {
           <ClearIcon
             fontSize='large'
             onClick={() => {
-              // dispatch(clearWorkout());
               dispatch(doClearWoBuilderForm());
             }}
           />
         );
       }
+
       case 'PersonIcon': {
         return (
           <PersonIcon
@@ -57,6 +60,7 @@ const LeftIcon = () => {
           />
         );
       }
+
       case 'TuneIconFilterWoLib': {
         return (
           <TuneIcon
@@ -69,6 +73,7 @@ const LeftIcon = () => {
           />
         );
       }
+
       case 'DeleteForeverIcon': {
         return (
           <DeleteForeverIcon
@@ -115,8 +120,6 @@ const LeftIcon = () => {
           <ArrowBackIosNewIcon
             fontSize='large'
             onClick={() => {
-              console.log('click');
-
               dispatch(
                 filterAndSortWoLib({
                   woLib: workoutLibrary,
@@ -149,11 +152,93 @@ const LeftIcon = () => {
             onClick={() => {
               dispatch(
                 athleteWeekCalPage({
-                  firstName: athlete.firstName,
+                  athleteFirstName: page.titleText,
                   date: page.date,
                 })
               );
               navigate('/calendar-week');
+            }}
+          />
+        );
+      }
+
+      case 'ArrowBackDayView': {
+        return (
+          <ArrowBackIosNewIcon
+            fontSize='large'
+            onClick={() => {
+              dispatch(
+                dayViewPage({
+                  athleteFirstName: page.titleText,
+                  date: page.date,
+                })
+              );
+              navigate('/day-view');
+            }}
+          />
+        );
+      }
+
+      case 'ArrowBackWoLib': {
+        return (
+          <ArrowBackIosNewIcon
+            fontSize='large'
+            onClick={() => {
+              dispatch(
+                addWoWoLib({
+                  athleteFirstName: page.titleText,
+                  date: page.date,
+                })
+              );
+              navigate('/workout-library');
+            }}
+          />
+        );
+      }
+
+      case 'ArrowBackWoFilterBySport': {
+        console.log('we want this');
+        return (
+          <ArrowBackIosNewIcon
+            fontSize='large'
+            onClick={() => {
+              dispatch(
+                addWoWoFilterBySport({
+                  athleteFirstName: page.titleText,
+                  date: page.date,
+                })
+              );
+              dispatch(
+                filterAndSortWoLib({
+                  woLib: workoutLibrary,
+                  engSysFilter: workoutLibFilter.copy.energySystem,
+                })
+              );
+              dispatch(hardSetWorkoutLibFilter(workoutLibFilter.copy));
+              navigate('/workout-library-filter');
+            }}
+          />
+        );
+      }
+
+      case 'ArrowBackWoFilterBySportTwo': {
+        return (
+          <ArrowBackIosNewIcon
+            fontSize='large'
+            onClick={() => {
+              dispatch(
+                addWoWoFilterBySport({
+                  athleteFirstName: page.titleText,
+                  date: page.date,
+                })
+              );
+              dispatch(
+                filterAndSortWoLib({
+                  woLib: workoutLibrary,
+                  engSysFilter: workoutLibFilter.energySystem,
+                })
+              );
+              navigate('/workout-library-filter');
             }}
           />
         );

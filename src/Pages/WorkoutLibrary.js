@@ -32,7 +32,7 @@ const WorkoutLibrary = () => {
     }
     window.scrollTo(0, 0);
     updateWoLib();
-    dispatch(workoutLibraryPage());
+
     dispatch(clearWorkoutLibFilter());
   }, []);
 

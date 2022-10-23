@@ -7,11 +7,13 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateFilterSportType } from '../../Redux-State/WorkoutLibFilterSlice';
 import { filterWoLibBySportType } from '../../Redux-State/WorkoutLibrarySlice';
+import { addWoWoFilterBySport } from '../../Redux-State/PageSlice';
 
 const SportTypeCard = ({ sportType }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const workoutLibrary = useSelector((state) => state.workoutLibrary.woLib);
+  const page = useSelector((state) => state.page);
 
   return (
     <Card
@@ -28,6 +30,14 @@ const SportTypeCard = ({ sportType }) => {
             sportType: sportType,
           })
         );
+        if (page.date) {
+          dispatch(
+            addWoWoFilterBySport({
+              athleteFirstName: page.titleText,
+              date: page.date,
+            })
+          );
+        }
         navigate('/workout-library-filter');
       }}
     >

@@ -95,6 +95,38 @@ const pageSlice = createSlice({
         date: action.payload.date,
       };
     },
+    addWoWoLib: (state, action) => {
+      return {
+        leftIcon: 'ArrowBackDayView',
+        titleText: action.payload.athleteFirstName,
+        rightIcon: null,
+        date: action.payload.date,
+      };
+    },
+    addWoWoFilterBySport: (state, action) => {
+      return {
+        leftIcon: 'ArrowBackWoLib',
+        titleText: action.payload.athleteFirstName,
+        rightIcon: 'AddWoTuner',
+        date: action.payload.date,
+      };
+    },
+    addWoWoTuner: (state, action) => {
+      return {
+        leftIcon: 'ArrowBackWoFilterBySport',
+        titleText: action.payload.athleteFirstName,
+        rightIcon: null,
+        date: action.payload.date,
+      };
+    },
+    addWoWoSelectWo: (state, action) => {
+      return {
+        leftIcon: 'ArrowBackWoFilterBySportTwo',
+        titleText: action.payload.athleteFirstName,
+        rightIcon: null,
+        date: action.payload.date,
+      };
+    },
   },
 });
 
@@ -111,5 +143,9 @@ export const {
   weekCalendarPage,
   athleteWeekCalPage,
   dayViewPage,
+  addWoWoLib,
+  addWoWoFilterBySport,
+  addWoWoTuner,
+  addWoWoSelectWo,
 } = pageSlice.actions;
 export const { reducer: pageReducer } = pageSlice;

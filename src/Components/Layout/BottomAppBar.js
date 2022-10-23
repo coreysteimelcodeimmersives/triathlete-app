@@ -13,6 +13,7 @@ import { useNavigate } from 'react-router-dom';
 import {
   workoutBuilderPage,
   weekCalendarPage,
+  workoutLibraryPage,
 } from '../../Redux-State/PageSlice';
 import { clearWorkout } from '../../Redux-State/WorkoutSlice';
 import PendingActionsIcon from '@mui/icons-material/PendingActions';
@@ -82,6 +83,7 @@ const BottomAppBar = () => {
             <IconButton
               color='inherit'
               onClick={() => {
+                dispatch(workoutLibraryPage());
                 navigate('/workout-library');
               }}
             >

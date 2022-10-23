@@ -9,31 +9,24 @@ import {
   addToWoLib,
   updateWoInWoLib,
 } from '../../Redux-State/WorkoutLibrarySlice';
-import { workoutEditPage, settingsPage } from '../../Redux-State/PageSlice';
+import {
+  workoutEditPage,
+  settingsPage,
+  addWoWoTuner,
+} from '../../Redux-State/PageSlice';
 import { doUpdate } from '../../Redux-State/UpdateSlice';
 import TodayIcon from '@mui/icons-material/Today';
+import TuneIcon from '@mui/icons-material/Tune';
+import { copyWorkoutLibFilter } from '../../Redux-State/WorkoutLibFilterSlice';
 
 const RightIcon = () => {
+  const workoutLibFilter = useSelector((state) => state.workoutLibFilter);
   const page = useSelector((state) => state.page);
   const workout = useSelector((state) => state.workout);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const returnRightIcon = () => {
     switch (page.rightIcon) {
-      case 'SaveIconNewWorkout': {
-        return (
-          <SaveIcon
-            fontSize='large'
-            // onClick={() => {
-            //   dispatch(addId({ id: Math.ceil(Math.random() * 10000000) }));
-            //   dispatch(addToWoLib({ workout }));
-            //   dispatch(clearWorkout());
-            //   dispatch(doUpdate());
-            // navigate('/workout-library');
-            // }}
-          />
-        );
-      }
       case 'EditIconSelectedWorkout': {
         return (
           <EditIcon
@@ -56,18 +49,23 @@ const RightIcon = () => {
           />
         );
       }
-      case 'SaveIconSelectedWorkout': {
+      case 'AddWoTuner': {
         return (
-          <SaveIcon
+          <TuneIcon
             fontSize='large'
-            // onClick={() => {
-            //   dispatch(updateWoInWoLib({ workout }));
-            //   navigate('/workout-details');
-            // }}
+            onClick={() => {
+              dispatch(copyWorkoutLibFilter(workoutLibFilter));
+              dispatch(
+                addWoWoTuner({
+                  athleteFirstName: page.titleText,
+                  date: page.date,
+                })
+              );
+              navigate('/wo-tuner');
+            }}
           />
         );
       }
-
       default: {
         return <SaveIcon fontSize='large' sx={{ opacity: 0 }} />;
       }
