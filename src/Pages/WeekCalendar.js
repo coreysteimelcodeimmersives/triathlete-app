@@ -52,6 +52,12 @@ const WeekCalendar = () => {
         weekStartsOn: 1,
       })
     );
+    dispatch(
+      athleteWeekCalPage({
+        firstName: athlete.firstName,
+        date: newDate,
+      })
+    );
   }, [update]);
 
   useEffect(() => {
