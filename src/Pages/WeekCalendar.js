@@ -41,23 +41,33 @@ const WeekCalendar = () => {
   ];
 
   useEffect(() => {
+    const newDate = new Date();
+    setStartWeekDate(
+      startOfWeek(parseISO(newDate.toISOString()), {
+        weekStartsOn: 1,
+      })
+    );
+  }, [update]);
+
+  useEffect(() => {
     if (!user) {
       navigate('/sign-in');
     }
-    const date = pageDate ? pageDate : new Date().toISOString;
+    const newDate = new Date();
+    const date = pageDate ? pageDate : newDate.toISOString();
     dispatch(
       athleteWeekCalPage({
         firstName: athlete.firstName,
-        date: pageDate,
+        date: date,
       })
     );
     setStartWeekDate(
-      startOfWeek(parseISO(pageDate), {
+      startOfWeek(parseISO(date), {
         weekStartsOn: 1,
       })
     );
     window.scrollTo(0, 0);
-  }, [update]);
+  }, []);
 
   return (
     <Layout>
