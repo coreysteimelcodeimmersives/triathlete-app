@@ -147,7 +147,12 @@ const LeftIcon = () => {
           <ArrowBackIosNewIcon
             fontSize='large'
             onClick={() => {
-              dispatch(athleteWeekCalPage(athlete.firstName));
+              dispatch(
+                athleteWeekCalPage({
+                  firstName: athlete.firstName,
+                  date: page.date,
+                })
+              );
               navigate('/calendar-week');
             }}
           />

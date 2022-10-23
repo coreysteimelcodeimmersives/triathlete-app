@@ -19,8 +19,6 @@ const AthleteLibrary = () => {
   const [athLib, setAthLib] = useState([]);
   const handleClick = (athlete) => {
     dispatch(selectAthlete(athlete));
-
-    dispatch(athleteWeekCalPage(athlete.firstName));
     navigate('/calendar-week');
   };
   useEffect(() => {

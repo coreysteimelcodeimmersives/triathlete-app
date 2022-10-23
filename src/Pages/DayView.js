@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Layout from '../Components/Layout/Layout';
 import { useDispatch, useSelector } from 'react-redux';
 import format from 'date-fns/format';
+import { parseISO } from 'date-fns';
 
 const DayView = () => {
   const page = useSelector((state) => state.page);
@@ -10,7 +11,7 @@ const DayView = () => {
   const [date, setDate] = useState('');
 
   useEffect(() => {
-    const fnsDate = format(page.date, 'PP');
+    const fnsDate = format(parseISO(page.date), 'PP');
     setDate(fnsDate);
   }, []);
   return (

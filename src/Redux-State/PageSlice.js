@@ -82,8 +82,9 @@ const pageSlice = createSlice({
     athleteWeekCalPage: (state, action) => {
       return {
         leftIcon: 'TodayIcon',
-        titleText: action.payload,
+        titleText: action.payload.firstName,
         rightIcon: null,
+        date: action.payload.date,
       };
     },
     dayViewPage: (state, action) => {

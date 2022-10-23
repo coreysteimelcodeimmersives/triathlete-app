@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Layout from '../Components/Layout/Layout';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { dayViewPage, weekCalendarPage } from '../Redux-State/PageSlice';
+import { athleteWeekCalPage, dayViewPage } from '../Redux-State/PageSlice';
 import { Box, Card, Typography } from '@mui/material';
 import addDays from 'date-fns/addDays';
 import startOfWeek from 'date-fns/startOfWeek';
@@ -11,6 +11,8 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import addWeeks from 'date-fns/addWeeks';
 import subWeeks from 'date-fns/subWeeks';
+import formatISO from 'date-fns/formatISO';
+import { parseISO } from 'date-fns';
 
 const WeekCalendar = () => {
   const [startWeekDate, setStartWeekDate] = useState(
@@ -19,13 +21,14 @@ const WeekCalendar = () => {
     })
   );
   const handleDayClick = (date, athleteFirstName) => {
-    dispatch(dayViewPage({ date, athleteFirstName }));
+    dispatch(dayViewPage({ date: date, athleteFirstName: athleteFirstName }));
     navigate('/day-view');
   };
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
   const update = useSelector((state) => state.update.general);
   const athlete = useSelector((state) => state.athleteLibrary.athlete);
+  const pageDate = useSelector((state) => state.page.date);
   const dispatch = useDispatch();
   const daysOfWeek = [
     'Monday',
@@ -41,14 +44,21 @@ const WeekCalendar = () => {
     if (!user) {
       navigate('/sign-in');
     }
-    // dispatch(weekCalendar());
+    const date = pageDate ? pageDate : new Date().toISOString;
+    dispatch(
+      athleteWeekCalPage({
+        firstName: athlete.firstName,
+        date: pageDate,
+      })
+    );
     setStartWeekDate(
-      startOfWeek(new Date(), {
+      startOfWeek(parseISO(pageDate), {
         weekStartsOn: 1,
       })
     );
     window.scrollTo(0, 0);
   }, [update]);
+
   return (
     <Layout>
       <Box
@@ -94,7 +104,7 @@ const WeekCalendar = () => {
         {daysOfWeek.map((day, idx) => {
           const fnsDay = addDays(startWeekDate, idx);
           const fnsDate = format(fnsDay, 'PP');
-
+          const pageDate = formatISO(fnsDay);
           return (
             <Card
               key={day}
@@ -107,7 +117,7 @@ const WeekCalendar = () => {
                 p: '3%',
               }}
               onClick={() => {
-                handleDayClick(fnsDay, athlete.firstName);
+                handleDayClick(pageDate, athlete.firstName);
               }}
             >
               <Box sx={{ display: 'flex', flexDirection: 'column' }}>
