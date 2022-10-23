@@ -256,7 +256,7 @@ const LeftIcon = () => {
                   date: page.date,
                 })
               );
-              navigate('/day-view');
+              navigate('/workout-details');
             }}
           />
         );
