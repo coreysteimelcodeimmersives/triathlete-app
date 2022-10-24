@@ -10,8 +10,12 @@ const athleteLibrarySlice = createSlice({
     selectAthlete: (state, action) => {
       return { ...state, athlete: { ...action.payload } };
     },
+    clearAthleteLib: (state, action) => {
+      return {};
+    },
   },
 });
 
-export const { getAthletes, selectAthlete } = athleteLibrarySlice.actions;
+export const { getAthletes, selectAthlete, clearAthleteLib } =
+  athleteLibrarySlice.actions;
 export const { reducer: athleteLibraryReducer } = athleteLibrarySlice;

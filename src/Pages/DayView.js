@@ -41,7 +41,8 @@ const DayView = () => {
     setDay(fnsDay);
     setWorkouts(
       athleteWorkouts.filter((workout) => {
-        return workout.date === page.date;
+        const workoutDate = format(new Date(workout.date), 'PP');
+        return workoutDate === fnsDate;
       })
     );
   }, []);

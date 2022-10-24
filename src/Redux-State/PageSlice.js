@@ -146,6 +146,14 @@ const pageSlice = createSlice({
         bottomButton: 'Update Workout',
       };
     },
+    addWoWoLibFromFAB: (state, action) => {
+      return {
+        leftIcon: 'ArrowBackWeekCal',
+        titleText: action.payload.athleteFirstName,
+        rightIcon: null,
+        date: action.payload.date,
+      };
+    },
   },
 });
 
@@ -168,5 +176,6 @@ export const {
   addWoWoSelectWo,
   athleteWoDetails,
   athleteWoDetailsEditPage,
+  addWoWoLibFromFAB,
 } = pageSlice.actions;
 export const { reducer: pageReducer } = pageSlice;

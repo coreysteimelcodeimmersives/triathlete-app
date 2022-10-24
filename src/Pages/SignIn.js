@@ -12,6 +12,7 @@ import {
   weekCalendarPage,
 } from '../Redux-State/PageSlice';
 import Axios from '../Utils/Axios';
+import { getAthletes, selectAthlete } from '../Redux-State/AthleteLibrarySlice';
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -28,7 +29,7 @@ const SignIn = () => {
       dispatch(signInPage());
     } else if (!user.isAdmin) {
       dispatch(weekCalendarPage());
-      navigate('/calendar');
+      navigate('/calendar-week');
     } else if (user.isAdmin) {
       dispatch(athleteLibraryPage());
       navigate('/athlete-library');
@@ -43,11 +44,14 @@ const SignIn = () => {
       });
       const fetchedUser = response.data.user;
       dispatch(signIn(fetchedUser));
+
       setError('');
       if (fetchedUser.isAdmin) {
         navigate('/athlete-library');
       } else {
-        navigate('/calendar');
+        dispatch(getAthletes([fetchedUser]));
+        dispatch(selectAthlete(fetchedUser));
+        navigate('/calendar-week');
       }
     } catch (e) {
       console.log(e);

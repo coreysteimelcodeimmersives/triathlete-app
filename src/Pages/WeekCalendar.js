@@ -127,7 +127,8 @@ const WeekCalendar = () => {
           const fnsDate = format(fnsDay, 'PP');
           const pageDate = formatISO(fnsDay);
           const workoutsArr = athleteWorkouts.filter((workout) => {
-            return workout.date === pageDate;
+            const workoutDate = format(new Date(workout.date), 'PP');
+            return workoutDate === fnsDate;
           });
           return (
             <Card

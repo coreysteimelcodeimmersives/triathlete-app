@@ -10,6 +10,7 @@ import { clearWorkout } from '../Redux-State/WorkoutSlice';
 import { clearWorkoutLibrary } from '../Redux-State/WorkoutLibrarySlice';
 import { signInPage } from '../Redux-State/PageSlice';
 import { clearWorkoutLibFilter } from '../Redux-State/WorkoutLibFilterSlice';
+import { clearAthleteLib } from '../Redux-State/AthleteLibrarySlice';
 
 const Settings = () => {
   const navigate = useNavigate();
@@ -30,6 +31,7 @@ const Settings = () => {
       dispatch(clearWorkoutLibrary());
       dispatch(signInPage());
       dispatch(clearWorkoutLibFilter());
+      dispatch(clearAthleteLib());
       dispatch(signOut());
       setError('');
       navigate('/sign-in');

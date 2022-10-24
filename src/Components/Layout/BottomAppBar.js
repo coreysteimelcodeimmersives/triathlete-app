@@ -14,9 +14,15 @@ import {
   workoutBuilderPage,
   weekCalendarPage,
   workoutLibraryPage,
+  settingsPage,
+  addWoWoLib,
+  addWoWoLibFromFAB,
 } from '../../Redux-State/PageSlice';
 import { clearWorkout } from '../../Redux-State/WorkoutSlice';
 import PendingActionsIcon from '@mui/icons-material/PendingActions';
+import SettingsIcon from '@mui/icons-material/Settings';
+import { addDays } from 'date-fns';
+import formatISO from 'date-fns/formatISO';
 
 const StyledFab = styled(Fab)({
   position: 'absolute',
@@ -68,12 +74,25 @@ const BottomAppBar = () => {
               color='secondary'
               aria-label='add'
               onClick={() => {
-                if (page.titleText === 'Wo Builder') {
-                  return;
+                if (user.isAdmin) {
+                  if (page.titleText === 'Wo Builder') {
+                    return;
+                  } else {
+                    dispatch(clearWorkout());
+                    dispatch(workoutBuilderPage());
+                    navigate('/workout-builder');
+                  }
                 } else {
-                  dispatch(clearWorkout());
-                  dispatch(workoutBuilderPage());
-                  navigate('/workout-builder');
+                  const date = new Date();
+                  const fnsDay = addDays(date, 0);
+                  const pageDate = formatISO(fnsDay);
+                  dispatch(
+                    addWoWoLibFromFAB({
+                      athleteFirstName: user.firstName,
+                      date: pageDate,
+                    })
+                  );
+                  navigate('/workout-library');
                 }
               }}
             >
@@ -83,11 +102,17 @@ const BottomAppBar = () => {
             <IconButton
               color='inherit'
               onClick={() => {
-                dispatch(workoutLibraryPage());
-                navigate('/workout-library');
+                if (user.isAdmin) {
+                  dispatch(workoutLibraryPage());
+                  navigate('/workout-library');
+                } else {
+                  dispatch(settingsPage());
+                  navigate('/settings');
+                }
               }}
             >
-              <LibraryBooksIcon fontSize='large' />
+              {user.isAdmin && <LibraryBooksIcon fontSize='large' />}
+              {!user.isAdmin && <SettingsIcon fontSize='large'></SettingsIcon>}
             </IconButton>
           </Toolbar>
         </AppBar>
