@@ -110,6 +110,8 @@ const WorkoutBuilder = () => {
         dispatch(selectWorkout(updateWoRes.data.workout));
         dispatch(updateWoInWoLib({ workout: workoutBuilderForm }));
         setError('');
+        navigate('/workout-library');
+        return;
       }
       if (page.athleteWoDetails) {
         const woRes = await Axios.post('/athlete-update-workout', {

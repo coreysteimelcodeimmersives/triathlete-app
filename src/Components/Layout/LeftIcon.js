@@ -5,7 +5,6 @@ import { selectWorkout } from '../../Redux-State/WorkoutSlice';
 import {
   deleteWoFromWoLib,
   filterAndSortWoLib,
-  filterWoLibBySportType,
 } from '../../Redux-State/WorkoutLibrarySlice';
 import ClearIcon from '@mui/icons-material/Clear';
 import PersonIcon from '@mui/icons-material/Person';
@@ -100,12 +99,6 @@ const LeftIcon = () => {
           <ArrowBackIosNewIcon
             fontSize='large'
             onClick={() => {
-              dispatch(
-                filterWoLibBySportType({
-                  woLib: workoutLibrary,
-                  sportType: workout.sportType,
-                })
-              );
               navigate('/workout-library-filter');
             }}
           />

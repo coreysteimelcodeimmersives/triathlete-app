@@ -84,8 +84,6 @@ const WorkoutDetails = () => {
       dispatch(workoutDetailsPage());
     }
     window.scrollTo(0, 0);
-
-    dispatch(updateFilterSportType({ sportType: workout.sportType }));
   }, []);
   return (
     <Layout>
