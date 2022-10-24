@@ -29,7 +29,6 @@ import {
 } from '../Redux-State/WorkoutLibFilterSlice';
 import {
   filterAndSortWoLib,
-  filterWoLibBySportType,
   resetWoLibWithCopy,
 } from '../Redux-State/WorkoutLibrarySlice';
 

@@ -15,7 +15,6 @@ import {
   weekCalendarPage,
   workoutLibraryPage,
   settingsPage,
-  addWoWoLib,
   addWoWoLibFromFAB,
 } from '../../Redux-State/PageSlice';
 import { clearWorkout } from '../../Redux-State/WorkoutSlice';

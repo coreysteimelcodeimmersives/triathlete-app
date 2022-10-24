@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 const modules = {
   toolbar: [
@@ -24,7 +24,8 @@ const modules = {
 };
 
 const QuillEditor = ({ keyVar, workoutBuilderForm, setWorkoutBuilderForm }) => {
-  const update = useSelector((state) => state.update.woBuilder);
+  const workout = useSelector((state) => state.workout);
+  const updateWoBuilder = useSelector((state) => state.update.woBuilder);
   const [value, setValue] = useState(workoutBuilderForm[keyVar]);
   const editorRef = useRef();
 
@@ -34,10 +35,11 @@ const QuillEditor = ({ keyVar, workoutBuilderForm, setWorkoutBuilderForm }) => {
 
   useEffect(() => {
     setValue('');
-  }, [update]);
+  }, [updateWoBuilder]);
 
   useEffect(() => {
-    setValue(workoutBuilderForm[keyVar]);
+    console.log(workout[keyVar]);
+    setValue(workout[keyVar]);
   }, []);
 
   return (

@@ -12,11 +12,6 @@ const userSlice = createSlice({
   reducers: {
     signIn: (state, action) => action.payload,
     signOut: () => null,
-    // validateUserSignedIn: (state, action) => {
-    //   if (state === null) {
-    //     Navigate('/sign-in');
-    //   }
-    // },
   },
 });
 

@@ -2,20 +2,13 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import SaveIcon from '@mui/icons-material/Save';
-import { addId, clearWorkout } from '../../Redux-State/WorkoutSlice';
 import SettingsIcon from '@mui/icons-material/Settings';
 import EditIcon from '@mui/icons-material/Edit';
-import {
-  addToWoLib,
-  updateWoInWoLib,
-} from '../../Redux-State/WorkoutLibrarySlice';
 import {
   workoutEditPage,
   settingsPage,
   addWoWoTuner,
 } from '../../Redux-State/PageSlice';
-import { doUpdate } from '../../Redux-State/UpdateSlice';
-import TodayIcon from '@mui/icons-material/Today';
 import TuneIcon from '@mui/icons-material/Tune';
 import { copyWorkoutLibFilter } from '../../Redux-State/WorkoutLibFilterSlice';
 

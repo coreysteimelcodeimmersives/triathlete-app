@@ -31,6 +31,7 @@ const AthleteLibrary = () => {
         const athRes = await Axios.get('/get-athletes');
         console.log(athRes.data.athletes);
         dispatch(getAthletes(athRes.data.athletes));
+        dispatch(selectAthlete(athRes.data.athletes[0]));
         setAthLib([...athRes.data.athletes]);
         setError('');
       } catch (e) {

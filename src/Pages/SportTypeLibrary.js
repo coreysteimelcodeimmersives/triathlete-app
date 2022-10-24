@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import Layout from '../Components/Layout/Layout';
 import WorkoutCard from '../Components/WorkoutCard/WorkoutCard';
 import { Box } from '@mui/system';

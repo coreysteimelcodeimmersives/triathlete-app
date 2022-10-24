@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { clearWorkout, selectWorkout } from '../../Redux-State/WorkoutSlice';
+import { selectWorkout } from '../../Redux-State/WorkoutSlice';
 import {
   deleteWoFromWoLib,
   filterAndSortWoLib,
@@ -15,12 +15,9 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import {
   addWoWoFilterBySport,
   addWoWoLib,
-  athleteLibraryPage,
   athleteWeekCalPage,
   athleteWoDetails,
   dayViewPage,
-  tuneFilterWoLibPage,
-  weekCalendarPage,
 } from '../../Redux-State/PageSlice';
 import TodayIcon from '@mui/icons-material/Today';
 import { doClearWoBuilderForm, doUpdate } from '../../Redux-State/UpdateSlice';
@@ -35,7 +32,6 @@ const LeftIcon = () => {
   const workout = useSelector((state) => state.workout);
   const workoutLibrary = useSelector((state) => state.workoutLibrary.woLib);
   const workoutLibFilter = useSelector((state) => state.workoutLibFilter);
-  const athlete = useSelector((state) => state.athleteLibrary.athlete);
 
   const dispatch = useDispatch();
   const returnLeftIcon = () => {

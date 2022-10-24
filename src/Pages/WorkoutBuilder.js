@@ -15,12 +15,12 @@ import EditDistance from '../Components/WorkoutBuilder/EditDistance';
 import EditWorkoutQuill from '../Components/WorkoutBuilder/EditWorkoutQuill';
 import { selectWorkout } from '../Redux-State/WorkoutSlice';
 import {
-  addToWoLib,
   hardUpdate,
   updateWoInWoLib,
 } from '../Redux-State/WorkoutLibrarySlice';
 import { athleteWoDetails, workoutBuilderPage } from '../Redux-State/PageSlice';
 import { selectAthlete } from '../Redux-State/AthleteLibrarySlice';
+import { doUpdate } from '../Redux-State/UpdateSlice';
 
 const WorkoutBuilder = () => {
   const initialWo = {
@@ -162,7 +162,9 @@ const WorkoutBuilder = () => {
     }
 
     if (page.titleText === 'Wo Edits' || page.athleteWoDetails) {
-      setWorkoutBuilderForm(workout);
+      setWorkoutBuilderForm({
+        ...workout,
+      });
       return;
     }
     if (page.titleText !== 'Wo Builder' || page.titleText !== 'Wo Edits') {
