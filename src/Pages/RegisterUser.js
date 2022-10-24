@@ -7,6 +7,7 @@ import Layout from '../Components/Layout/Layout';
 import UserName from '../Components/TextField/UserName';
 import Password from '../Components/TextField/Password';
 import { Button, TextField, Box, Typography } from '@mui/material';
+import { getAthletes, selectAthlete } from '../Redux-State/AthleteLibrarySlice';
 
 const RegisterUser = () => {
   const [error, setError] = useState('');
@@ -26,7 +27,9 @@ const RegisterUser = () => {
       });
       const { user } = response.data;
       dispatch(signIn(user));
-      navigate('/calendar');
+      dispatch(getAthletes([user]));
+      dispatch(selectAthlete(user));
+      navigate('/calendar-week');
     } catch (e) {
       console.log(e);
       setError(e.message);

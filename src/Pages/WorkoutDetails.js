@@ -68,7 +68,7 @@ const WorkoutDetails = () => {
         });
         dispatch(selectAthlete(res.data.athlete));
         dispatch(
-          dayViewPage({ athleteFirstName: res.data.firstName, date: page.date })
+          dayViewPage({ athleteFirstName: page.titleText, date: page.date })
         );
         setError('');
         navigate('/day-view');
