@@ -1,8 +1,12 @@
 import axios from 'axios';
 
 const Axios = axios.create({
-  baseURL: 'http://localhost:3010/',
+  baseURL:
+    process.env.REACT_APP_AXIOS === 'development'
+      ? 'http://localhost:3010/'
+      : '/',
   withCredentials: true,
+  timeout: 50000,
 });
 
 export default Axios;

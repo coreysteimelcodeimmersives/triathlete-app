@@ -98,10 +98,9 @@ const WorkoutBuilder = () => {
         const woRes = await Axios.post('/add-workout', {
           workoutData: { ...workoutBuilderForm },
         });
-        dispatch(selectWorkout(woRes.data.workout));
-        const libRes = await Axios.get('/get-workouts');
-        dispatch(hardUpdate(libRes.data.workouts));
         setError('');
+        navigate('/workout-library');
+        return;
       }
       if (page.titleText === 'Wo Edits') {
         const updateWoRes = await Axios.post('/update-workout', {
@@ -128,8 +127,9 @@ const WorkoutBuilder = () => {
           })
         );
         setError('');
+        navigate('/workout-details');
+        return;
       }
-      navigate('/workout-details');
     } catch (e) {
       setError(e.response ? e.response.data : e.message);
     }

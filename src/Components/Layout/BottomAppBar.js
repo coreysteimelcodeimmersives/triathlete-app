@@ -62,7 +62,6 @@ const BottomAppBar = () => {
                 color='inherit'
                 label='Training Calendar'
                 onClick={() => {
-                  dispatch(weekCalendarPage());
                   navigate('/calendar-week');
                 }}
               >
